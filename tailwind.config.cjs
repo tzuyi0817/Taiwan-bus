@@ -11,19 +11,27 @@ module.exports = {
     screens: {
       ...defaultTheme.screens,
     },
-    extend: {
-      fontFamily: {
-        sans: ["Monda", "Noto Sans TC", "sans-serif"],
-      },
-      colors: {
-        // primary: '#A8B8A5',
-        // secondary: '#7F977B',
-        // 'secondary-dark': '#65895F',
-        // 'secondary-light': '#6E7D60',
-        // 'text-decoration': '#E0DA48',
-        // link: '#FF725E',
-      }
+    fontFamily: {
+      sans: ["Monda", "Noto Sans TC", "sans-serif"],
     },
+    colors: {
+      primary: '#283C43',
+      secondary: '#D08181',
+      blue: '#3591C5',
+      'blue-dark': '#283C43',
+      green: '#7FC0C5',
+      'green-dark': '#52797C',
+      teal: '#5E9BAE',
+      gray: {
+        100: '#F5F6F6',
+        300: '#EEEEEE',
+        500: '#D5D5D5',
+        600: '#888888',
+        700: '#444444',
+        900: '#000000',
+      },
+    },
+    extend: {},
   },
   plugins: [],
 }
