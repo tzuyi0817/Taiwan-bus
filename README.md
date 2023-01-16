@@ -104,12 +104,18 @@ src/
 ## Use Technology
 
 - react
+- react-dom
+- react-router-dom
+- react-responsive-carousel
+- react-leaflet
 - redux
 - redux-persist
 - typescript
 - tailwindcss
 - vite
+- leaflet
 
 ## Third Party Service
 
-- Transport Data eXchange (TDX)
+- [Transport Data eXchange (TDX)](https://tdx.transportdata.tw/api-service/swagger)
+- [Mapbox](https://www.mapbox.com/)
