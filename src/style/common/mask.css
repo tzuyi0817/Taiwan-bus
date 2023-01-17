@@ -1,0 +1,7 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .mask {
+    @apply fixed top-0 right-0 w-screen h-screen bg-black/[0.5] backdrop-blur-[2px] z-[9999];
+  }
+}

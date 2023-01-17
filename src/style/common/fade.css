@@ -1,0 +1,10 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .fadeIn {
+    @apply opacity-100 transition-opacity duration-300;
+  }
+  .fadeOut {
+    @apply opacity-0 transition-opacity pointer-events-none duration-300; 
+  }
+}
