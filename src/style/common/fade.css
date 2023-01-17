@@ -2,9 +2,9 @@
 
 @layer components {
   .fadeIn {
-    @apply opacity-100 transition-opacity duration-300;
+    @apply opacity-100 transition-opacity duration-500;
   }
   .fadeOut {
-    @apply opacity-0 transition-opacity pointer-events-none duration-300; 
+    @apply opacity-0 transition-opacity pointer-events-none duration-500; 
   }
 }
