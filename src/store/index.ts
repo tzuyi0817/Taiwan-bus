@@ -1,7 +1,7 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-// import guideReducer from '@/store/guide';
+import cityReducer from '@/store/city';
 
 const persistConfig = {
   key: 'root',
@@ -11,7 +11,7 @@ const persistConfig = {
 };
 
 const reducer = combineReducers({
-  // guide: guideReducer,
+  city: cityReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducer);

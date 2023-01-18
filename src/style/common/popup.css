@@ -1,0 +1,24 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .popup {
+    @apply
+    bg-white
+    fixed
+    top-1/2
+    left-1/2
+    -translate-x-1/2
+    -translate-y-1/2
+    w-[85%]
+    max-w-[530px]
+    max-h-[50%]
+    z-[9999]
+    rounded-2xl;
+    &_title {
+      @apply text-center text-white bg-primary rounded-t-xl p-5;
+    }
+    &_content {
+      @apply p-9;
+    }
+  }
+}

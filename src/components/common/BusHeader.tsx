@@ -60,7 +60,7 @@ function HeaderLogo() {
 function HeaderMenu({ isOpenMenu, toggleMenu }: HeaderMenuProps) {
   return (
     <>
-      <div className={`mask ${isOpenMenu ? 'fadeIn' : 'fadeOut'}`}></div>
+      <div className={`mask ${isOpenMenu ? 'fadeIn' : 'fadeOut'}`} onClick={() => toggleMenu(false)}></div>
       <div className={`bg-white fixed top-0 right-0 w-64 h-screen z-[9999] ${isOpenMenu ? 'block fadeIn' : 'fadeOut md:relative'}`}>
         <div className="flex p-5 items-center justify-between border-b-[1px] border-[#E7E7E7]">
           <HeaderLogo />
