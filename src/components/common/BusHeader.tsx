@@ -15,6 +15,7 @@ const Header = tw.header`
   flex
   px-6
   py-4
+  h-[72px]
   shadow-md
   items-center
   justify-between

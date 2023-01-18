@@ -11,7 +11,7 @@ interface Props {
   className?: string;
 }
 
-function BusCarousel({ onClickItem, children, className}: Props) {
+function BusCarousel({ onClickItem, children, className = '' }: Props) {
   return (
     <Carousel
       showArrows={false}

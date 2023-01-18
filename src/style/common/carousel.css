@@ -3,11 +3,7 @@
 @layer components {
   .carousel {
     &_image {
-      @apply 
-      w-full
-      h-[215px]
-      md:h-[25vw]
-      object-cover
+      @apply w-full h-[215px] md:h-[25vw] object-cover;
     }
   }
 }

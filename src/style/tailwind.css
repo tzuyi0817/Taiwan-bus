@@ -9,7 +9,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
   #root {
-    @apply text-xs pt-[72px];
+    @apply text-xs pt-[72px] pb-14 bg-gray-100 min-h-screen;
   }
   h1 {
     @apply text-xl font-bold;
