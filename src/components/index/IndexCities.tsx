@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { cityActions } from '@/store/city';
 import BusIcon from '@/components/common/BusIcon';
@@ -9,12 +10,14 @@ import type { City } from '@/types/city';
 function IndexCities() {
   const [isShowPopup, togglePopup] = useState(false);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function selectCity(city: City) {
     if (!city) {
       return togglePopup(true);
     }
     dispatch(cityActions.updateCity(city));
+    navigate('/searchbus');
   }
 
   return (

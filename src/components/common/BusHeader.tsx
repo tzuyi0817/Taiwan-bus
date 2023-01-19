@@ -33,9 +33,10 @@ interface HeaderMenuProps {
 function BusHeader() {
   const [isOpenMenu, toggleMenu] = useState(false);
 
+
   return (
     <Header>
-      <HeaderLogo />
+      <Link to="/"><HeaderLogo /></Link>
       <div className="flex gap-5 items-center">
         <p>附近站牌</p>
         <img src={createImageSrc('icons/menu.png')} alt="" onClick={() => toggleMenu(true)} />
