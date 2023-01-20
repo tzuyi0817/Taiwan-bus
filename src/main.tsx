@@ -9,10 +9,12 @@ import App from '@/App';
 import '@/style/index.css';
 import '@/style/tailwind.css';
 import ScrollToTop from '@/hooks/useScrollToTop';
+import generateToken from '@/utils/generateToken';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 const persistor = persistStore(store);
 
+generateToken();
 root.render(
   <React.StrictMode>
     <BrowserRouter>
