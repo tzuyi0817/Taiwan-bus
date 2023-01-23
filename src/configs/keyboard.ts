@@ -1,0 +1,38 @@
+export const TAIPEI_KEYBOARD = [
+  { value: '紅', color: 'text-white', bg: 'bg-red' },
+  { value: '藍', color: 'text-white', bg: 'bg-blue' },
+  { value: 1, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 2, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 3, color: 'text-black', bg: 'bg-gray-500' },
+  { value: '綠', color: 'text-white', bg: 'bg-green-light' },
+  { value: '棕', color: 'text-white', bg: 'bg-brown' },
+  { value: 4, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 5, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 6, color: 'text-black', bg: 'bg-gray-500' },
+  { value: '橘', color: 'text-white', bg: 'bg-orange' },
+  { value: '黃', color: 'text-white', bg: 'bg-yellow' },
+  { value: 7, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 8, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 9, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 'F', color: 'text-white', bg: 'bg-gray-600' },
+  { value: '小', color: 'text-white', bg: 'bg-gray-600' },
+  { value: '其他', color: 'text-white', bg: 'bg-blue-dark' },
+  { value: 0, color: 'text-black', bg: 'bg-gray-500' },
+  { value: '清除', color: 'text-black', bg: 'bg-gray-500' },
+] as const;
+
+
+export const TAICHUNG_KEYBOARD = [
+  { value: 1, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 2, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 3, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 4, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 5, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 6, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 7, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 8, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 9, color: 'text-black', bg: 'bg-gray-500' },
+  { value: '專用道', color: 'text-white', bg: 'bg-blue-dark' },
+  { value: 0, color: 'text-black', bg: 'bg-gray-500' },
+  { value: '清除', color: 'text-black', bg: 'bg-gray-500' },
+] as const;

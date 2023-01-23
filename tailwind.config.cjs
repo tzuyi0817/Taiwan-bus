@@ -22,7 +22,12 @@ module.exports = {
         'blue-dark': '#283C43',
         green: '#7FC0C5',
         'green-dark': '#52797C',
+        'green-light': '#5CC1A9',
         teal: '#5E9BAE',
+        red: '#E87E7E',
+        brown: '#A86556',
+        orange: '#EEA12E',
+        yellow: '#DEBE4E',
         gray: {
           100: '#F5F6F6',
           300: '#EEEEEE',

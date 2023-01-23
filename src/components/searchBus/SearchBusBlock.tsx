@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import SearchBar from "@/components/common/SearchBar";
+import SearchBusKeyboard from '@/components/searchBus/SearchBusKeyboard';
 import { debounce } from '@/utils/common';
 
 function SearchBusBlock() {
@@ -7,9 +8,12 @@ function SearchBusBlock() {
   // const handlerSearch = useCallback(debounce(setKeyword), []);
 
   return (
-    <div className="bg-white p-5">
-      <SearchBar placeholder="輸入公車路線 / 起迄方向名或關鍵字" keyword={keyword} setKeyword={setKeyword} />
-    </div>
+    <>
+      <div className="bg-white p-5 shadow-sm flex-1 overflow-y-auto">
+        <SearchBar placeholder="輸入公車路線 / 起迄方向名或關鍵字" keyword={keyword} setKeyword={setKeyword} />
+      </div>
+      <SearchBusKeyboard setKeyword={setKeyword} />
+    </>
   )
 }
 
