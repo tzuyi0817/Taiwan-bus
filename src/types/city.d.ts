@@ -1,3 +1,3 @@
 import { CITY_MAP } from '@/configs/city';
 
-export type City = typeof CITY_MAP[number] | '';
+export type City = keyof typeof CITY_MAP;

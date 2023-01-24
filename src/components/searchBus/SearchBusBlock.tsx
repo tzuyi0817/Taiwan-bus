@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import SearchBar from "@/components/common/SearchBar";
 import SearchBusKeyboard from '@/components/searchBus/SearchBusKeyboard';
 import { debounce } from '@/utils/common';
@@ -6,6 +6,12 @@ import { debounce } from '@/utils/common';
 function SearchBusBlock() {
   const [keyword, setKeyword] = useState('');
   // const handlerSearch = useCallback(debounce(setKeyword), []);
+
+
+  useEffect(() => {
+    if (keyword === '') return;
+    
+  }, [keyword])
 
   return (
     <>

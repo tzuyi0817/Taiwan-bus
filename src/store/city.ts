@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { City } from '@/types/city';
 
 interface State {
-  currentCity: City;
+  currentCity: City | '';
 }
 
 const initialCitySate: State = {
