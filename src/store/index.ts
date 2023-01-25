@@ -2,7 +2,7 @@ import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import cityReducer from '@/store/city';
-import favoriteReducer from '@/store/city';
+import favoriteReducer from '@/store/favorite';
 
 const persistConfig = {
   key: 'root',

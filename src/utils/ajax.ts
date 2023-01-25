@@ -10,8 +10,8 @@ axiosInstance.interceptors.request.use(
     const token = localStorage.getItem('taiwan_bus_token');
 
     if (token && config.headers) {
-      config.headers = { ...config.headers } as AxiosHeaders;
-      config.headers.set('Authorization', `Bearer ${token}`);
+      const headers = config.headers as AxiosHeaders;
+      headers.set('Authorization', `Bearer ${token}`);
     }
     return config;
   },

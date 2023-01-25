@@ -12,7 +12,7 @@ function IndexCities() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  function selectCity(city: City) {
+  function selectCity(city: City | '') {
     if (!city) {
       return togglePopup(true);
     }

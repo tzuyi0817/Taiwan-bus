@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Bus } from '@/types/bus';
 
 interface State {
-  favoriteList: [];
+  favoriteList: Bus[];
 }
 
 const initialFavoriteSate: State = {
@@ -12,15 +13,15 @@ const favoriteSlice = createSlice({
   name: 'favorite',
   initialState: initialFavoriteSate,
   reducers: {
-    // addFavorite(state, action: PayloadAction<>) {
-    //   state.favoriteList.push(action.payload);
-    // },
-    // removeFavorite(state, action: PayloadAction<>) {
-    //   state.favoriteList = state.favoriteList.filter(action.payload);
-    // }
+    addFavorite(state, action: PayloadAction<Bus>) {
+      state.favoriteList.push(action.payload);
+    },
+    removeFavorite(state, action: PayloadAction<string>) {
+      state.favoriteList = state.favoriteList.filter(({ RouteID }) => RouteID !== action.payload);
+    }
   }
 });
 
-export const cityActions = favoriteSlice.actions;
+export const favoriteActions = favoriteSlice.actions;
 
 export default favoriteSlice.reducer;

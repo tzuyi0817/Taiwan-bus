@@ -16,8 +16,7 @@ export const TAIPEI_KEYBOARD = [
   { value: 9, color: 'text-black', bg: 'bg-gray-500' },
   { value: 'F', color: 'text-white', bg: 'bg-gray-600' },
   { value: '小', color: 'text-white', bg: 'bg-gray-600' },
-  { value: '其他', color: 'text-white', bg: 'bg-blue-dark' },
-  { value: 0, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 0, color: 'text-black', bg: 'bg-gray-500 col-span-2' },
   { value: '清除', color: 'text-black', bg: 'bg-gray-500' },
 ] as const;
 
@@ -87,8 +86,7 @@ export const KAOHSIUNG_KEYBOARD = [
   { value: 8, color: 'text-black', bg: 'bg-gray-500' },
   { value: 9, color: 'text-black', bg: 'bg-gray-500' },
   { value: '快線', color: 'text-white', bg: 'bg-gray-600' },
-  { value: '其他', color: 'text-white', bg: 'bg-blue-dark' },
-  { value: 0, color: 'text-black', bg: 'bg-gray-500' },
+  { value: 0, color: 'text-black', bg: 'bg-gray-500 col-span-2' },
   { value: '清除', color: 'text-black', bg: 'bg-gray-500' },
 ] as const;
 

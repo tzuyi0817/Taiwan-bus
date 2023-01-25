@@ -46,7 +46,7 @@ function SearchBusKeyboard({ setKeyword }: Props) {
   }
 
   return (
-    <div className="py-8 bg-gray-100">
+    <div className="py-8 bg-gray-100 fixed bottom-14 w-full">
       <Keyboard search={search} cols={cols} keyboard={keyboard} />
     </div>
   )
