@@ -1,12 +1,19 @@
 import tw from 'tailwind-styled-components';
+import type { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@/hooks/useRedux';
 import { createImageSrc } from '@/utils/images';
 import { CITY_MAP } from '@/configs/city';
+import type { Page } from '@/types/page';
 
-const MenuItem = tw.li`flex gap-[6px] items-center`;
+interface Props {
+  page: Page;
+  setPage: Dispatch<SetStateAction<Page>>;
+}
 
-function SearchBusCrumb() {
+const MenuItem = tw.li`flex gap-[6px] items-center cursor-pointer`;
+
+function SearchBusCrumb({ page, setPage }: Props) {
   const navigate = useNavigate();
   const city = useAppSelector(({ city }) => city.currentCity);
 
@@ -25,6 +32,14 @@ function SearchBusCrumb() {
           <img src={createImageSrc('icons/time.png')} alt="" width="12" />
           <p>時刻表</p>
         </MenuItem>
+        {page === 'route' && <MenuItem onClick={() => setPage('map')}>
+          <img src={createImageSrc('icons/map.png')} alt="" width="12" />
+          <p>地圖</p>
+        </MenuItem>}
+        {page === 'map' && <MenuItem onClick={() => setPage('route')}>
+          <img src={createImageSrc('icons/route.png')} alt="" width="12" />
+          <p>路線</p>
+        </MenuItem>}
       </ul>
     </div>
   )
