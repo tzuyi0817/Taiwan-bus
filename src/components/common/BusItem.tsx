@@ -7,7 +7,6 @@ interface Props {
   bus: Bus;
 }
 
-
 function BusItem({ bus }: Props) {
   const dispatch = useAppDispatch();
   const favoriteList = useAppSelector(({ favorite }) => favorite.favoriteList) ?? [];

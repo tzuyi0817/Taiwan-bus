@@ -8,7 +8,11 @@ import generateParams from '@/utils/generateParams';
 import { debounce } from '@/utils/common';
 import type { Bus } from '@/types/bus';
 
-function SearchBusBlock() {
+interface Props {
+  fade: string;
+}
+
+function SearchBusBlock({ fade }: Props) {
   const [keyword, setKeyword] = useState('');
   const [busList, setBusList] = useState<Bus[]>([]);
   const searchInput = useRef<HTMLInputElement>(null);
@@ -29,7 +33,7 @@ function SearchBusBlock() {
   }, [keyword, handlerSearch])
 
   return (
-    <>
+    <div className={`h-full ${fade}`}>
       <div className="bg-white p-5 shadow-sm h-full">
         <SearchBar
           placeholder="輸入公車路線 / 起迄方向名或關鍵字"
@@ -41,7 +45,7 @@ function SearchBusBlock() {
         </ul>
       </div>
       <SearchBusKeyboard setKeyword={setKeyword} />
-    </>
+    </div>
   )
 }
 
