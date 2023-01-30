@@ -1,0 +1,15 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .searchBus {
+    &_tab {
+      @apply py-3 flex-1 text-center text-sm bg-[#E0E0E0] rounded-t-md transition-all duration-300;
+      span {
+        @apply font-bold ml-2;
+      }
+      &-active {
+        @apply bg-primary text-white;
+      }
+    }
+  }
+}

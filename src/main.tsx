@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
+import BusProvider from '@/provider/BusProvider';
 import store from '@/store';
 import App from '@/App';
 import '@/style/index.css';
@@ -21,8 +22,10 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <ScrollToTop />
-          <App />
+          <BusProvider>
+            <ScrollToTop />
+            <App />
+          </BusProvider>
         </PersistGate>
       </Provider>
     </BrowserRouter>

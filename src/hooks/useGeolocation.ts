@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 function useGeolocation() {
-  const [position, setPosition] = useState({ lat: 24, lng: 121 });
+  const [position, setPosition] = useState({ lat: 0, lng: 0 });
 
   useEffect(() => {
     function success({ coords }: GeolocationPosition) {

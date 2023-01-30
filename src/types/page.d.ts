@@ -1,1 +1,1 @@
-export type Page = 'route' | 'map';
+export type Page = 'route' | 'detail';

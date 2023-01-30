@@ -1,17 +1,18 @@
-import { useState } from 'react';
+import { useBus } from '@/provider/BusProvider';
 import SearchBusCrumb from '@/components/searchBus/SearchBusCrumb';
 import SearchBusBlock from '@/components/searchBus/SearchBusBlock';
 import SearchBusMap from '@/components/searchBus/SearchBusMap';
-import type { Page } from '@/types/page';
+import SearchBusDetail from '@/components/searchBus/SearchBusDetail';
 
 function SearchBus() {
-  const [page, setPage] = useState<Page>('route');
+  const { page, isOpenMap } = useBus();
 
   return (
     <div className="flex flex-col h-[calc(100vh-128px)] relative">
-      <SearchBusCrumb page={page} setPage={setPage} />
+      <SearchBusCrumb page={page} />
       <SearchBusBlock fade={`${page === 'route' ? 'fadeIn' : 'fadeOut'}`} />
-      <SearchBusMap fade={`${page === 'map' ? 'fadeIn' : 'fadeOut'}`} />
+      <SearchBusDetail fade={`${page === 'detail' ? 'fadeIn' : 'fadeOut'}`} />
+      <SearchBusMap fade={`${isOpenMap ? 'fadeIn' : 'fadeOut'}`} />
     </div>
   )
 }
