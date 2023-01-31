@@ -7,12 +7,13 @@ interface Props {
 }
 
 function BusItem({ bus }: Props) {
-  const { setBus, setPage } = useBus();
+  const { setBus, setPage, setUpdateTime } = useBus();
   const { RouteName, DepartureStopNameZh, DestinationStopNameZh, City } = bus;
 
   function goDetail() {
     setBus(bus);
     setPage('detail');
+    setUpdateTime(0);
   }
 
   return (

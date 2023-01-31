@@ -37,6 +37,12 @@ module.exports = {
           900: '#000000',
         },
       },
+      keyframes: {
+        timer: {
+          '0%': { width: '100%' },
+          '100%': { width: '0%' },
+        }
+      }
     },
   },
   plugins: [],

@@ -104,7 +104,7 @@ export interface BusEstimatedTime {
     Zh_tw: string;
     En: string;
   };
-  Direction: 0 | 1;
+  Direction: BusDirection;
   EstimateTime?: number;
   StopCountDown: number;
   CurrentStop: string;
@@ -143,7 +143,7 @@ export interface BusRealTimeNearStop {
     Zh_tw: string;
     En: string;
   };
-  Direction: 0 | 1;
+  Direction: BusDirection;
   StopUID: string;
   StopID: string;
   StopName: {

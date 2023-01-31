@@ -3,6 +3,7 @@ import { useAppSelector } from '@/hooks/useRedux';
 import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import SearchBusStop from '@/components/searchBus/SearchBusStop';
+import SearchBusTimer from '@/components/searchBus/SearchBusTimer';
 import { createImageSrc } from '@/utils/images';
 import ajax from '@/utils/ajax';
 import generateParams from '@/utils/generateParams';
@@ -28,16 +29,15 @@ interface BusStopRoue {
 
 function SearchBusDetail({ fade }: Props) {
   const [tab, setTab] = useState<BusDirection>(0);
+  const [animationTime, setAnimationTime] = useState(0);
   const BusStopsRef = useRef<HTMLUListElement>(null);
-  const { bus, setPage } = useBus();
-  const [busStops, setBusStops] = useState<BusStops>({
-    0: [],
-    1: [],
-  });
+  const isUpdateRoute = useRef(false);
+  const { bus, updateTime, setPage, setUpdateTime } = useBus();
+  const [busStops, setBusStops] = useState<BusStops>({ 0: [], 1: [] });
   const city = useAppSelector(({ city }) => city.currentCity);
 
   useEffect(() => {
-    if (!bus) return;
+    if (!bus || updateTime > 0) return;
 
     async function getBusStopRoute(): Promise<BusStops> {
       const params = generateParams({});
@@ -69,27 +69,43 @@ function SearchBusDetail({ fade }: Props) {
       }, new Map());
     }
 
-    Promise.all([getBusStopRoute(), getBusEstimatedTime(), getBusRealTimeNearStop()]).then(([stops, estimatedTimeMap, realTimeNearStopMap]) => {
-      for (let direction = 0; direction <= 1; direction++) {
-        const currentStops = stops[direction as BusDirection];
-        const { length: size } = currentStops;
+    Promise
+      .all([
+        isUpdateRoute.current ? null : getBusStopRoute(),
+        getBusEstimatedTime(), 
+        getBusRealTimeNearStop(),
+      ])
+      .then(([stops, estimatedTimeMap, realTimeNearStopMap]) => {
+        for (let direction = 0 as BusDirection; direction <= 1; direction++) {
+          const currentStops = stops?.[direction] ?? busStops[direction];
+          const { length: size } = currentStops;
 
-        currentStops.forEach((item, index) => {
-          const { StopID } = item;
-          const key = `${direction}-${StopID}`;
-          const { EstimateTime, StopStatus } = estimatedTimeMap.get(key);
-          const realTimeNearStop = realTimeNearStopMap.get(key);
+          currentStops.forEach((item, index) => {
+            const { StopID } = item;
+            const key = `${direction}-${StopID}`;
+            const { EstimateTime, StopStatus } = estimatedTimeMap.get(key);
+            const realTimeNearStop = realTimeNearStopMap.get(key);
 
-          item.EstimateTime = EstimateTime;
-          item.StopStatus = StopStatus;
-          item.PlateNumb = realTimeNearStop?.PlateNumb;
-          item.A2EventType = realTimeNearStop?.A2EventType;
-          item.isLastStop = size === index + 1;
-        });
-      }
-      setBusStops(stops);
-    });
-  }, [bus]);
+            item.EstimateTime = EstimateTime;
+            item.StopStatus = StopStatus;
+            item.PlateNumb = realTimeNearStop?.PlateNumb;
+            item.A2EventType = realTimeNearStop?.A2EventType;
+            item.isLastStop = size === index + 1;
+          });
+        }
+        setBusStops(stops ?? busStops);
+        setUpdateTime(30);
+        setAnimationTime(30);
+        isUpdateRoute.current = true;
+      });
+  }, [bus, updateTime]);
+
+  useEffect(() => {
+    if (updateTime === 0) return setAnimationTime(0);
+    const timer = setTimeout(() => setUpdateTime(time => time - 1), 1000);
+
+    return () => clearTimeout(timer);
+  }, [updateTime]);
 
   function toggleTab(tab: BusDirection) {
     setTab(tab);
@@ -99,6 +115,8 @@ function SearchBusDetail({ fade }: Props) {
   function backSearchPage() {
     setPage('route');
     toggleTab(0);
+    setAnimationTime(0);
+    isUpdateRoute.current = false;
   }
 
   return (
@@ -119,11 +137,12 @@ function SearchBusDetail({ fade }: Props) {
           往<span>{bus?.DepartureStopNameZh}</span>
         </div>
       </div>
-      <ul className="flex-1 overflow-y-auto py-3" ref={BusStopsRef}>
+      <ul className="flex-1 overflow-y-auto pt-3 pb-16" ref={BusStopsRef}>
         {busStops[tab].map(stop => {
           return <SearchBusStop key={stop.StopID} stop={stop} />
         })}
       </ul>
+      <SearchBusTimer animationTime={animationTime} setAnimationTime={setAnimationTime} />
     </div>
   )
 }
