@@ -22,6 +22,24 @@
     before:border-2
     before:animate-[ping_1s_infinite];
   }
+  .marker_pit {
+    @apply marker w-4 h-4 bg-secondary;
+  }
+  .marker_base {
+    @apply marker w-[14px] h-[14px] bg-[#C4C4C4];
+  }
+  .marker_absolute {
+    @apply
+    absolute
+    right-0
+    before:content-['']
+    before:absolute
+    before:border-l-[1px]
+    before:border-l-[#C4C4C4]
+    before:bg-black
+    before:left-1/2
+    before:h-[60px];
+  }
 
   @keyframes ping {
     from {

@@ -15,11 +15,16 @@ const MenuItem = tw.li`flex gap-[6px] items-center cursor-pointer`;
 function SearchBusCrumb({ page }: Props) {
   const navigate = useNavigate();
   const city = useAppSelector(({ city }) => city.currentCity);
-  const { isOpenMap, toggleMap } = useBus();
+  const { isOpenMap, toggleMap, setPage } = useBus();
+
+  function goIndex() {
+    navigate('/');
+    setPage('route');
+  }
 
   return (
     <div className="px-6 py-3 bg-[#F8F8F8] flex justify-between items-center">
-      <div className="flex gap-1 items-center" onClick={() => navigate('/')}>
+      <div className="flex gap-1 items-center" onClick={goIndex}>
         <img src={createImageSrc('icons/location.png')} alt="" />
         <p>{city ? CITY_MAP[city] : ''}</p>
       </div>

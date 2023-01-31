@@ -1,0 +1,7 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .ellipsis {
+    @apply overflow-hidden text-ellipsis whitespace-nowrap;
+  }
+}
