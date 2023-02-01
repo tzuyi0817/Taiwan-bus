@@ -12,7 +12,7 @@ function SearchBus() {
       <SearchBusCrumb page={page} />
       <SearchBusBlock fade={`${page === 'route' ? 'fadeIn' : 'fadeOut'}`} />
       <SearchBusDetail fade={`${page === 'detail' ? 'fadeIn' : 'fadeOut'}`} />
-      <SearchBusMap fade={`${isOpenMap ? 'fadeIn' : 'fadeOut'}`} />
+      {isOpenMap && <SearchBusMap />}
     </div>
   )
 }

@@ -3,17 +3,13 @@ import useGeolocation from '@/hooks/useGeolocation';
 import MapAutoReCenter from '@/components/common/MapAutoReCenter';
 import { SELF_MARKER } from '@/configs/marker';
 
-interface Props {
-  fade: string;
-}
-
 const { VITE_MAP_STYLE, VITE_MAP_TOKEN } = import.meta.env;
 
-function SearchBusMap({ fade }: Props) {
+function SearchBusMap() {
   const { position } = useGeolocation();
 
   return (
-    <div className={`absolute top-10 left-0 ${fade} overflow-hidden w-full h-full bg-white`}>
+    <div className="absolute top-10 left-0 overflow-hidden w-full h-full bg-white">
       <MapContainer
         center={position}
         zoom={13}
@@ -30,6 +26,5 @@ function SearchBusMap({ fade }: Props) {
     </div>
   )
 }
-
 
 export default SearchBusMap;
