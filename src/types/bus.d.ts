@@ -162,3 +162,23 @@ export interface BusRealTimeNearStop {
   SrcUpdateTime: string;
   UpdateTime: string;
 }
+
+export interface BusShape {
+  RouteUID: string;
+  RouteID: string;
+  RouteName: {
+    Zh_tw: string;
+    En: string;
+  };
+  SubRouteUID: string;
+  SubRouteID: string;
+  SubRouteName: {
+    Zh_tw: string;
+    En: string
+  };
+  Direction: BusDirection;
+  Geometry: string;
+  EncodedPolyline: string;
+  UpdateTime: string;
+  VersionID: number;
+}
