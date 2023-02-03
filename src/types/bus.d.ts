@@ -4,6 +4,7 @@ export type BusRouteType = keyof typeof BUS_ROUTE_TYPE;
 export type BusStopStatus = keyof typeof BUS_STOP_STATUS;
 export type BusEventType = keyof typeof BUS_EVENT_TYPE;
 export type BusDirection = 0 | 1;
+export type BusStops = Record<BusDirection, BusStop[]>;
 
 export interface Bus {
   RouteUID: string;

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import { useAppSelector } from '@/hooks/useRedux';
 import { useState } from 'react';
@@ -8,32 +8,42 @@ import MapAutoReCenter from '@/components/common/MapAutoReCenter';
 import { SELF_MARKER } from '@/configs/marker';
 import generateParams from '@/utils/generateParams';
 import ajax from '@/utils/ajax';
-import type { BusShape } from '@/types/bus';
+import type { BusShape, BusDirection } from '@/types/bus';
 
 const { VITE_MAP_STYLE, VITE_MAP_TOKEN } = import.meta.env;
 
 function SearchBusMap() {
-  const [routeGeometry, setRouteGeometry] = useState([]);
+  const [routeGeometry, setRouteGeometry] = useState<Array<[number, number]>>([]);
   const { position } = useGeolocation();
-  const { isOpenMap, bus } = useBus();
-  const city = useAppSelector(({ city }) => city.currentCity);
+  const { isOpenMap, bus, direction, busStops } = useBus();
+  const mapCenterRef = useRef();
+  // const city = useAppSelector(({ city }) => city.currentCity);
 
   useEffect(() => {
     if (!bus) return;
 
-    async function getBusShape() {
-      const params = generateParams({});
-      const result = await ajax.get(`/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
-      const geometry = result[0].Geometry
-        .replace(/(LINESTRING )|[()]/g, '')
-        .split(', ')
-        .map((str: string) => str.split(' ').reverse());
-      console.log(result[0].Geometry);
-      setRouteGeometry(geometry);
-    }
+    const stops = busStops[direction];
+    const route: Array<[number, number]> = stops.map(({ StopPosition }) => {
+      const { PositionLat, PositionLon } = StopPosition;
+      return [PositionLat, PositionLon];
+    });
 
-    getBusShape();
-  }, [bus]);
+    setRouteGeometry(route);
+    mapCenterRef.current?.setＭapCenter(route[0]);
+    console.log('???', mapCenterRef)
+
+    // async function getBusShape() {
+    //   const params = generateParams({});
+    //   const result = await ajax.get(`/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+    //   const geometry = result[0].Geometry
+    //     .replace(/(LINESTRING )|[()]/g, '')
+    //     .split(', ')
+    //     .map((str: string) => str.split(' ').reverse());
+    //   const { length: size } = geometry;
+
+    // }
+    // getBusShape();
+  }, [bus, direction, busStops]);
 
   return (
     <>
@@ -50,7 +60,7 @@ function SearchBusMap() {
               url={`https://api.mapbox.com/styles/v1/tzuyi/${VITE_MAP_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${VITE_MAP_TOKEN}`}
             />
             <Marker position={position} icon={SELF_MARKER}></Marker>
-            <MapAutoReCenter position={position} />
+            <MapAutoReCenter position={position} ref={mapCenterRef} />
             <Polyline pathOptions={{ color: '#355F8B' }} positions={routeGeometry}/>
           </MapContainer>
         </div>

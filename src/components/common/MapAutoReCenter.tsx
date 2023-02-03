@@ -1,20 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, forwardRef, useImperativeHandle } from 'react';
 import { useMap } from 'react-leaflet';
 
 interface Props {
   position: { lat: number; lng: number; };
 }
 
-function MapAutoReCenter({ position }: Props) {
+function MapAutoReCenter({ position }: Props, ref) {
   const map = useMap();
+
+  useImperativeHandle(ref, () => ({
+    setＭapCenter,
+  }));
 
   useEffect(() => {
     const { lat, lng } = position;
 
-    map.setView([lat, lng]);
+    setＭapCenter([lat, lng]);
   }, [position]);
+
+  function setＭapCenter(geometry: [number, number]) {
+    map.setView(geometry);
+  }
 
   return null;
 }
 
-export default MapAutoReCenter;
+export default forwardRef(MapAutoReCenter);

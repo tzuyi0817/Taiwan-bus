@@ -10,6 +10,7 @@ import generateParams from '@/utils/generateParams';
 import { BUS_ROUTE_TYPE } from '@/configs/bus';
 import type {
   BusStop,
+  BusStops,
   BusDirection,
   BusEstimatedTime,
   BusRealTimeNearStop,
@@ -19,8 +20,6 @@ interface Props {
   fade: string;
 }
 
-type BusStops = Record<BusDirection, BusStop[]>;
-
 interface BusStopRoue {
   Stops: BusStop[];
   Direction: BusDirection;
@@ -28,12 +27,19 @@ interface BusStopRoue {
 }
 
 function SearchBusDetail({ fade }: Props) {
-  const [tab, setTab] = useState<BusDirection>(0);
   const [animationTime, setAnimationTime] = useState(0);
   const BusStopsRef = useRef<HTMLUListElement>(null);
   const isUpdateRoute = useRef(false);
-  const { bus, updateTime, setPage, setUpdateTime } = useBus();
-  const [busStops, setBusStops] = useState<BusStops>({ 0: [], 1: [] });
+  const {
+    bus,
+    busStops,
+    updateTime,
+    direction,
+    setPage,
+    setBusStops,
+    setUpdateTime,
+    setDirection,
+  } = useBus();
   const city = useAppSelector(({ city }) => city.currentCity);
 
   useEffect(() => {
@@ -108,7 +114,7 @@ function SearchBusDetail({ fade }: Props) {
   }, [updateTime]);
 
   function toggleTab(tab: BusDirection) {
-    setTab(tab);
+    setDirection(tab);
     BusStopsRef.current?.scrollTo({ top: 0 });
   }
 
@@ -130,15 +136,15 @@ function SearchBusDetail({ fade }: Props) {
       <p className="text-3xl font-bold text-center">{bus?.RouteName?.Zh_tw}</p>
       <p className="text-center mt-2 mb-5">{bus ? BUS_ROUTE_TYPE[bus.BusRouteType] : ''}</p>
       <div className="flex">
-        <div className={`searchBus_tab ${tab === 0 ? 'searchBus_tab-active' : ''}`} onClick={() => toggleTab(0)}>
+        <div className={`searchBus_tab ${direction === 0 ? 'searchBus_tab-active' : ''}`} onClick={() => toggleTab(0)}>
           往<span>{bus?.DestinationStopNameZh}</span>
         </div>
-        <div className={`searchBus_tab ${tab === 1 ? 'searchBus_tab-active' : ''}`} onClick={() => toggleTab(1)}>
+        <div className={`searchBus_tab ${direction === 1 ? 'searchBus_tab-active' : ''}`} onClick={() => toggleTab(1)}>
           往<span>{bus?.DepartureStopNameZh}</span>
         </div>
       </div>
       <ul className="flex-1 overflow-y-auto pt-3 pb-16" ref={BusStopsRef}>
-        {busStops[tab].map(stop => {
+        {busStops[direction].map(stop => {
           return <SearchBusStop key={stop.StopID} stop={stop} />
         })}
       </ul>
