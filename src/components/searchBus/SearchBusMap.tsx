@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
 import { useAppSelector } from '@/hooks/useRedux';
 import { useState } from 'react';
@@ -16,7 +16,6 @@ function SearchBusMap() {
   const [routeGeometry, setRouteGeometry] = useState<Array<[number, number]>>([]);
   const { position } = useGeolocation();
   const { isOpenMap, bus, direction, busStops } = useBus();
-  const mapCenterRef = useRef();
   // const city = useAppSelector(({ city }) => city.currentCity);
 
   useEffect(() => {
@@ -29,9 +28,6 @@ function SearchBusMap() {
     });
 
     setRouteGeometry(route);
-    mapCenterRef.current?.setＭapCenter(route[0]);
-    console.log('???', mapCenterRef)
-
     // async function getBusShape() {
     //   const params = generateParams({});
     //   const result = await ajax.get(`/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
@@ -60,7 +56,7 @@ function SearchBusMap() {
               url={`https://api.mapbox.com/styles/v1/tzuyi/${VITE_MAP_STYLE}/tiles/256/{z}/{x}/{y}@2x?access_token=${VITE_MAP_TOKEN}`}
             />
             <Marker position={position} icon={SELF_MARKER}></Marker>
-            <MapAutoReCenter position={position} ref={mapCenterRef} />
+            <MapAutoReCenter position={position} routePos={routeGeometry[0]} />
             <Polyline pathOptions={{ color: '#355F8B' }} positions={routeGeometry}/>
           </MapContainer>
         </div>
