@@ -12,16 +12,12 @@ function MapAutoReCenter({ position, routePos }: Props) {
   useEffect(() => {
     const { lat, lng } = position;
 
-    setCenter([lat, lng]);
+    map.flyTo([lat, lng]);
   }, [position]);
 
   useEffect(() => {
-    routePos && setCenter(routePos);
-  }, [routePos])
-
-  function setCenter(geometry: [number, number]) {
-    map.setView(geometry);
-  }
+    routePos && map.flyTo(routePos);
+  }, [routePos]);
 
   return null;
 }

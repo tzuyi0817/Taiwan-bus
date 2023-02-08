@@ -1,4 +1,5 @@
 import { BUS_STOP_STATUS, BUS_STOP_STATUS_BACKGROUND, BUS_EVENT_TYPE } from '@/configs/bus';
+import { getBusStopStatus } from '@/utils/busStop';
 import type { BusStop, BusEventType, BusStopStatus } from '@/types/bus';
 
 interface Props {
@@ -16,9 +17,7 @@ interface ShowBusStatusArgs {
 
 function SearchBusStop({ stop }: Props) {
   const { StopName, EstimateTime, PlateNumb, StopStatus, A2EventType, isLastStop } = stop;
-  const estimateTime = (EstimateTime ?? 0) / 60 | 0;
-  const isPitStop = A2EventType === 1;
-  const isPittingStop = EstimateTime !== undefined && estimateTime === 0;
+  const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus(stop);
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
   const marker = isPitStop || isPittingStop ? 'marker_pit -right-2' : 'marker_base -right-[7px]';
 
