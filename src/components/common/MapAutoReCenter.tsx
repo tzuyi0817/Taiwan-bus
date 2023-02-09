@@ -3,10 +3,10 @@ import { useMap } from 'react-leaflet';
 
 interface Props {
   position: { lat: number; lng: number; };
-  routePos: [number, number];
+  centerPos?: [number, number];
 }
 
-function MapAutoReCenter({ position, routePos }: Props) {
+function MapAutoReCenter({ position, centerPos }: Props) {
   const map = useMap();
 
   useEffect(() => {
@@ -16,8 +16,8 @@ function MapAutoReCenter({ position, routePos }: Props) {
   }, [position]);
 
   useEffect(() => {
-    routePos && map.flyTo(routePos);
-  }, [routePos]);
+    centerPos && map.flyTo(centerPos);
+  }, [centerPos]);
 
   return null;
 }

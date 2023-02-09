@@ -183,3 +183,14 @@ export interface BusShape {
   UpdateTime: string;
   VersionID: number;
 }
+
+export interface GeometryMap {
+  stop: Array<[number, number]>;
+  stopPit: Array<[number, number]>;
+  line: Array<StopLine>;
+}
+
+export interface StopLine {
+  color: string;
+  geometry: Array<[number, number]>;
+}
