@@ -1,21 +1,22 @@
 import { useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Polyline } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Polyline, Tooltip } from 'react-leaflet';
 import { useAppSelector } from '@/hooks/useRedux';
 import { useState } from 'react';
 import { useBus } from '@/provider/BusProvider';
 import useGeolocation from '@/hooks/useGeolocation';
 import MapAutoReCenter from '@/components/common/MapAutoReCenter';
+import BusIcon from '@/components/common/BusIcon';
 import { SELF_MARKER, STOP_MARKER, PIT_MARKER } from '@/configs/marker';
 import { getGeometryMap, getZoomInGeometryMap } from '@/utils/busStop';
 import generateParams from '@/utils/generateParams';
 import ajax from '@/utils/ajax';
-import type { StopLine } from '@/types/bus';
+import type { StopLine, BusStopMap } from '@/types/bus';
 
 const { VITE_MAP_STYLE, VITE_MAP_TOKEN } = import.meta.env;
 
 function SearchBusMap() {
-  const [stopsGeometry, setStopsGeometry] = useState<Array<[number, number]>>([]);
-  const [stopsPitGeometry, setStopsPitGeometry] = useState<Array<[number, number]>>([]);
+  const [stopsGeometry, setStopsGeometry] = useState<Array<BusStopMap>>([]);
+  const [stopsPitGeometry, setStopsPitGeometry] = useState<Array<BusStopMap>>([]);
   const [stopsLine, setStopsLine] = useState<Array<StopLine>>([]);
   const { position } = useGeolocation();
   const {
@@ -72,11 +73,22 @@ function SearchBusMap() {
             {stopsLine.map(({ color, geometry }, index) => {
               return <Polyline pathOptions={{ color }} positions={geometry} key={index} />
             })}
-            {stopsGeometry.map((geometry, index) => {
-              return <Marker position={geometry} icon={STOP_MARKER} key={index}></Marker>
+            {stopsGeometry.map(({ geometry, stopName, status }, index) => {
+              return <Marker position={geometry} icon={STOP_MARKER} key={index}>
+                <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent className="tooltip_base">
+                  <p>{stopName}</p>
+                  <h5>{status}</h5>
+                </Tooltip>
+              </Marker>
             })}
-            {stopsPitGeometry.map((geometry, index) => {
-              return <Marker position={geometry} icon={PIT_MARKER} key={index}></Marker>
+            {stopsPitGeometry.map(({ geometry, stopName, status, isPit }, index) => {
+              return <Marker position={geometry} icon={PIT_MARKER} key={index}>
+                <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent className="tooltip_pit">
+                  {isPit && <BusIcon fill="#FFF" width="30" height="30" />}
+                  <p>{stopName}</p>
+                  <h5>{status}</h5>
+                </Tooltip>
+              </Marker>
             })}
           </MapContainer>
         </div>

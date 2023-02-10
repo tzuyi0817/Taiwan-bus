@@ -1,30 +1,21 @@
 import { useBus } from '@/provider/BusProvider';
-import { BUS_STOP_STATUS, BUS_STOP_STATUS_BACKGROUND, BUS_EVENT_TYPE } from '@/configs/bus';
-import { getBusStopStatus } from '@/utils/busStop';
-import type { BusStop, BusEventType, BusStopStatus } from '@/types/bus';
+import { BUS_STOP_STATUS_BACKGROUND } from '@/configs/bus';
+import { getBusStopStatus, showBusStatus } from '@/utils/busStop';
+import type { BusStop } from '@/types/bus';
 
 interface Props {
   stop: BusStop;
 }
 
-interface ShowBusStatusArgs {
-  isPitStop: boolean;
-  isPittingStop: boolean
-  A2EventType: BusEventType; 
-  EstimateTime?: number;
-  estimateTime: number;
-  StopStatus: BusStopStatus;
-}
-
 function SearchBusStop({ stop }: Props) {
-  const { StopName, EstimateTime, PlateNumb, StopStatus, A2EventType, isLastStop, StopPosition } = stop;
+  const { StopName, PlateNumb, StopStatus, isLastStop, StopPosition } = stop;
   const { setMapZoom, setMapCenterPos } = useBus();
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus(stop);
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
   const marker = isPitStop || isPittingStop ? 'marker_pit -right-2' : 'marker_base -right-[7px]';
 
   function designateStop() {
-    setMapZoom(16);
+    setMapZoom(17);
     setMapCenterPos([StopPosition.PositionLat, StopPosition.PositionLon]);
   }
 
@@ -34,7 +25,7 @@ function SearchBusStop({ stop }: Props) {
       onClick={designateStop}
     >
       <div className={`min-w-[77px] px-2 py-1 rounded-[10px] ${background} text-white text-center`}>
-        {showBusStatus({ isPitStop, isPittingStop, A2EventType, EstimateTime, estimateTime, StopStatus })}
+        {showBusStatus({ ...stop, estimateTime, isPitStop, isPittingStop })}
       </div>
       <p className={`flex-1 ellipsis ${isPitStop ? 'font-bold' : ''}`}>{StopName.Zh_tw}</p>
       <p className="text-secondary font-bold">{PlateNumb}</p>
@@ -42,19 +33,6 @@ function SearchBusStop({ stop }: Props) {
       <div className={`${marker} absolute`}></div>
     </li>
   )
-}
-
-function showBusStatus({ 
-  isPitStop,
-  isPittingStop,
-  A2EventType,
-  EstimateTime,
-  estimateTime,
-  StopStatus,
-}: ShowBusStatusArgs) {
-  if (isPitStop) return BUS_EVENT_TYPE[A2EventType];
-  if (isPittingStop) return '即將進站';
-  return EstimateTime ? `${estimateTime} 分` : BUS_STOP_STATUS[StopStatus];
 }
 
 export default SearchBusStop;

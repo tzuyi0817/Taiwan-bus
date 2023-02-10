@@ -185,12 +185,19 @@ export interface BusShape {
 }
 
 export interface GeometryMap {
-  stop: Array<[number, number]>;
-  stopPit: Array<[number, number]>;
+  stop: Array<BusStopMap>;
+  stopPit: Array<BusStopMap>;
   line: Array<StopLine>;
 }
 
 export interface StopLine {
   color: string;
   geometry: Array<[number, number]>;
+}
+
+export interface BusStopMap {
+  geometry: [number, number];
+  stopName: string;
+  status: string;
+  isPit: boolean;
 }

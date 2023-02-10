@@ -1,4 +1,27 @@
-import type { BusStop, GeometryMap } from '@/types/bus';
+import { BUS_STOP_STATUS, BUS_EVENT_TYPE } from '@/configs/bus';
+import type { BusStop, GeometryMap, BusEventType, BusStopStatus } from '@/types/bus';
+
+interface ShowBusStatusArgs {
+  isPitStop: boolean;
+  isPittingStop: boolean
+  A2EventType: BusEventType; 
+  EstimateTime?: number;
+  estimateTime: number;
+  StopStatus: BusStopStatus;
+}
+
+export function showBusStatus({ 
+  isPitStop,
+  isPittingStop,
+  A2EventType,
+  EstimateTime,
+  estimateTime,
+  StopStatus,
+}: ShowBusStatusArgs) {
+  if (isPitStop) return BUS_EVENT_TYPE[A2EventType];
+  if (isPittingStop) return '即將進站';
+  return EstimateTime ? `${estimateTime} 分` : BUS_STOP_STATUS[StopStatus];
+}
 
 export function getBusStopStatus({ EstimateTime, A2EventType }: BusStop) {
   const estimateTime = (EstimateTime ?? 0) / 60 | 0;
@@ -11,12 +34,19 @@ export function getBusStopStatus({ EstimateTime, A2EventType }: BusStop) {
 export function getZoomInGeometryMap(stops: BusStop[]) {
   return stops.reduce((map, stop, index) => {
     const nextStop = stops[index + 1];
-    const { isPitStop, isPittingStop } = getBusStopStatus(stop);
+    const { isPitStop, isPittingStop, estimateTime } = getBusStopStatus(stop);
     const isPit = isPitStop || isPittingStop;
     const { PositionLat, PositionLon } = stop.StopPosition;
     const geometry: [number, number] = [PositionLat, PositionLon];
+    const status = showBusStatus({ ...stop, estimateTime, isPitStop, isPittingStop });
+    const busStopMap = { 
+      geometry,
+      status,
+      isPit: isPitStop,
+      stopName: stop.StopName.Zh_tw,
+    };
 
-    isPit ? map.stopPit.push(geometry) : map.stop.push(geometry);
+    isPit ? map.stopPit.push(busStopMap) : map.stop.push(busStopMap);
     if (!nextStop) return map;
     
     const { isPitStop: isPitNextStop, isPittingStop: isPittingNextStop } = getBusStopStatus(nextStop);
@@ -43,10 +73,14 @@ export function getGeometryMap(stops: BusStop[]) {
   const lastStop = stops.at(-1);
   if (!firstStop || !lastStop) return geometryMap;
 
-  geometryMap.stop = [
-    [firstStop.StopPosition.PositionLat, firstStop.StopPosition.PositionLon],
-    [lastStop.StopPosition.PositionLat, lastStop.StopPosition.PositionLon],
-  ];
+  geometryMap.stop = [firstStop, lastStop].map(({ StopPosition }) => {
+    return {
+      geometry: [StopPosition.PositionLat, StopPosition.PositionLon],
+      status: '',
+      isPit: false,
+      stopName: '',
+    };
+  });
   
   for (let index = 0; index < stops.length - 1; index++) {
     const stop = stops[index];

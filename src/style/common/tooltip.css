@@ -1,0 +1,26 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .tooltip {
+    @apply
+    flex
+    flex-col
+    items-center
+    !rounded-xl
+    !text-white
+    !border-2
+    !border-white
+    min-w-[77px]
+    !font-thin
+    !px-2;
+    h5 {
+      @apply !font-bold
+    }
+  }
+  .tooltip_base {
+    @apply tooltip !bg-primary before:!border-t-primary;
+  }
+  .tooltip_pit {
+    @apply tooltip !bg-secondary before:!border-t-secondary;
+  }
+}
