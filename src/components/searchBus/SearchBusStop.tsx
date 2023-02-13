@@ -9,12 +9,13 @@ interface Props {
 
 function SearchBusStop({ stop }: Props) {
   const { StopName, PlateNumb, StopStatus, isLastStop, StopPosition } = stop;
-  const { setMapZoom, setMapCenterPos } = useBus();
+  const { setMapZoom, setMapCenterPos, isDesignateStop } = useBus();
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus(stop);
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
   const marker = isPitStop || isPittingStop ? 'marker_pit -right-2' : 'marker_base -right-[7px]';
 
   function designateStop() {
+    isDesignateStop.current = true;
     setMapZoom(17);
     setMapCenterPos([StopPosition.PositionLat, StopPosition.PositionLon]);
   }

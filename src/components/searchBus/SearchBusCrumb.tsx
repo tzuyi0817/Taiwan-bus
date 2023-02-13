@@ -15,11 +15,12 @@ const MenuItem = tw.li`flex gap-[6px] items-center cursor-pointer`;
 function SearchBusCrumb({ page }: Props) {
   const navigate = useNavigate();
   const city = useAppSelector(({ city }) => city.currentCity);
-  const { isOpenMap, toggleMap, setPage } = useBus();
+  const { isOpenMap, toggleMap, setPage, resetMap } = useBus();
 
   function goIndex() {
     navigate('/');
     setPage('route');
+    resetMap();
   }
 
   return (

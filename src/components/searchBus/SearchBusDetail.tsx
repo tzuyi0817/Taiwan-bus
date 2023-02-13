@@ -99,7 +99,7 @@ function SearchBusDetail({ fade }: Props) {
             item.isLastStop = size === index + 1;
           });
         }
-        setBusStops(stops ?? busStops);
+        setBusStops(stops ?? { ...busStops });
         setUpdateTime(30);
         setAnimationTime(30);
         isUpdateRoute.current = true;
