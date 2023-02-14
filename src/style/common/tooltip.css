@@ -23,4 +23,7 @@
   .tooltip_pit {
     @apply tooltip !bg-secondary before:!border-t-secondary;
   }
+  .tooltip_bus_pit {
+    @apply !border-2 !border-white !rounded-full w-9 h-9 !bg-secondary before:!border-t-transparent;
+  }
 }

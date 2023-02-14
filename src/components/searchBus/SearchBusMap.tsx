@@ -89,10 +89,21 @@ function SearchBusMap({ fade }: Props) {
           })}
           {stopsPitGeometry.map(({ geometry, stopName, status, isPit }, index) => {
             return <Marker position={geometry} icon={PIT_MARKER} key={index}>
-              <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent className="tooltip_pit">
-                {isPit && <BusIcon fill="#FFF" width="30" height="30" />}
-                <p>{stopName}</p>
-                <h5>{status}</h5>
+              <Tooltip
+                direction="top" 
+                offset={[0, isZoomIn ? -10 : 20]}
+                opacity={1}
+                permanent
+                className={isZoomIn ? 'tooltip_pit' : 'tooltip_bus_pit'}
+              >
+                {isZoomIn
+                  ? <>
+                      {isPit && <BusIcon fill="#FFF" width="30" height="30" />}
+                      <p>{stopName}</p>
+                      <h5>{status}</h5>
+                    </>
+                  : <BusIcon fill="#FFF" width="20" height="20" />
+                }
               </Tooltip>
             </Marker>
           })}

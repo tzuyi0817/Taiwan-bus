@@ -85,11 +85,18 @@ export function getGeometryMap(stops: BusStop[]) {
   for (let index = 0; index < stops.length - 1; index++) {
     const stop = stops[index];
     const nextStop = stops[index + 1];
+    const { isPitStop } = getBusStopStatus(stop);
     const { PositionLat, PositionLon } = stop.StopPosition;
     const geometry: [number, number] = [PositionLat, PositionLon];
     const { PositionLat: nextPositionLat, PositionLon: nextPositionLon } = nextStop.StopPosition;
     const nextGeometry: [number, number] = [nextPositionLat, nextPositionLon];
 
+    isPitStop && geometryMap.stopPit.push({
+      geometry,
+      status: '',
+      isPit: true,
+      stopName: '',
+    });
     geometryMap.line.push({ color: '#355F8B', geometry: [geometry, nextGeometry] });
   }
   return geometryMap;
