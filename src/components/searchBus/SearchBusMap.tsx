@@ -1,15 +1,13 @@
 import { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, Tooltip } from 'react-leaflet';
-import { useAppSelector } from '@/hooks/useRedux';
 import { useState } from 'react';
 import { useBus } from '@/provider/BusProvider';
 import useGeolocation from '@/hooks/useGeolocation';
 import MapAutoReCenter from '@/components/common/MapAutoReCenter';
+import MapEvents from '@/components/common/MapEvents';
 import BusIcon from '@/components/common/BusIcon';
 import { SELF_MARKER, STOP_MARKER, PIT_MARKER } from '@/configs/marker';
 import { getGeometryMap, getZoomInGeometryMap } from '@/utils/busStop';
-import generateParams from '@/utils/generateParams';
-import ajax from '@/utils/ajax';
 import type { StopLine, BusStopMap } from '@/types/bus';
 
 interface Props {
@@ -32,8 +30,7 @@ function SearchBusMap({ fade }: Props) {
     isDesignateStop,
     setMapCenterPos,
   } = useBus();
-  const isZoomIn = mapZoom > 12;
-  // const city = useAppSelector(({ city }) => city.currentCity);
+  const isZoomIn = mapZoom > 14;
 
   useEffect(() => {
     if (!bus) return;
@@ -46,17 +43,7 @@ function SearchBusMap({ fade }: Props) {
     setStopsLine(geometryMap.line);
     if (isDesignateStop.current || !centerPos) return;
     setMapCenterPos([centerPos.PositionLat, centerPos.PositionLon]);
-    // async function getBusShape() {
-    //   const params = generateParams({});
-    //   const result = await ajax.get(`/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
-    //   const geometry = result[0].Geometry
-    //     .replace(/(LINESTRING )|[()]/g, '')
-    //     .split(', ')
-    //     .map((str: string) => str.split(' ').reverse());
-    //   const { length: size } = geometry;
-
-    // }
-    // getBusShape();
+    // `/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}
   }, [bus, direction, busStops, mapZoom]);
 
   return (
@@ -74,6 +61,7 @@ function SearchBusMap({ fade }: Props) {
           />
           <Marker position={position} icon={SELF_MARKER}></Marker>
           <MapAutoReCenter position={position} centerPos={mapCenterPos} zoom={mapZoom} />
+          <MapEvents />
           {stopsLine.map(({ color, geometry }, index) => {
             return <Polyline pathOptions={{ color }} positions={geometry} key={index} />
           })}
@@ -88,7 +76,7 @@ function SearchBusMap({ fade }: Props) {
             </Marker>
           })}
           {stopsPitGeometry.map(({ geometry, stopName, status, isPit }, index) => {
-            return <Marker position={geometry} icon={PIT_MARKER} key={index}>
+            return <Marker position={geometry} icon={PIT_MARKER} key={isZoomIn ? `zoom${index}` : index}>
               <Tooltip
                 direction="top" 
                 offset={[0, isZoomIn ? -10 : 20]}
