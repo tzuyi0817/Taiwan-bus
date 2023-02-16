@@ -35,7 +35,7 @@ function SearchBusDetail({ fade }: Props) {
     busStops,
     updateTime,
     direction,
-    setPage,
+    resetMap,
     setBusStops,
     setUpdateTime,
     setDirection,
@@ -119,7 +119,7 @@ function SearchBusDetail({ fade }: Props) {
   }
 
   function backSearchPage() {
-    setPage('route');
+    resetMap();
     toggleTab(0);
     setAnimationTime(0);
     isUpdateRoute.current = false;

@@ -5,6 +5,6 @@
     @apply opacity-100 transition-opacity duration-500;
   }
   .fadeOut {
-    @apply opacity-0 transition-opacity pointer-events-none duration-500; 
+    @apply opacity-0 transition-opacity pointer-events-none duration-500 -z-[1]; 
   }
 }

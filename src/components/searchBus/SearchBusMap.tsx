@@ -33,7 +33,7 @@ function SearchBusMap({ fade }: Props) {
   const isZoomIn = mapZoom > 14;
 
   useEffect(() => {
-    if (!bus) return;
+    if (!bus) return clearMap();
     const stops = busStops[direction];
     const geometryMap = isZoomIn ? getZoomInGeometryMap(stops) : getGeometryMap(stops);
     const centerPos = stops[stops.length / 2 | 0]?.StopPosition;
@@ -45,6 +45,12 @@ function SearchBusMap({ fade }: Props) {
     setMapCenterPos([centerPos.PositionLat, centerPos.PositionLon]);
     // `/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}
   }, [bus, direction, busStops, mapZoom]);
+
+  function clearMap() {
+    setStopsGeometry([]);
+    setStopsPitGeometry([]);
+    setStopsLine([]);
+  }
 
   return (
     <>
