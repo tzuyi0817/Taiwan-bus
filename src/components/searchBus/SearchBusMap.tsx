@@ -6,6 +6,7 @@ import useGeolocation from '@/hooks/useGeolocation';
 import MapAutoReCenter from '@/components/common/MapAutoReCenter';
 import MapEvents from '@/components/common/MapEvents';
 import BusIcon from '@/components/common/BusIcon';
+import SwitchBlock from '@/components/common/SwitchBlock';
 import { SELF_MARKER, STOP_MARKER, PIT_MARKER } from '@/configs/marker';
 import { getGeometryMap, getZoomInGeometryMap } from '@/utils/busStop';
 import type { StopLine, BusStopMap } from '@/types/bus';
@@ -102,6 +103,9 @@ function SearchBusMap({ fade }: Props) {
             </Marker>
           })}
         </MapContainer>
+        <SwitchBlock
+          className="absolute top-7 right-6 z-[400]"
+        />
       </div>
     </>
   )

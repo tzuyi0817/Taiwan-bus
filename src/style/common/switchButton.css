@@ -1,0 +1,30 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .switch {
+    @apply relative inline-block w-10 h-5;
+    input {
+      @apply opacity-0 w-0 h-0;
+    }
+    .slider {
+      @apply
+      absolute
+      cursor-pointer
+      top-0
+      left-0
+      right-0
+      bottom-0
+      bg-black
+      transition-all
+      duration-300
+      before:absolute
+      before:content-['']
+      before:h-5
+      before:w-5
+      before:left-1
+      before:bottom-1
+      before:bg-primary
+      before:rounded-full;
+    }
+  }
+}
