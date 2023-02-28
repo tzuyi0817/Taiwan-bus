@@ -21,6 +21,7 @@ function SearchBusMap({ fade }: Props) {
   const [stopsGeometry, setStopsGeometry] = useState<Array<BusStopMap>>([]);
   const [stopsPitGeometry, setStopsPitGeometry] = useState<Array<BusStopMap>>([]);
   const [stopsLine, setStopsLine] = useState<Array<StopLine>>([]);
+  const [isShowStopInfo, toggleStopInfo] = useState(true);
   const { position } = useGeolocation();
   const {
     bus,
@@ -74,7 +75,7 @@ function SearchBusMap({ fade }: Props) {
           })}
           {stopsGeometry.map(({ geometry, stopName, status }, index) => {
             return <Marker position={geometry} icon={STOP_MARKER} key={index}>
-              {isZoomIn && (
+              {isZoomIn && isShowStopInfo && (
                 <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent className="tooltip_base">
                   <p>{stopName}</p>
                   <h5>{status}</h5>
@@ -104,8 +105,10 @@ function SearchBusMap({ fade }: Props) {
           })}
         </MapContainer>
         <SwitchBlock
-          className="absolute top-7 right-6 z-[400]"
-        />
+          className="absolute top-7 right-5 z-[400]" 
+          defaultValue={isShowStopInfo}
+          toggleSwitch={toggleStopInfo}
+        >顯示站牌資訊</SwitchBlock>
       </div>
     </>
   )
