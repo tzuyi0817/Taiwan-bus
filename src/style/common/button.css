@@ -1,0 +1,13 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .btn {
+    @apply rounded-[20px] min-w-[98px] py-[6px] px-5 text-center text-base border-[1px];
+  }
+  .btn_base {
+    @apply btn text-white bg-primary;
+  }
+  .btn_line {
+    @apply btn text-primary border-primary;
+  }
+}

@@ -9,7 +9,7 @@ interface Props {
 
 function SwitchBlock({ className, children, defaultValue, toggleSwitch }: Props) {
   function toggle(event: ChangeEvent<HTMLInputElement>) {
-    toggleSwitch(event.target.checked)
+    toggleSwitch(event.target.checked);
   }
 
   return (

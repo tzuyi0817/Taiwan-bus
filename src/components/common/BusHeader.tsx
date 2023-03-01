@@ -59,18 +59,22 @@ function HeaderLogo() {
 }
 
 function HeaderMenu({ isOpenMenu, toggleMenu }: HeaderMenuProps) {
+  function closeMenu() {
+    toggleMenu(false);
+  }
+
   return (
     <>
-      <div className={`mask ${isOpenMenu ? 'fadeIn' : 'fadeOut'}`} onClick={() => toggleMenu(false)}></div>
+      <div className={`mask ${isOpenMenu ? 'fadeIn' : 'fadeOut'}`} onClick={closeMenu}></div>
       <div className={`bg-white fixed top-0 right-0 w-64 h-screen z-[9999] ${isOpenMenu ? 'block fadeIn' : 'fadeOut md:relative'}`}>
         <div className="flex p-5 items-center justify-between border-b-[1px] border-[#E7E7E7]">
           <HeaderLogo />
-          <img src={createImageSrc('icons/close.png')} alt="" onClick={() => toggleMenu(false)} />
+          <img src={createImageSrc('icons/close.png')} alt="" onClick={closeMenu} />
         </div>
-        <ul>
+        <ul onClick={closeMenu}>
           <li><Link to="/" className={MenuItem}>路線規劃</Link></li>
           <li><Link to="/" className={MenuItem}>站點查詢</Link></li>
-          <li><Link to="/" className={MenuItem}>我的收藏</Link></li>
+          <li><Link to="/favoritestop" className={MenuItem}>我的收藏</Link></li>
         </ul>
         <div className="flex justify-center py-5">
           <img src={createImageSrc('icons/language.png')} alt="" />
