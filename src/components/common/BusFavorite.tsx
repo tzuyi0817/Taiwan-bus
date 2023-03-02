@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef, type MouseEvent } from 'react';
+import { useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
 import Popup from '@/components/common/Popup';
@@ -13,21 +14,30 @@ interface Props {
 const Logo = tw.div`rounded-full w-16 h-16 text-white text-4xl flex justify-center items-center m-auto`;
 
 function BusFavorite({ bus }: Props) {
-  const [isShowPopup, togglePopup] = useState(true);
+  const [isShowPopup, togglePopup] = useState(false);
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const favoriteList = useAppSelector(({ favorite }) => favorite.favoriteList) ?? [];
-  const isFavorite = !!(favoriteList.find(({ RouteID }) => RouteID === bus?.RouteID));
+  const popupType = useRef<'add' | 'remove'>('add');
+  const isFavorite = favoriteList.some(({ RouteID }) => RouteID === bus?.RouteID);
 
-  function toggleFavorite() {
+  function toggleFavorite(event: MouseEvent) {
     if (!bus) return;
-    
-    isFavorite
-      ? dispatch(favoriteActions.removeFavorite(bus.RouteID))
-      : dispatch(favoriteActions.addFavorite(bus));
+    event.stopPropagation();
+    togglePopup(true);
+
+    if (isFavorite) {
+      popupType.current = 'remove';
+      dispatch(favoriteActions.removeFavorite(bus.RouteID));
+      return;
+    }
+    popupType.current = 'add';
+    dispatch(favoriteActions.addFavorite(bus));
   }
 
-  function togglePrompt() {
-    togglePopup(false);
+  function togglePrompt(event: MouseEvent) {
+    event.stopPropagation();
+    togglePopup(isShow => !isShow);
   }
 
   return (
@@ -44,12 +54,16 @@ function BusFavorite({ bus }: Props) {
         <path fill="#355F8B" d={isFavorite ? favorite_active : favorite} />
       </svg>
       <Popup isShowPopup={isShowPopup} togglePopup={togglePopup}>
-        <Logo className={`bg-green`}>✔</Logo>
-        {/* <div>✖</div> */}
-        <h2 className="mt-6 mb-8 text-center">已收藏站牌</h2>
+        {popupType.current === 'add' 
+          ? <Logo className="bg-green">✔</Logo>
+          : <Logo className="bg-secondary">✖</Logo>
+        }
+        <h2 className="mt-6 mb-8 text-center">
+          {popupType.current === 'add' ? '已' : '取消'}收藏站牌
+        </h2>
         <div className="flex justify-center gap-2">
           <button className="btn_line" onClick={togglePrompt}>關閉</button>
-          <button className="btn_base">查看收藏</button>
+          <button className="btn_base" onClick={() => navigate('/favoritestop')}>查看收藏</button>
         </div>
       </Popup>
     </>
