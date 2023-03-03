@@ -4,7 +4,7 @@ import SearchBusBlock from '@/components/searchBus/SearchBusBlock';
 import BusMap from '@/components/common/BusMap';
 import BusDetail from '@/components/common/BusDetail';
 
-function SearchBus() {
+function SearchStop() {
   const { page, isOpenMap } = useBus();
 
   return (
@@ -17,4 +17,4 @@ function SearchBus() {
   )
 }
 
-export default SearchBus;
+export default SearchStop;

@@ -105,10 +105,12 @@ function SearchBusMap({ fade }: Props) {
           })}
         </MapContainer>
         <SwitchBlock
-          className="absolute top-7 right-5 z-[400]" 
+          className="absolute z-[400] bottom-16 left-5 md:top-7 md:right-5" 
           defaultValue={isShowStopInfo}
           toggleSwitch={toggleStopInfo}
-        >顯示站牌資訊</SwitchBlock>
+        >
+          <span className="hidden md:contents">顯示</span>站牌資訊
+        </SwitchBlock>
       </div>
     </>
   )

@@ -13,7 +13,7 @@ const citySlice = createSlice({
   name: 'city',
   initialState: initialCitySate,
   reducers: {
-    updateCity(state, action: PayloadAction<City>) {
+    updateCity(state, action: PayloadAction<City | ''>) {
       state.currentCity = action.payload;
     },
   }

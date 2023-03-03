@@ -1,6 +1,7 @@
 import tw from 'tailwind-styled-components';
-import { useNavigate } from 'react-router-dom';
-import { useAppSelector } from '@/hooks/useRedux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
+import { cityActions } from '@/store/city';
 import { useBus } from '@/provider/BusProvider';
 import { createImageSrc } from '@/utils/images';
 import { CITY_MAP } from '@/configs/city';
@@ -14,20 +15,27 @@ const MenuItem = tw.li`flex gap-[6px] items-center cursor-pointer`;
 
 function SearchBusCrumb({ page }: Props) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const dispatch = useAppDispatch();
   const city = useAppSelector(({ city }) => city.currentCity);
-  const { isOpenMap, toggleMap, setPage, resetMap } = useBus();
+  const { isOpenMap, toggleMap, resetMap } = useBus();
+  const isSearchStop = pathname === '/searchstop';
 
   function goIndex() {
     navigate('/');
-    setPage('route');
     resetMap();
+    dispatch(cityActions.updateCity(''));
   }
 
   return (
     <div className="px-6 py-3 bg-[#F8F8F8] flex justify-between items-center">
       <div className="flex gap-1 items-center" onClick={goIndex}>
-        <img src={createImageSrc('icons/location.png')} alt="" />
-        <p>{city ? CITY_MAP[city] : ''}</p>
+        {/* <img src={createImageSrc('icons/location.png')} alt="" /> */}
+        <p>
+          <span className="">首頁 / </span>
+          {isSearchStop && <span>站點查詢</span>}
+          {city ? CITY_MAP[city] : ''}
+        </p>
       </div>
       <ul className="flex gap-3">
         {page === 'detail' && !isOpenMap && (
