@@ -23,7 +23,7 @@ function SearchBusBlock({ fade }: Props) {
     const params = generateParams({
       $filter: `contains(RouteName/En,'${keyword}') or contains(RouteName/Zh_tw,'${keyword}')`,
     });
-    const result = await ajax.get(`/v2/Bus/Route/City/${city}?${params}`);
+    const result = await ajax.get(`/basic/v2/Bus/Route/City/${city}?${params}`);
 
     setBusList(result);
     togglePrompt(result.length === 0);

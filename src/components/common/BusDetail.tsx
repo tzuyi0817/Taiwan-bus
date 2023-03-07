@@ -47,7 +47,7 @@ function SearchBusDetail({ fade }: Props) {
 
     async function getBusStopRoute(): Promise<BusStops> {
       const params = generateParams({});
-      const result = await ajax.get(`/v2/Bus/StopOfRoute/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+      const result = await ajax.get(`/basic/v2/Bus/StopOfRoute/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
 
       return result.reduce((map: BusStops, { Stops, Direction }: BusStopRoue) => {
         map[Direction] = Stops;
@@ -57,7 +57,7 @@ function SearchBusDetail({ fade }: Props) {
 
     async function getBusEstimatedTime() {
       const params = generateParams({});
-      const result = await ajax.get(`/v2/Bus/EstimatedTimeOfArrival/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+      const result = await ajax.get(`/basic/v2/Bus/EstimatedTimeOfArrival/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
 
       return result.reduce((map: Map<string, BusEstimatedTime>, estimatedTime: BusEstimatedTime) => {
         const { Direction, StopID } = estimatedTime;
@@ -67,7 +67,7 @@ function SearchBusDetail({ fade }: Props) {
 
     async function getBusRealTimeNearStop() {
       const params = generateParams({});
-      const result = await ajax.get(`/v2/Bus/RealTimeNearStop/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+      const result = await ajax.get(`/basic/v2/Bus/RealTimeNearStop/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
 
       return result.reduce((map: Map<string, BusRealTimeNearStop>, realTimeNearStop: BusRealTimeNearStop) => {
         const { Direction, StopID } = realTimeNearStop;
