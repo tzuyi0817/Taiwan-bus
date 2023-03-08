@@ -5,14 +5,16 @@ import Loading from '@/components/common/Loading';
 const Index = lazy(() => import('@/pages/Index'));
 const SearchBus = lazy(() => import('@/pages/SearchBus'));
 const SearchStop = lazy(() => import('@/pages/SearchStop'));
+const NearbyStop = lazy(() => import('@/pages/NearbyStop'));
 const FavoriteStop = lazy(() => import('@/pages/FavoriteStop'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 
 const ROUTE_CONFIG = [
   { path: '/', element: <Index /> },
-  { path: '/searchbus', element: <SearchBus /> },
-  { path: '/searchstop', element: <SearchStop /> },
-  { path: '/favoritestop', element: <FavoriteStop /> },
+  { path: '/searchBus', element: <SearchBus /> },
+  { path: '/searchStop', element: <SearchStop /> },
+  { path: '/nearbyStop', element: <NearbyStop /> },
+  { path: '/favoriteStop', element: <FavoriteStop /> },
   { path: '*', element: <NotFound /> },
 ];
 

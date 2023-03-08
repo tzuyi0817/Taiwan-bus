@@ -41,7 +41,7 @@ function SearchStopBlock({ fade }: Props) {
     <div className={`h-full ${fade}`}>
       <div className="bg-white p-5 shadow-sm h-full">
         <SearchBar
-          placeholder="請輸入站名"
+          placeholder="想去哪裡？"
           keyword={keyword} setKeyword={setKeyword}
           ref={searchInput}
         />

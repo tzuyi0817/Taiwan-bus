@@ -25,3 +25,9 @@ export const BUS_ROUTE_TYPE = {
   13:'國道客運',
   14:'接駁車',
 } as const;
+
+export const BUS_CRUMB = {
+  searchStop: '站點查詢',
+  nearbyStop: '附近站牌',
+  favoriteStop: '我的收藏',
+} as const;

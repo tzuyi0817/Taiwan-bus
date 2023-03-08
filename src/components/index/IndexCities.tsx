@@ -17,7 +17,7 @@ function IndexCities() {
       return togglePopup(true);
     }
     dispatch(cityActions.updateCity(city));
-    navigate('/searchbus');
+    navigate('/searchBus');
   }
 
   return (

@@ -53,7 +53,7 @@ function BusHeader() {
     <Header>
       <HeaderLogo goPage={goPage} />
       <div className="flex gap-5 items-center">
-        <p>附近站牌</p>
+        <p onClick={() => goPage('/nearbyStop')}>附近站牌</p>
         <img src={createImageSrc('icons/menu.png')} alt="" onClick={() => toggleMenu(true)} />
       </div>
       <HeaderMenu isOpenMenu={isOpenMenu} toggleMenu={toggleMenu} goPage={goPage} />
@@ -88,8 +88,8 @@ function HeaderMenu({ isOpenMenu, toggleMenu, goPage }: HeaderMenuProps) {
         </div>
         <ul onClick={closeMenu}>
           <MenuItem onClick={() => goPage('/')}>路線規劃</MenuItem>
-          <MenuItem onClick={() => goPage('/searchstop')}>站點查詢</MenuItem>
-          <MenuItem onClick={() => goPage('/favoritestop')}>我的收藏</MenuItem>
+          <MenuItem onClick={() => goPage('/searchStop')}>站點查詢</MenuItem>
+          <MenuItem onClick={() => goPage('/favoriteStop')}>我的收藏</MenuItem>
         </ul>
         <div className="flex justify-center py-5">
           <img src={createImageSrc('icons/language.png')} alt="" />

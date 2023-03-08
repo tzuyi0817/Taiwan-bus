@@ -4,8 +4,10 @@ import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
 import { cityActions } from '@/store/city';
 import { useBus } from '@/provider/BusProvider';
 import { createImageSrc } from '@/utils/images';
+import { BUS_CRUMB } from '@/configs/bus';
 import { CITY_MAP } from '@/configs/city';
 import type { Page } from '@/types/page';
+import type { BusCrumb } from '@/types/bus';
 
 interface Props {
   page: Page;
@@ -19,7 +21,7 @@ function SearchBusCrumb({ page }: Props) {
   const dispatch = useAppDispatch();
   const city = useAppSelector(({ city }) => city.currentCity);
   const { isOpenMap, toggleMap, resetMap } = useBus();
-  const isSearchStop = pathname === '/searchstop';
+  const pageName = pathname.replace('/', '') as BusCrumb;
 
   function goIndex() {
     navigate('/');
@@ -33,7 +35,7 @@ function SearchBusCrumb({ page }: Props) {
         {/* <img src={createImageSrc('icons/location.png')} alt="" /> */}
         <p>
           <span className="">首頁 / </span>
-          {isSearchStop && <span>站點查詢</span>}
+          <span>{BUS_CRUMB[pageName] ?? ''}</span>
           {city ? CITY_MAP[city] : ''}
         </p>
       </div>
