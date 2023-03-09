@@ -1,9 +1,10 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import useGeolocation from '@/hooks/useGeolocation';
 import SearchBar from '@/components/common/SearchBar';
 import BusItem from '@/components/common/BusItem';
 import ajax from '@/utils/ajax';
 import generateParams from '@/utils/generateParams';
-import { debounce } from '@/utils/common';
+import { debounce, calculateDistance } from '@/utils/common';
 import { createImageSrc } from '@/utils/images';
 import type { Bus } from '@/types/bus';
 
@@ -13,29 +14,25 @@ interface Props {
 
 function SearchStopBlock({ fade }: Props) {
   const [keyword, setKeyword] = useState('');
-  const [busList, setBusList] = useState<Bus[]>([]);
+  const [stationList, setStationList] = useState<Bus[]>([]);
   const [isShowPrompt, togglePrompt] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
+  const { position } = useGeolocation();
 
   const handlerSearch = useCallback(debounce((async (keyword: string) => {
-    // const params = generateParams({
-    //   $filter: `contains(RouteName/En,'${keyword}') or contains(RouteName/Zh_tw,'${keyword}')`,
-    // });
-    // const result = await ajax.get(`/basic/v2/Bus/Stop/City/`);
-
+    const params = generateParams({
+      $spatialFilter : `nearby(${position.lat}, ${position.lng}, 1000)`,
+    });
+    const result = await ajax.get(`/advanced/v2/Bus/Station/NearBy?${params}`);
+    console.log(result);
     // setBusList(result);
     // togglePrompt(result.length === 0);
+    console.log(calculateDistance(position, { lat: 25.081142, lng: 121.558531 }));
   })), []);
 
   useEffect(() => {
-    if (!keyword) {
-      setBusList([]);
-      togglePrompt(false);
-      return;
-    }
-    searchInput.current?.focus();
     handlerSearch(keyword);
-  }, [keyword, handlerSearch]);
+  }, [keyword, position, handlerSearch]);
 
   return (
     <div className={`h-full ${fade}`}>
@@ -46,10 +43,10 @@ function SearchStopBlock({ fade }: Props) {
           ref={searchInput}
         />
         <ul className="overflow-y-auto h-[calc(100%-315px)]">
-          {busList.map(bus => <BusItem bus={bus} key={bus.RouteID} />)}
+          {/* {busList.map(bus => <BusItem bus={bus} key={bus.RouteID} />)} */}
           {isShowPrompt && <div className="mt-8 flex flex-col items-center">
             <img src={createImageSrc('images/logo-wait.svg')} width="120" alt="" />
-            <p>很抱歉，查詢不到此站名</p>
+            <p>很抱歉，查詢不到此站牌</p>
           </div>}
         </ul>
       </div>
