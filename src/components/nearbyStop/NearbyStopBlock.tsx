@@ -6,7 +6,8 @@ import ajax from '@/utils/ajax';
 import generateParams from '@/utils/generateParams';
 import { debounce, calculateDistance } from '@/utils/common';
 import { createImageSrc } from '@/utils/images';
-import type { Bus } from '@/types/bus';
+import type { BusStation } from '@/types/bus';
+import type { Coordinate } from '@/types/common';
 
 interface Props {
   fade: string;
@@ -14,25 +15,48 @@ interface Props {
 
 function SearchStopBlock({ fade }: Props) {
   const [keyword, setKeyword] = useState('');
-  const [stationList, setStationList] = useState<Bus[]>([]);
+  const [stations, setStations] = useState<BusStation[]>([]);
   const [isShowPrompt, togglePrompt] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
   const { position } = useGeolocation();
 
   const handlerSearch = useCallback(debounce((async (keyword: string) => {
+    // const params = generateParams({
+    //   $spatialFilter : `nearby(${position.lat}, ${position.lng}, 1000)`,
+    // });
+    // const stations = await ajax.get(`/advanced/v2/Bus/Station/NearBy?${params}`);
+
+    // setBusList(stations);
+    // togglePrompt(stations.length === 0);
+  })), []);
+
+  async function fetchStations({ lat, lng }: Coordinate) {
     const params = generateParams({
-      $spatialFilter : `nearby(${position.lat}, ${position.lng}, 1000)`,
+      $spatialFilter : `nearby(${lat}, ${lng}, 1000)`,
     });
     const result = await ajax.get(`/advanced/v2/Bus/Station/NearBy?${params}`);
-    console.log(result);
-    // setBusList(result);
-    // togglePrompt(result.length === 0);
-    console.log(calculateDistance(position, { lat: 25.081142, lng: 121.558531 }));
-  })), []);
+    const stations = result.map((station: BusStation) => {
+      const { StationPosition: { PositionLat, PositionLon } } = station;
+      const stationPosition = { lat: PositionLat, lng: PositionLon };
+  
+      return {
+        ...station,
+        distance: calculateDistance({ lat, lng }, stationPosition),
+      };
+    });
+    
+    setStations(stations);
+    console.log(stations);
+  }
+
+  useEffect(() => {
+    fetchStations(position);
+  }, [position]);
 
   useEffect(() => {
     handlerSearch(keyword);
-  }, [keyword, position, handlerSearch]);
+  }, [keyword, handlerSearch]);
+
 
   return (
     <div className={`h-full ${fade}`}>

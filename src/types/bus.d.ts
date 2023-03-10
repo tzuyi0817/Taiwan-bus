@@ -181,12 +181,47 @@ export interface BusShape {
   SubRouteID: string;
   SubRouteName: {
     Zh_tw: string;
-    En: string
+    En: string;
   };
   Direction: BusDirection;
   Geometry: string;
   EncodedPolyline: string;
   UpdateTime: string;
+  VersionID: number;
+}
+
+export interface BusStation {
+  StationUID: string;
+  StationID: string;
+  StationName: {
+    Zh_tw: string;
+    En: string;
+  };
+  StationPosition: {
+    PositionLon: number;
+    PositionLat: number;
+    GeoHash: string;
+  };
+  StationAddress: string;
+  StationGroupID: string;
+  Stops: Array<{
+    StopUID: string;
+    StopID: string;
+    StopName: {
+      Zh_tw: string;
+      En: string;
+    };
+    RouteUID: string;
+    RouteID: string;
+    RouteName: {
+      Zh_tw: string;
+      En: string;
+    };
+  }>;
+  LocationCityCode: string;
+  Bearing: string;
+  UpdateTime: string;
+  distance: number;
   VersionID: number;
 }
 
