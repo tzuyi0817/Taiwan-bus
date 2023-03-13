@@ -1,7 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import useGeolocation from '@/hooks/useGeolocation';
 import SearchBar from '@/components/common/SearchBar';
-import BusItem from '@/components/common/BusItem';
+import NearbyStopStation from '@/components/nearbyStop/NearbyStopStation';
 import ajax from '@/utils/ajax';
 import generateParams from '@/utils/generateParams';
 import { debounce, calculateDistance } from '@/utils/common';
@@ -59,15 +59,15 @@ function SearchStopBlock({ fade }: Props) {
 
 
   return (
-    <div className={`h-full ${fade}`}>
+    <div className={`h-[calc(100%-40px)] ${fade}`}>
       <div className="bg-white p-5 shadow-sm h-full">
         <SearchBar
           placeholder="想去哪裡？"
           keyword={keyword} setKeyword={setKeyword}
           ref={searchInput}
         />
-        <ul className="overflow-y-auto h-[calc(100%-315px)]">
-          {/* {busList.map(bus => <BusItem bus={bus} key={bus.RouteID} />)} */}
+        <ul className="overflow-y-auto h-[calc(100%-25px)]">
+          {stations.map(station => <NearbyStopStation station={station} key={station.StationUID} />)}
           {isShowPrompt && <div className="mt-8 flex flex-col items-center">
             <img src={createImageSrc('images/logo-wait.svg')} width="120" alt="" />
             <p>很抱歉，查詢不到此站牌</p>

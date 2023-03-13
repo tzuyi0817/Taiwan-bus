@@ -8,7 +8,7 @@ function NearbyStop() {
   const { page, isOpenMap } = useBus();
 
   return (
-    <div className="searchBus">
+    <div className="bus">
       <BusCrumb page={page} />
       <NearbyStopBlock fade={`${page === 'route' ? 'fadeIn' : 'fadeOut'}`} />
       <BusDetail fade={`${page === 'detail' ? 'fadeIn' : 'fadeOut'}`} />

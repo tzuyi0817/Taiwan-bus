@@ -8,7 +8,7 @@ function SearchBus() {
   const { page, isOpenMap } = useBus();
 
   return (
-    <div className="searchBus">
+    <div className="bus">
       <BusCrumb page={page} />
       <SearchBusBlock fade={`${page === 'route' ? 'fadeIn' : 'fadeOut'}`} />
       <BusDetail fade={`${page === 'detail' ? 'fadeIn' : 'fadeOut'}`} />

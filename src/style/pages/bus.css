@@ -1,7 +1,7 @@
 @import 'tailwindcss/components';
 
 @layer components {
-  .searchBus {
+  .bus {
     @apply flex flex-col h-[calc(100vh-128px)] relative;
     &_tab {
       @apply py-3 flex-1 text-center text-sm bg-[#E0E0E0] rounded-t-md transition-all duration-300;
@@ -11,6 +11,9 @@
       &-active {
         @apply bg-primary text-white;
       }
+    }
+    &_item {
+      @apply flex justify-between items-end py-3 border-b-[1px] border-[#E7E7E7];
     }
   }
 }

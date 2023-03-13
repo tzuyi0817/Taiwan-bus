@@ -136,10 +136,10 @@ function SearchBusDetail({ fade }: Props) {
       <p className="text-3xl font-bold text-center">{bus?.RouteName?.Zh_tw}</p>
       <p className="text-center mt-2 mb-5">{bus ? BUS_ROUTE_TYPE[bus.BusRouteType] : ''}</p>
       <div className="flex">
-        <div className={`searchBus_tab ${direction === 0 ? 'searchBus_tab-active' : ''}`} onClick={() => toggleTab(0)}>
+        <div className={`bus_tab ${direction === 0 ? 'bus_tab-active' : ''}`} onClick={() => toggleTab(0)}>
           往<span>{bus?.DestinationStopNameZh}</span>
         </div>
-        <div className={`searchBus_tab ${direction === 1 ? 'searchBus_tab-active' : ''}`} onClick={() => toggleTab(1)}>
+        <div className={`bus_tab ${direction === 1 ? 'bus_tab-active' : ''}`} onClick={() => toggleTab(1)}>
           往<span>{bus?.DepartureStopNameZh}</span>
         </div>
       </div>

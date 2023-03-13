@@ -17,7 +17,7 @@ function BusItem({ bus }: Props) {
   }
 
   return (
-    <li className="flex justify-between items-end py-3 border-b-[1px] border-[#E7E7E7]" onClick={goDetail}>
+    <li className="bus_item" onClick={goDetail}>
       <div>
         <h1>{RouteName.Zh_tw}</h1>
         <p className="text-sm text-gray-600">{`${DepartureStopNameZh} - ${DestinationStopNameZh}`}</p>
