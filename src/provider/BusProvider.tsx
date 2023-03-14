@@ -9,7 +9,7 @@ import {
   type MutableRefObject,
 } from 'react';
 import type { Page } from '@/types/page';
-import type { Bus, BusDirection, BusStops } from '@/types/bus';
+import type { Bus, BusDirection, BusStops, BusStation } from '@/types/bus';
 
 interface BusContext {
   page: Page;
@@ -20,6 +20,7 @@ interface BusContext {
   updateTime: number;
   direction: BusDirection;
   busStops: BusStops;
+  stations: Array<BusStation>;
   isDesignateStop: MutableRefObject<boolean>;
   setPage: Dispatch<SetStateAction<Page>>;
   setBus: Dispatch<SetStateAction<Bus | undefined>>;
@@ -29,6 +30,7 @@ interface BusContext {
   setUpdateTime: Dispatch<SetStateAction<number>>;
   setDirection: Dispatch<SetStateAction<BusDirection>>;
   setBusStops: Dispatch<SetStateAction<BusStops>>;
+  setStations: Dispatch<SetStateAction<Array<BusStation>>>;
   resetMap: () => void;
 }
 
@@ -43,6 +45,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
   const [updateTime, setUpdateTime] = useState(0);
   const [direction, setDirection] = useState<BusDirection>(0);
   const [busStops, setBusStops] = useState<BusStops>({ 0: [], 1: [] });
+  const [stations, setStations] = useState<BusStation[]>([]);
   const isDesignateStop = useRef(false);
 
   function resetMap() {
@@ -66,6 +69,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         updateTime,
         direction,
         busStops,
+        stations,
         isDesignateStop,
         setPage,
         setBus,
@@ -75,6 +79,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         setUpdateTime,
         setDirection,
         setBusStops,
+        setStations,
         resetMap,
       }}
     >

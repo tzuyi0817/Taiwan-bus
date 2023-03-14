@@ -1,6 +1,5 @@
-import { useEffect } from 'react';
+import { useState, useEffect, type ReactNode } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, Tooltip } from 'react-leaflet';
-import { useState } from 'react';
 import { useBus } from '@/provider/BusProvider';
 import useGeolocation from '@/hooks/useGeolocation';
 import MapAutoReCenter from '@/components/common/MapAutoReCenter';
@@ -15,6 +14,12 @@ interface Props {
   fade: string;
 }
 
+interface StopMarkerProps {
+  position: [number, number];
+  children: ReactNode;
+  isShowTooltip: boolean;
+}
+
 const { VITE_MAP_STYLE, VITE_MAP_TOKEN } = import.meta.env;
 
 function SearchBusMap({ fade }: Props) {
@@ -27,9 +32,11 @@ function SearchBusMap({ fade }: Props) {
     bus,
     direction,
     busStops,
+    stations,
     mapZoom,
     mapCenterPos,
     isDesignateStop,
+    setMapZoom,
     setMapCenterPos,
   } = useBus();
   const isZoomIn = mapZoom > 14;
@@ -47,6 +54,12 @@ function SearchBusMap({ fade }: Props) {
     setMapCenterPos([centerPos.PositionLat, centerPos.PositionLon]);
     // `/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}
   }, [bus, direction, busStops, mapZoom]);
+
+  useEffect(() => {
+    if (!stations.length) return;
+    setMapZoom(17);
+    setMapCenterPos([position.lat, position.lng]);
+  }, [stations]);
 
   function clearMap() {
     setStopsGeometry([]);
@@ -74,14 +87,10 @@ function SearchBusMap({ fade }: Props) {
             return <Polyline pathOptions={{ color }} positions={geometry} key={index} />
           })}
           {stopsGeometry.map(({ geometry, stopName, status }, index) => {
-            return <Marker position={geometry} icon={STOP_MARKER} key={index}>
-              {isZoomIn && isShowStopInfo && (
-                <Tooltip direction="top" offset={[0, -10]} opacity={1} permanent className="tooltip_base">
-                  <p>{stopName}</p>
-                  <h5>{status}</h5>
-                </Tooltip>
-              )}
-            </Marker>
+            return <StopMarker position={geometry} key={index} isShowTooltip={isZoomIn && isShowStopInfo}>
+              <p>{stopName}</p>
+              <h5>{status}</h5>
+            </StopMarker>;
           })}
           {stopsPitGeometry.map(({ geometry, stopName, status, isPit }, index) => {
             return <Marker position={geometry} icon={PIT_MARKER} key={isZoomIn ? `zoom${index}` : index}>
@@ -103,6 +112,15 @@ function SearchBusMap({ fade }: Props) {
               </Tooltip>
             </Marker>
           })}
+          {stations.map(({ StationPosition: { PositionLat, PositionLon }, StationName, StationUID }) => {
+            return <StopMarker
+              position={[PositionLat, PositionLon]}
+              key={StationUID}
+              isShowTooltip={isZoomIn && isShowStopInfo}
+            >
+              <p>{StationName.Zh_tw}</p>
+            </StopMarker>;
+          })};
         </MapContainer>
         <SwitchBlock
           className="absolute z-[400] bottom-16 left-5 md:top-7 md:right-5" 
@@ -114,6 +132,22 @@ function SearchBusMap({ fade }: Props) {
       </div>
     </>
   )
+}
+
+function StopMarker({ position, children, isShowTooltip }: StopMarkerProps) {
+  return <Marker position={position} icon={STOP_MARKER}>
+    {isShowTooltip && (
+      <Tooltip
+        direction="top"
+        offset={[0, -10]}
+        opacity={1}
+        permanent
+        className="tooltip_base"
+      >
+        {children}
+      </Tooltip>
+    )}
+  </Marker>;
 }
 
 export default SearchBusMap;

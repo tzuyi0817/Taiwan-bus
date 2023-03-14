@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useBus } from '@/provider/BusProvider';
 import useGeolocation from '@/hooks/useGeolocation';
 import SearchBar from '@/components/common/SearchBar';
 import NearbyStopStation from '@/components/nearbyStop/NearbyStopStation';
@@ -15,8 +16,8 @@ interface Props {
 
 function SearchStopBlock({ fade }: Props) {
   const [keyword, setKeyword] = useState('');
-  const [stations, setStations] = useState<BusStation[]>([]);
   const [isShowPrompt, togglePrompt] = useState(false);
+  const { stations, setStations, setMapZoom } = useBus();
   const searchInput = useRef<HTMLInputElement>(null);
   const { position } = useGeolocation();
 
@@ -44,9 +45,8 @@ function SearchStopBlock({ fade }: Props) {
         distance: calculateDistance({ lat, lng }, stationPosition),
       };
     });
-    
+
     setStations(stations);
-    console.log(stations);
   }
 
   useEffect(() => {
