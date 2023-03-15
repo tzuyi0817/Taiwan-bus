@@ -21,6 +21,7 @@ interface BusContext {
   direction: BusDirection;
   busStops: BusStops;
   stations: Array<BusStation>;
+  station?: BusStation;
   isDesignateStop: MutableRefObject<boolean>;
   setPage: Dispatch<SetStateAction<Page>>;
   setBus: Dispatch<SetStateAction<Bus | undefined>>;
@@ -31,6 +32,7 @@ interface BusContext {
   setDirection: Dispatch<SetStateAction<BusDirection>>;
   setBusStops: Dispatch<SetStateAction<BusStops>>;
   setStations: Dispatch<SetStateAction<Array<BusStation>>>;
+  setStation: Dispatch<SetStateAction<BusStation | undefined>>;
   resetMap: () => void;
 }
 
@@ -46,6 +48,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
   const [direction, setDirection] = useState<BusDirection>(0);
   const [busStops, setBusStops] = useState<BusStops>({ 0: [], 1: [] });
   const [stations, setStations] = useState<BusStation[]>([]);
+  const [station, setStation] = useState<BusStation>();
   const isDesignateStop = useRef(false);
 
   function resetMap() {
@@ -70,6 +73,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         direction,
         busStops,
         stations,
+        station,
         isDesignateStop,
         setPage,
         setBus,
@@ -80,6 +84,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         setDirection,
         setBusStops,
         setStations,
+        setStation,
         resetMap,
       }}
     >

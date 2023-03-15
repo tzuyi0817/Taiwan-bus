@@ -126,9 +126,9 @@ function SearchBusDetail({ fade }: Props) {
   }
 
   return (
-    <div className={`w-full h-[calc(100%-40px)] ${fade} absolute top-10 left-0 bg-white flex flex-col`}>
-      <div className="flex justify-between px-6 py-3">
-        <div className="flex gap-3 cursor-pointer items-center" onClick={backSearchPage}>
+    <div className={`bus_detail ${fade}`}>
+      <div className="bus_detail_header">
+        <div className="bus_detail_back" onClick={backSearchPage}>
           <img src={createImageSrc('icons/back.png')} alt="" />返回搜尋
         </div>
         <BusFavorite bus={bus} />

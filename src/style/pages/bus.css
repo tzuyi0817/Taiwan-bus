@@ -15,5 +15,14 @@
     &_item {
       @apply flex justify-between items-end py-3 border-b-[1px] border-[#E7E7E7];
     }
+    &_detail {
+      @apply w-full h-[calc(100%-40px)] absolute top-10 left-0 bg-white flex flex-col;
+      &_header {
+        @apply flex justify-between px-6 py-3;
+      }
+      &_back {
+        @apply flex gap-3 cursor-pointer items-center;
+      }
+    }
   }
 }

@@ -32,4 +32,8 @@ export const CITY_MAP = {
   Lianjiang:'連江縣',
 } as const;
 
+export const CITY_CODE_MAP = {
+  TPE: 'Taipei',
+} as const;
+
 export const CITY_KEYS = Object.keys(CITY_MAP) as Array<City>;

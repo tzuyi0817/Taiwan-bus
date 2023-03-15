@@ -1,3 +1,4 @@
+import { useBus } from '@/provider/BusProvider';
 import { createImageSrc } from '@/utils/images';
 import type { BusStation } from '@/types/bus';
 
@@ -6,10 +7,16 @@ interface Props {
 }
 
 function NearbyStopStation({ station }: Props) {
+  const { setPage, setStation } = useBus(); 
   const { StationName, Stops, distance } = station;
 
+  function goBusesPage() {
+    setStation(station);
+    setPage('buses');
+  }
+
   return (
-    <li className="bus_item items-center">
+    <li className="bus_item items-center" onClick={goBusesPage}>
       <div>
         <h1>{StationName.Zh_tw}</h1>
         <p className="text-sm text-gray-600">{`${Stops.length} 個站牌`}</p>
