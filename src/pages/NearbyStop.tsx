@@ -1,7 +1,7 @@
 import { useBus } from '@/provider/BusProvider';
 import BusCrumb from '@/components/common/BusCrumb';
 import NearbyStopBlock from '@/components/nearbyStop/NearbyStopBlock';
-import NearbyStopBuses from '@/components/nearbyStop/NearbyStopBuses';
+import NearbyStopStops from '@/components/nearbyStop/NearbyStopStops';
 import BusMap from '@/components/common/BusMap';
 import BusDetail from '@/components/common/BusDetail';
 
@@ -12,7 +12,7 @@ function NearbyStop() {
     <div className="bus">
       <BusCrumb page={page} />
       <NearbyStopBlock fade={`${page === 'route' ? 'fadeIn' : 'fadeOut'}`} />
-      <NearbyStopBuses fade={`${page === 'buses' ? 'fadeIn' : 'fadeOut'}`} />
+      <NearbyStopStops fade={`${page === 'buses' ? 'fadeIn' : 'fadeOut'}`} />
       <BusDetail fade={`${page === 'detail' ? 'fadeIn' : 'fadeOut'}`} />
       <BusMap fade={`${isOpenMap ? 'fadeIn' : 'fadeOut'}`} />
     </div>

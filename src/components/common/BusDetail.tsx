@@ -144,9 +144,7 @@ function SearchBusDetail({ fade }: Props) {
         </div>
       </div>
       <ul className="flex-1 overflow-y-auto pt-3 pb-16" ref={BusStopsRef}>
-        {busStops[direction].map(stop => {
-          return <BusStopInfo key={stop.StopID} stop={stop} />
-        })}
+        {busStops[direction].map(stop => <BusStopInfo key={stop.StopID} stop={stop} />)}
       </ul>
       <BusTimer animationTime={animationTime} setAnimationTime={setAnimationTime} />
     </div>

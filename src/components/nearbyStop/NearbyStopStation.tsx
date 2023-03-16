@@ -10,13 +10,13 @@ function NearbyStopStation({ station }: Props) {
   const { setPage, setStation } = useBus(); 
   const { StationName, Stops, distance } = station;
 
-  function goBusesPage() {
+  function goStopsPage() {
     setStation(station);
     setPage('buses');
   }
 
   return (
-    <li className="bus_item items-center" onClick={goBusesPage}>
+    <li className="bus_item items-center" onClick={goStopsPage}>
       <div>
         <h1>{StationName.Zh_tw}</h1>
         <p className="text-sm text-gray-600">{`${Stops.length} 個站牌`}</p>

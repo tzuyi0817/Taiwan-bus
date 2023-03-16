@@ -1,4 +1,4 @@
-import { BUS_STOP_STATUS, BUS_EVENT_TYPE } from '@/configs/bus';
+import { BUS_STOP_STATUS, BUS_EVENT_TYPE, BusEvent } from '@/configs/bus';
 import type { BusStop, GeometryMap, BusEventType, BusStopStatus } from '@/types/bus';
 
 interface ShowBusStatusArgs {
@@ -23,9 +23,9 @@ export function showBusStatus({
   return EstimateTime ? `${estimateTime} 分` : BUS_STOP_STATUS[StopStatus];
 }
 
-export function getBusStopStatus({ EstimateTime, A2EventType }: BusStop) {
+export function getBusStopStatus({ EstimateTime, A2EventType }: Partial<BusStop>) {
   const estimateTime = (EstimateTime ?? 0) / 60 | 0;
-  const isPitStop = A2EventType === 1;
+  const isPitStop = A2EventType === BusEvent.PIT;
   const isPittingStop = EstimateTime !== undefined && estimateTime === 0;
 
   return { estimateTime, isPitStop, isPittingStop };

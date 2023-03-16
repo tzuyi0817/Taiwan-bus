@@ -21,11 +21,8 @@ function SearchBusStop({ stop }: Props) {
   }
 
   return (
-    <li
-      className="flex mx-6 py-4 pr-4 border-b-[1px] border-b-[#E7E7E7] relative items-center gap-4 text-sm justify-between"
-      onClick={designateStop}
-    >
-      <div className={`min-w-[77px] px-2 py-1 rounded-[10px] ${background} text-white text-center`}>
+    <li className="bus_info" onClick={designateStop}>
+      <div className={`bus_info_status ${background}`}>
         {showBusStatus({ ...stop, estimateTime, isPitStop, isPittingStop })}
       </div>
       <p className={`flex-1 ellipsis ${isPitStop ? 'font-bold' : ''}`}>{StopName.Zh_tw}</p>

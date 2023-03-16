@@ -14,9 +14,14 @@ export const BUS_STOP_STATUS_BACKGROUND = {
   4: 'bg-[#A9A9A9]',
 } as const;
 
+export enum BusEvent {
+  LEFT,
+  PIT,
+}
+
 export const BUS_EVENT_TYPE = {
-  0: '已離站',
-  1: '進站中',
+  [BusEvent.LEFT]: '已離站',
+  [BusEvent.PIT]: '進站中',
 } as const;
 
 export const BUS_ROUTE_TYPE = {
