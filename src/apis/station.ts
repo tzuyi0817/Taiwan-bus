@@ -1,10 +1,9 @@
 import ajax from '@/utils/ajax';
 import generateParams from '@/utils/generateParams';
-import { CITY_CODE_MAP } from '@/configs/city';
 import type { BusStation } from '@/types/bus'; 
+import type { City } from '@/types/city';
 
-export async function fetchStationEstimatedTime({ LocationCityCode, StationID }: BusStation) {
-  const city = CITY_CODE_MAP[LocationCityCode];
+export async function fetchStationEstimatedTime({ StationID }: BusStation, city: City) {
   const params = generateParams({});
   const baseUrl = `/advanced/v2/Bus/EstimatedTimeOfArrival/City/${city}/PassThrough/Station/${StationID}`;
   

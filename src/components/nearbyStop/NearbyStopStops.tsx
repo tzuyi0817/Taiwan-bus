@@ -3,6 +3,7 @@ import { useBus } from '@/provider/BusProvider';
 import NearbyStopInfo from '@/components/nearbyStop/NearbyStopInfo';
 import { fetchStationEstimatedTime } from '@/apis/station';
 import { createImageSrc } from '@/utils/images';
+import { CITY_CODE_MAP } from '@/configs/city';
 import type { BusStationStop } from '@/types/bus';
 
 interface Props {
@@ -10,7 +11,7 @@ interface Props {
 }
 
 function NearbyStopStops({ fade }: Props) {
-  const [stops, setStops] = useState<Array<BusStationStop>>([]);
+  const [stops, setStops] = useState<BusStationStop[]>([]);
   const { station, setPage, setStation } = useBus();
 
   useEffect(() => {
@@ -18,9 +19,10 @@ function NearbyStopStops({ fade }: Props) {
 
     async function getStationBuses() {
       if (!station) return;
-      const stops = await fetchStationEstimatedTime(station);
+      const city = CITY_CODE_MAP[station.LocationCityCode]
+      const stops: BusStationStop[] = await fetchStationEstimatedTime(station, city);
 
-      setStops(stops);
+      setStops(stops.map(stop => ({ ...stop, City: city })));
     }
     getStationBuses();
   }, [station])
@@ -44,7 +46,7 @@ function NearbyStopStops({ fade }: Props) {
           <p>依到站時間排序</p>
         </div>
       </div>
-      <ul>
+      <ul className="overflow-y-auto h-[calc(100%-84px)]">
         {stops.map((stop) => <NearbyStopInfo key={stop.StopUID} stop={stop} />)}
       </ul>
     </div>

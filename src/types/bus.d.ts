@@ -4,7 +4,7 @@ import {
   BUS_ROUTE_TYPE,
   BUS_CRUMB,
 } from '@/configs/bus';
-import type { CityCode } from '@/types/city';
+import type { CityCode, City } from '@/types/city';
 
 export type BusRouteType = keyof typeof BUS_ROUTE_TYPE;
 export type BusStopStatus = keyof typeof BUS_STOP_STATUS;
@@ -267,7 +267,8 @@ export interface BusStationStop {
   SrcRecTime: string;
   SrcTransTime: string;
   SrcUpdateTime: string;
-  UpdateTime: string
+  UpdateTime: string;
+  City: City;
 }
 
 export interface GeometryMap {
