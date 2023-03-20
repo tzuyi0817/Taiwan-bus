@@ -1,14 +1,14 @@
 import BusFavorite from '@/components/common/BusFavorite';
 import { getBusStopStatus, showBusStatus } from '@/utils/busStop';
 import { BUS_STOP_STATUS_BACKGROUND, BusEvent } from '@/configs/bus';
-import type { BusStationStop } from '@/types/bus';
+import type { BusStationStop, Bus } from '@/types/bus';
 
 interface Props {
-  stop: BusStationStop;
+  stop: BusStationStop & Partial<Bus>;
 }
 
 function NearbyStopInfo({ stop }: Props) {
-  const { EstimateTime, StopStatus, RouteName, City } = stop;
+  const { EstimateTime, StopStatus, RouteName, City, DepartureStopNameZh, DestinationStopNameZh, Direction } = stop;
   const A2EventType = EstimateTime === 0 ? BusEvent.PIT : BusEvent.LEFT;
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus({ EstimateTime, A2EventType });
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
@@ -20,7 +20,9 @@ function NearbyStopInfo({ stop }: Props) {
       </div>
       <div className="flex flex-1 flex-col gap-1 justify-center ellipsis">
         <h1 className="ellipsis">{RouteName.Zh_tw}</h1>
-        <p className="text-sm text-gray-600">123</p>
+        <p className="text-sm text-gray-600">
+          往 {Direction === 0 ? DestinationStopNameZh : DepartureStopNameZh}
+        </p>
       </div>
       <div className="flex flex-col items-end gap-1">
         <BusFavorite />

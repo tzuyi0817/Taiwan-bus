@@ -3,8 +3,7 @@ import { useAppSelector } from '@/hooks/useRedux';
 import SearchBar from '@/components/common/SearchBar';
 import SearchBusKeyboard from '@/components/searchBus/SearchBusKeyboard';
 import BusItem from '@/components/common/BusItem';
-import ajax from '@/utils/ajax';
-import generateParams from '@/utils/generateParams';
+import { fetchBusRoute } from '@/apis/bus';
 import { debounce } from '@/utils/common';
 import { createImageSrc } from '@/utils/images';
 import type { Bus } from '@/types/bus';
@@ -20,10 +19,8 @@ function SearchBusBlock({ fade }: Props) {
   const searchInput = useRef<HTMLInputElement>(null);
   const city = useAppSelector(({ city }) => city.currentCity);
   const handlerSearch = useCallback(debounce((async (keyword: string) => {
-    const params = generateParams({
-      $filter: `contains(RouteName/En,'${keyword}') or contains(RouteName/Zh_tw,'${keyword}')`,
-    });
-    const result = await ajax.get(`/basic/v2/Bus/Route/City/${city}?${params}`);
+    if (!city) return;
+    const result = await fetchBusRoute(keyword, city);
 
     setBusList(result);
     togglePrompt(result.length === 0);

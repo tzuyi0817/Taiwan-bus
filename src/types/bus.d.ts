@@ -16,7 +16,7 @@ export type BusStops = Record<BusDirection, BusStop[]>;
 export interface Bus {
   RouteUID: string;
   RouteID: string;
-  HasSubRoutes: true;
+  HasSubRoutes: boolean;
   Operators: BusOperators[];
   AuthorityID: string;
   ProviderID: string;
@@ -61,7 +61,7 @@ interface BusSubRoutes {
   };
   Headsign: string;
   HeadsignEn: string;
-  Direction: number;
+  Direction: BusDirection;
   FirstBusTime: string;
   LastBusTime: string;
   HolidayFirstBusTime: string;
@@ -246,7 +246,7 @@ export interface BusStationStop {
     Zh_tw: string;
     En: string
   };
-  Direction: number;
+  Direction: BusDirection;
   EstimateTime: number;
   StopCountDown: number;
   CurrentStop: string;
@@ -268,7 +268,6 @@ export interface BusStationStop {
   SrcTransTime: string;
   SrcUpdateTime: string;
   UpdateTime: string;
-  City: City;
 }
 
 export interface GeometryMap {

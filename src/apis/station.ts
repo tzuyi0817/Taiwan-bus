@@ -9,3 +9,10 @@ export async function fetchStationEstimatedTime({ StationID }: BusStation, city:
   
   return await ajax.get(`${baseUrl}?${params}`);
 }
+
+export async function fetchStationBusRoute({ StationID }: BusStation, city: City) {
+  const params = generateParams({});
+  const baseUrl = `/advanced/v2/Bus/Route/City/${city}/PassThrough/Station/${StationID}`;
+  
+  return await ajax.get(`${baseUrl}?${params}`);
+}

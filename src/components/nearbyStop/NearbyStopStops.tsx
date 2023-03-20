@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
 import { useBus } from '@/provider/BusProvider';
 import NearbyStopInfo from '@/components/nearbyStop/NearbyStopInfo';
-import { fetchStationEstimatedTime } from '@/apis/station';
+import { fetchStationEstimatedTime, fetchStationBusRoute } from '@/apis/station';
 import { createImageSrc } from '@/utils/images';
 import { CITY_CODE_MAP } from '@/configs/city';
-import type { BusStationStop } from '@/types/bus';
+import type { BusStationStop, Bus } from '@/types/bus';
 
 interface Props {
   fade: string;
 }
 
 function NearbyStopStops({ fade }: Props) {
-  const [stops, setStops] = useState<BusStationStop[]>([]);
+  const [stops, setStops] = useState<Array<BusStationStop & Partial<Bus>>>([]);
   const { station, setPage, setStation } = useBus();
 
   useEffect(() => {
@@ -19,10 +19,18 @@ function NearbyStopStops({ fade }: Props) {
 
     async function getStationBuses() {
       if (!station) return;
-      const city = CITY_CODE_MAP[station.LocationCityCode]
-      const stops: BusStationStop[] = await fetchStationEstimatedTime(station, city);
+      const city = CITY_CODE_MAP[station.LocationCityCode];
+      const fetchInfo: [Promise<BusStationStop[]>, Promise<Bus[]>] = [
+        fetchStationEstimatedTime(station, city),
+        fetchStationBusRoute(station, city),
+      ];
+      const [busStops, busRoutes] = await Promise.all(fetchInfo);
+      const stops = busStops.map(stop => {
+        const route = busRoutes.find(({ RouteName }) => RouteName.Zh_tw === stop.RouteName.Zh_tw);
+        return route ? { ...stop, ...route } : stop;
+      });
 
-      setStops(stops.map(stop => ({ ...stop, City: city })));
+      setStops(stops);
     }
     getStationBuses();
   }, [station])
