@@ -4,14 +4,14 @@ import NearbyStopInfo from '@/components/nearbyStop/NearbyStopInfo';
 import { fetchStationEstimatedTime, fetchStationBusRoute } from '@/apis/station';
 import { createImageSrc } from '@/utils/images';
 import { CITY_CODE_MAP } from '@/configs/city';
-import type { BusStationStop, Bus } from '@/types/bus';
+import type { BusEstimatedTime, Bus, BusRealTimeNearStop } from '@/types/bus';
 
 interface Props {
   fade: string;
 }
 
 function NearbyStopStops({ fade }: Props) {
-  const [stops, setStops] = useState<Array<BusStationStop & Partial<Bus>>>([]);
+  const [stops, setStops] = useState<Array<Bus & BusEstimatedTime>>([]);
   const { station, setPage, setStation } = useBus();
 
   useEffect(() => {
@@ -20,20 +20,34 @@ function NearbyStopStops({ fade }: Props) {
     async function getStationBuses() {
       if (!station) return;
       const city = CITY_CODE_MAP[station.LocationCityCode];
-      const fetchInfo: [Promise<BusStationStop[]>, Promise<Bus[]>] = [
+      const fetchInfo: [Promise<BusEstimatedTime[]>, Promise<Bus[]>] = [
         fetchStationEstimatedTime(station, city),
         fetchStationBusRoute(station, city),
       ];
-      const [busStops, busRoutes] = await Promise.all(fetchInfo);
-      const stops = busStops.map(stop => {
-        const route = busRoutes.find(({ RouteName }) => RouteName.Zh_tw === stop.RouteName.Zh_tw);
-        return route ? { ...stop, ...route } : stop;
+      const [stopsEstimatedTime, busRoutes] = await Promise.all(fetchInfo);
+      const stops = busRoutes.map(bus => {
+        const estimatedTime = stopsEstimatedTime.find(({ RouteName }) => {
+          return RouteName.Zh_tw === bus.RouteName.Zh_tw;
+        });
+        return { ...bus, ...estimatedTime! };
       });
 
       setStops(stops);
     }
     getStationBuses();
-  }, [station])
+  }, [station]);
+
+  function sortStopsByEstimatedTime() {
+    const cloneStops = [...stops];
+
+    cloneStops.sort((a, b) => {
+      const estimatedTimeA = a.EstimateTime ?? 0;
+      const estimatedTimeB = b.EstimateTime ?? 0;
+
+      return a.StopStatus - b.StopStatus || estimatedTimeA - estimatedTimeB;
+    });
+    setStops(cloneStops);
+  }
 
   function backSearchPage() {
     setPage('route');
@@ -49,7 +63,7 @@ function NearbyStopStops({ fade }: Props) {
       </div>
       <div className="flex items-center justify-between px-6 pt-4 pb-10">
         <p className="text-lg font-bold">{station?.StationName?.Zh_tw}</p>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 cursor-pointer" onClick={sortStopsByEstimatedTime}>
           <img src={createImageSrc('icons/sort.png')} width="16" alt="" />
           <p>依到站時間排序</p>
         </div>

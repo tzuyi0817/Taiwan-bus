@@ -1,4 +1,4 @@
-import { BUS_STOP_STATUS, BUS_EVENT_TYPE, BusEvent } from '@/configs/bus';
+import { BUS_STOP_STATUS, BUS_EVENT_TYPE, BusEvent, BusStopStatusEnum } from '@/configs/bus';
 import type { BusStop, GeometryMap, BusEventType, BusStopStatus } from '@/types/bus';
 
 interface ShowBusStatusArgs {
@@ -20,7 +20,12 @@ export function showBusStatus({
 }: ShowBusStatusArgs) {
   if (isPitStop) return BUS_EVENT_TYPE[A2EventType];
   if (isPittingStop) return '即將進站';
-  return EstimateTime ? `${estimateTime} 分` : BUS_STOP_STATUS[StopStatus];
+  return EstimateTime
+    ? StopStatus === BusStopStatusEnum.NORMAL 
+      ? `${estimateTime} 分`
+      : new Date(Date.now() + EstimateTime * 1000)
+        .toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
+    : BUS_STOP_STATUS[StopStatus];
 }
 
 export function getBusStopStatus({ EstimateTime, A2EventType }: Partial<BusStop>) {

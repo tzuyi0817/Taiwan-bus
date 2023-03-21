@@ -226,50 +226,6 @@ export interface BusStation {
   VersionID: number;
 }
 
-export interface BusStationStop {
-  PlateNumb: string;
-  StopUID: string;
-  StopID: string;
-  StopName: {
-    Zh_tw: string;
-    En: string
-  };
-  RouteUID: string;
-  RouteID: string;
-  RouteName: {
-    Zh_tw: string;
-    En: string
-  };
-  SubRouteUID: string;
-  SubRouteID: string;
-  SubRouteName: {
-    Zh_tw: string;
-    En: string
-  };
-  Direction: BusDirection;
-  EstimateTime: number;
-  StopCountDown: number;
-  CurrentStop: string;
-  DestinationStop: string;
-  StopSequence: number;
-  StopStatus: BusStopStatus;
-  MessageType: number;
-  NextBusTime: string;
-  IsLastBus: boolean;
-  Estimates: Array<{
-    PlateNumb: string;
-    EstimateTime: number;
-    IsLastBus: boolean;
-    VehicleStopStatus: number;
-  }>;
-  DataTime: string;
-  TransTime: string;
-  SrcRecTime: string;
-  SrcTransTime: string;
-  SrcUpdateTime: string;
-  UpdateTime: string;
-}
-
 export interface GeometryMap {
   stop: Array<BusStopMap>;
   stopPit: Array<BusStopMap>;

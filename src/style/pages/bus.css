@@ -38,7 +38,7 @@
       text-sm
       justify-between;
       &_status {
-        @apply min-w-[88px] px-2 py-1 rounded-xl text-white text-center;
+        @apply min-w-[77px] px-2 py-1 rounded-xl text-white text-center;
       }
     }
   }

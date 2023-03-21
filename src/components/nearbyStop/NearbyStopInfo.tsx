@@ -1,14 +1,22 @@
 import BusFavorite from '@/components/common/BusFavorite';
 import { getBusStopStatus, showBusStatus } from '@/utils/busStop';
 import { BUS_STOP_STATUS_BACKGROUND, BusEvent } from '@/configs/bus';
-import type { BusStationStop, Bus } from '@/types/bus';
+import type { BusEstimatedTime, Bus } from '@/types/bus';
 
 interface Props {
-  stop: BusStationStop & Partial<Bus>;
+  stop: Bus & BusEstimatedTime;
 }
 
 function NearbyStopInfo({ stop }: Props) {
-  const { EstimateTime, StopStatus, RouteName, City, DepartureStopNameZh, DestinationStopNameZh, Direction } = stop;
+  const {
+    EstimateTime,
+    StopStatus,
+    RouteName,
+    City,
+    DepartureStopNameZh,
+    DestinationStopNameZh,
+    Direction,
+  } = stop;
   const A2EventType = EstimateTime === 0 ? BusEvent.PIT : BusEvent.LEFT;
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus({ EstimateTime, A2EventType });
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];

@@ -1,9 +1,13 @@
+export enum BusStopStatusEnum {
+  NORMAL = 0,
+}
+
 export const BUS_STOP_STATUS = {
-  0: '正常',
+  [BusStopStatusEnum.NORMAL]: '正常',
   1: '尚未發車',
-  2: '交管不停靠',
-  3: '末班車已過',
-  4: '今日未營運',
+  2: '交管不停',
+  3: '末班已過',
+  4: '今未營運',
 } as const;
 
 export const BUS_STOP_STATUS_BACKGROUND = {
