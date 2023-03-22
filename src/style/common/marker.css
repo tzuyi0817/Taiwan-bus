@@ -34,6 +34,9 @@
   .maker_stop_pit {
     @apply marker !w-[18px] !h-[18px] bg-secondary shadow-md;
   }
+  .marker_green {
+    @apply marker !w-4 !h-4 bg-green shadow-md;
+  }
   .marker_absolute {
     @apply
     absolute

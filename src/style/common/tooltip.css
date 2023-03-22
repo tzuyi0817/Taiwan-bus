@@ -26,4 +26,7 @@
   .tooltip_bus_pit {
     @apply !border-2 !border-white !rounded-full w-9 h-9 !bg-secondary before:!border-t-transparent;
   }
+  .tooltip_green {
+    @apply tooltip !bg-green before:!border-t-green;
+  }
 }
