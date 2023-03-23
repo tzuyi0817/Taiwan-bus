@@ -34,6 +34,7 @@ interface BusContext {
   setStations: Dispatch<SetStateAction<Array<BusStation>>>;
   setStation: Dispatch<SetStateAction<BusStation | undefined>>;
   resetMap: () => void;
+  resetStation: () => void;
 }
 
 const BusContext = createContext<BusContext>({} as BusContext);
@@ -58,7 +59,13 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
     setBus(undefined);
     setDirection(0);
     setBusStops({ 0: [], 1: [] });
+    resetStation();
     isDesignateStop.current = false;
+  }
+
+  function resetStation() {
+    setStations([]);
+    setStation(undefined);
   }
 
   return (
@@ -86,6 +93,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         setStations,
         setStation,
         resetMap,
+        resetStation,
       }}
     >
       {children}

@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { useAppSelector } from '@/hooks/useRedux';
 import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import BusStopInfo from '@/components/common/BusStopInfo';
@@ -40,14 +39,14 @@ function SearchBusDetail({ fade }: Props) {
     setUpdateTime,
     setDirection,
   } = useBus();
-  const city = useAppSelector(({ city }) => city.currentCity);
 
   useEffect(() => {
     if (!bus || updateTime > 0) return;
+    const { RouteName, City } = bus
 
     async function getBusStopRoute(): Promise<BusStops> {
       const params = generateParams({});
-      const result = await ajax.get(`/basic/v2/Bus/StopOfRoute/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+      const result = await ajax.get(`/basic/v2/Bus/StopOfRoute/City/${City}/${RouteName.Zh_tw}?${params}`);
 
       return result.reduce((map: BusStops, { Stops, Direction }: BusStopRoue) => {
         map[Direction] = Stops;
@@ -57,7 +56,7 @@ function SearchBusDetail({ fade }: Props) {
 
     async function getBusEstimatedTime() {
       const params = generateParams({});
-      const result = await ajax.get(`/basic/v2/Bus/EstimatedTimeOfArrival/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+      const result = await ajax.get(`/basic/v2/Bus/EstimatedTimeOfArrival/City/${City}/${RouteName.Zh_tw}?${params}`);
 
       return result.reduce((map: Map<string, BusEstimatedTime>, estimatedTime: BusEstimatedTime) => {
         const { Direction, StopID } = estimatedTime;
@@ -67,7 +66,7 @@ function SearchBusDetail({ fade }: Props) {
 
     async function getBusRealTimeNearStop() {
       const params = generateParams({});
-      const result = await ajax.get(`/basic/v2/Bus/RealTimeNearStop/City/${city}/${bus?.RouteName.Zh_tw}?${params}`);
+      const result = await ajax.get(`/basic/v2/Bus/RealTimeNearStop/City/${City}/${RouteName.Zh_tw}?${params}`);
 
       return result.reduce((map: Map<string, BusRealTimeNearStop>, realTimeNearStop: BusRealTimeNearStop) => {
         const { Direction, StopID } = realTimeNearStop;

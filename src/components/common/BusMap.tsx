@@ -13,9 +13,10 @@ import MapAutoReCenter from '@/components/common/MapAutoReCenter';
 import MapEvents from '@/components/common/MapEvents';
 import BusIcon from '@/components/common/BusIcon';
 import SwitchBlock from '@/components/common/SwitchBlock';
+import { BusStopStatusEnum, BUS_STOP_TOOLTIP_CLASS } from '@/configs/bus';
 import { SELF_MARKER, STOP_MARKER, PIT_MARKER, GREEN_MARKER } from '@/configs/marker';
 import { getGeometryMap, getZoomInGeometryMap } from '@/utils/busStop';
-import type { StopLine, BusStopMap, BusStation } from '@/types/bus';
+import type { StopLine, BusStopMap, BusStation, BusStopStatus } from '@/types/bus';
 import type { Page } from '@/types/page';
 
 interface Props {
@@ -28,6 +29,7 @@ interface StopMarkerProps {
   isShowTooltip: boolean;
   station?: BusStation;
   isSelected?: boolean;
+  stopStatus?: BusStopStatus;
   setStation?: Dispatch<SetStateAction<BusStation | undefined>>;
   setPage?: Dispatch<SetStateAction<Page>>;
 }
@@ -67,7 +69,6 @@ function SearchBusMap({ fade }: Props) {
     setStopsLine(geometryMap.line);
     if (isDesignateStop.current || !centerPos) return;
     setMapCenterPos([centerPos.PositionLat, centerPos.PositionLon]);
-    // `/v2/Bus/Shape/City/${city}/${bus?.RouteName.Zh_tw}?${params}
   }, [bus, direction, busStops, mapZoom]);
 
   useEffect(() => {
@@ -101,8 +102,13 @@ function SearchBusMap({ fade }: Props) {
           {stopsLine.map(({ color, geometry }, index) => {
             return <Polyline pathOptions={{ color }} positions={geometry} key={index} />
           })}
-          {stopsGeometry.map(({ geometry, stopName, status }, index) => {
-            return <StopMarker position={geometry} key={index} isShowTooltip={isZoomIn && isShowStopInfo}>
+          {stopsGeometry.map(({ geometry, stopName, status, stopStatus }, index) => {
+            return <StopMarker
+              position={geometry}
+              key={index}
+              isShowTooltip={isZoomIn && isShowStopInfo}
+              stopStatus={stopStatus}
+            >
               <p>{stopName}</p>
               <h5>{status}</h5>
             </StopMarker>;
@@ -162,9 +168,11 @@ function StopMarker({
   isShowTooltip,
   station,
   isSelected,
+  stopStatus,
   setStation,
   setPage,
 }: StopMarkerProps) {
+  const status = stopStatus ?? BusStopStatusEnum.NORMAL;
   const tooltipEvent = useMemo(() => ({
     click() {
       setStation?.(station);
@@ -179,7 +187,7 @@ function StopMarker({
         offset={[0, -10]}
         opacity={1}
         permanent
-        className={isSelected ? 'tooltip_green' : 'tooltip_base'}
+        className={isSelected ? 'tooltip_green' : BUS_STOP_TOOLTIP_CLASS[status]}
         eventHandlers={tooltipEvent}
         interactive
       >

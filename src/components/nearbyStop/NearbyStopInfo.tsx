@@ -1,3 +1,4 @@
+import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import { getBusStopStatus, showBusStatus } from '@/utils/busStop';
 import { BUS_STOP_STATUS_BACKGROUND, BusEvent } from '@/configs/bus';
@@ -8,6 +9,7 @@ interface Props {
 }
 
 function NearbyStopInfo({ stop }: Props) {
+  const { setBus, setPage, setUpdateTime, resetStation } = useBus();
   const {
     EstimateTime,
     StopStatus,
@@ -21,8 +23,15 @@ function NearbyStopInfo({ stop }: Props) {
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus({ EstimateTime, A2EventType });
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
 
+  function goDetailPage() {
+    resetStation();
+    setBus(stop);
+    setPage('detail');
+    setUpdateTime(0);
+  }
+
   return (
-    <li className="bus_info py-3 px-0">
+    <li className="bus_info py-3 px-0" onClick={goDetailPage}>
       <div className={`bus_info_status ${background}`}>
         {showBusStatus({ A2EventType, estimateTime, isPitStop, isPittingStop, EstimateTime, StopStatus })}
       </div>

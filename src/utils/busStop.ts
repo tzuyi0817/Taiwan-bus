@@ -49,6 +49,7 @@ export function getZoomInGeometryMap(stops: BusStop[]) {
       status,
       isPit: isPitStop,
       stopName: stop.StopName.Zh_tw,
+      stopStatus: stop.StopStatus,
     };
 
     isPit ? map.stopPit.push(busStopMap) : map.stop.push(busStopMap);
@@ -78,12 +79,13 @@ export function getGeometryMap(stops: BusStop[]) {
   const lastStop = stops.at(-1);
   if (!firstStop || !lastStop) return geometryMap;
 
-  geometryMap.stop = [firstStop, lastStop].map(({ StopPosition }) => {
+  geometryMap.stop = [firstStop, lastStop].map(({ StopPosition, StopName, StopStatus }) => {
     return {
       geometry: [StopPosition.PositionLat, StopPosition.PositionLon],
       status: '',
       isPit: false,
-      stopName: '',
+      stopName: StopName.Zh_tw,
+      stopStatus: StopStatus,
     };
   });
   
@@ -100,7 +102,8 @@ export function getGeometryMap(stops: BusStop[]) {
       geometry,
       status: '',
       isPit: true,
-      stopName: '',
+      stopName: stop.StopName.Zh_tw,
+      stopStatus: stop.StopStatus,
     });
     geometryMap.line.push({ color: '#355F8B', geometry: [geometry, nextGeometry] });
   }

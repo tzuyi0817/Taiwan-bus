@@ -29,4 +29,7 @@
   .tooltip_green {
     @apply tooltip !bg-green before:!border-t-green;
   }
+  .tooltip_gray {
+    @apply tooltip !bg-gray-600 before:!border-t-gray-600;
+  }
 }
