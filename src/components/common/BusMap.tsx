@@ -44,6 +44,7 @@ function SearchBusMap({ fade }: Props) {
   const { position } = useGeolocation();
   const {
     bus,
+    page,
     direction,
     busStops,
     station,
@@ -57,6 +58,7 @@ function SearchBusMap({ fade }: Props) {
     setPage,
   } = useBus();
   const isZoomIn = mapZoom > 14;
+  const isDetail = page === 'detail';
 
   useEffect(() => {
     if (!bus) return clearMap();
@@ -133,7 +135,7 @@ function SearchBusMap({ fade }: Props) {
               </Tooltip>
             </Marker>
           })}
-          {stations.map((item, index) => {
+          {!isDetail && stations.map((item, index) => {
             const { StationPosition: { PositionLat, PositionLon }, StationName, StationUID } = item;
             const isSelected = StationUID === station?.StationUID;
   

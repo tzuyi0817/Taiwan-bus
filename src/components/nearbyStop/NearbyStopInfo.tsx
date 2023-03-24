@@ -24,7 +24,6 @@ function NearbyStopInfo({ stop }: Props) {
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
 
   function goDetailPage() {
-    resetStation();
     setBus(stop);
     setPage('detail');
     setUpdateTime(0);

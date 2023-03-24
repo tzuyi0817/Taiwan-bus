@@ -25,7 +25,7 @@ function SearchBusCrumb({ page }: Props) {
 
   function goIndex() {
     navigate('/');
-    resetMap();
+    resetMap(true);
     dispatch(cityActions.updateCity(''));
   }
 

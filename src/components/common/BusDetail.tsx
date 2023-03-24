@@ -118,7 +118,7 @@ function SearchBusDetail({ fade }: Props) {
   }
 
   function backSearchPage() {
-    resetMap();
+    resetMap(false);
     toggleTab(0);
     setAnimationTime(0);
     isUpdateRoute.current = false;

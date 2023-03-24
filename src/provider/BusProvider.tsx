@@ -33,7 +33,7 @@ interface BusContext {
   setBusStops: Dispatch<SetStateAction<BusStops>>;
   setStations: Dispatch<SetStateAction<Array<BusStation>>>;
   setStation: Dispatch<SetStateAction<BusStation | undefined>>;
-  resetMap: () => void;
+  resetMap: (isRestStation: boolean) => void;
   resetStation: () => void;
 }
 
@@ -52,14 +52,14 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
   const [station, setStation] = useState<BusStation>();
   const isDesignateStop = useRef(false);
 
-  function resetMap() {
+  function resetMap(isRestStation: boolean) {
     setPage('route');
     toggleMap(false);
     setMapZoom(12);
     setBus(undefined);
     setDirection(0);
     setBusStops({ 0: [], 1: [] });
-    resetStation();
+    isRestStation && resetStation();
     isDesignateStop.current = false;
   }
 

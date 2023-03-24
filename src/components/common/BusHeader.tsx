@@ -45,7 +45,7 @@ function BusHeader() {
 
   function goPage(path: string) {
     navigate(path);
-    resetMap();
+    resetMap(true);
     dispatch(cityActions.updateCity(''));
   }
 
