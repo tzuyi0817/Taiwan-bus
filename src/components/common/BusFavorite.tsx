@@ -1,38 +1,48 @@
-import { useState, useRef, type MouseEvent } from 'react';
+import { useState, useRef, useMemo, type MouseEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
 import Popup from '@/components/common/Popup';
 import { favoriteActions } from '@/store/favorite';
 import { favorite, favorite_active } from '@/configs/svg';
-import type { Bus } from '@/types/bus';
+import type { Bus, BusSite } from '@/types/bus';
 
 interface Props {
   bus?: Bus;
+  site?: BusSite;
+  type: 'bus' | 'site';
 }
 
 const Logo = tw.div`rounded-full w-16 h-16 text-white text-4xl flex justify-center items-center m-auto`;
 
-function BusFavorite({ bus }: Props) {
+function BusFavorite({ bus, type, site }: Props) {
   const [isShowPopup, togglePopup] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const favoriteList = useAppSelector(({ favorite }) => favorite.favoriteList) ?? [];
+  const favoriteBus = useAppSelector(({ favorite }) => favorite.favoriteBus) ?? [];
+  const favoriteSite = useAppSelector(({ favorite }) => favorite.favoriteSite) ?? [];
   const popupType = useRef<'add' | 'remove'>('add');
-  const isFavorite = favoriteList.some(({ RouteID }) => RouteID === bus?.RouteID);
+  const isFavorite = useMemo(() => {
+    return type === 'bus' 
+      ? favoriteBus.some(({ RouteID }) => RouteID === bus?.RouteID)
+      : favoriteSite.some(({ RouteID, Direction }) => {
+          return site?.RouteID === RouteID && site?.Direction === Direction;
+        });
+  }, [type, bus, site, favoriteBus.length, favoriteSite.length]);
 
   function toggleFavorite(event: MouseEvent) {
-    if (!bus) return;
     event.stopPropagation();
     togglePopup(true);
 
     if (isFavorite) {
       popupType.current = 'remove';
-      dispatch(favoriteActions.removeFavorite(bus.RouteID));
+      bus && dispatch(favoriteActions.removeFavoriteBus(bus.RouteID));
+      site && dispatch(favoriteActions.removeFavoriteSite(site));
       return;
     }
     popupType.current = 'add';
-    dispatch(favoriteActions.addFavorite(bus));
+    bus && dispatch(favoriteActions.addFavoriteBus(bus));
+    site && dispatch(favoriteActions.addFavoriteSite(site));
   }
 
   function togglePrompt(event: MouseEvent) {

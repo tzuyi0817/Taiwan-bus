@@ -4,14 +4,14 @@ import NearbyStopInfo from '@/components/nearbyStop/NearbyStopInfo';
 import { fetchStationEstimatedTime, fetchStationBusRoute } from '@/apis/station';
 import { createImageSrc } from '@/utils/images';
 import { CITY_CODE_MAP } from '@/configs/city';
-import type { BusEstimatedTime, Bus, BusRealTimeNearStop } from '@/types/bus';
+import type { BusEstimatedTime, Bus, BusSite } from '@/types/bus';
 
 interface Props {
   fade: string;
 }
 
 function NearbyStopStops({ fade }: Props) {
-  const [stops, setStops] = useState<Array<Bus & BusEstimatedTime>>([]);
+  const [stops, setStops] = useState<Array<BusSite>>([]);
   const { station, setPage, setStation } = useBus();
 
   useEffect(() => {
@@ -29,7 +29,7 @@ function NearbyStopStops({ fade }: Props) {
         const estimatedTime = stopsEstimatedTime.find(({ RouteName }) => {
           return RouteName.Zh_tw === bus.RouteName.Zh_tw;
         });
-        return { ...bus, ...estimatedTime! };
+        return { ...bus, ...estimatedTime!, StationName: station.StationName };
       });
 
       setStops(stops);

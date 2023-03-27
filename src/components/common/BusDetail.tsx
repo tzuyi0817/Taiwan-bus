@@ -130,7 +130,7 @@ function SearchBusDetail({ fade }: Props) {
         <div className="bus_detail_back" onClick={backSearchPage}>
           <img src={createImageSrc('icons/back.png')} alt="" />返回搜尋
         </div>
-        <BusFavorite bus={bus} />
+        <BusFavorite bus={bus} type="bus" />
       </div>
       <p className="text-3xl font-bold text-center">{bus?.RouteName?.Zh_tw}</p>
       <p className="text-center mt-2 mb-5">{bus ? BUS_ROUTE_TYPE[bus.BusRouteType] : ''}</p>

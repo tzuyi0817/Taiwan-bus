@@ -1,23 +1,35 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Bus } from '@/types/bus';
+import { Bus, BusSite } from '@/types/bus';
 
 interface State {
-  favoriteList: Bus[];
+  favoriteBus: Bus[];
+  favoriteSite: BusSite[];
 }
 
 const initialFavoriteSate: State = {
-  favoriteList: [],
+  favoriteBus: [],
+  favoriteSite: [],
 };
 
 const favoriteSlice = createSlice({
   name: 'favorite',
   initialState: initialFavoriteSate,
   reducers: {
-    addFavorite(state, action: PayloadAction<Bus>) {
-      state.favoriteList.push(action.payload);
+    addFavoriteBus(state, action: PayloadAction<Bus>) {
+      state.favoriteBus.push(action.payload);
     },
-    removeFavorite(state, action: PayloadAction<string>) {
-      state.favoriteList = state.favoriteList.filter(({ RouteID }) => RouteID !== action.payload);
+    removeFavoriteBus(state, action: PayloadAction<string>) {
+      state.favoriteBus = state.favoriteBus.filter(({ RouteID }) => RouteID !== action.payload);
+    },
+    addFavoriteSite(state, action: PayloadAction<BusSite>) {
+      state.favoriteSite.push(action.payload);
+    },
+    removeFavoriteSite(state, action: PayloadAction<BusSite>) {
+      const { RouteID, Direction } = action.payload;
+  
+      state.favoriteSite = state.favoriteSite.filter(site => {
+        return site.RouteID !== RouteID && site.Direction !== Direction;
+      });
     }
   }
 });

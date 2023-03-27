@@ -171,6 +171,13 @@ export interface BusRealTimeNearStop {
   UpdateTime: string;
 }
 
+export interface BusSite extends Bus, BusEstimatedTime {
+  StationName: {
+    Zh_tw: string;
+    En: string;
+  };
+}
+
 export interface BusShape {
   RouteUID: string;
   RouteID: string;

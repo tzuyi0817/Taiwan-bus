@@ -2,14 +2,14 @@ import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import { getBusStopStatus, showBusStatus } from '@/utils/busStop';
 import { BUS_STOP_STATUS_BACKGROUND, BusEvent } from '@/configs/bus';
-import type { BusEstimatedTime, Bus } from '@/types/bus';
+import type { BusSite } from '@/types/bus';
 
 interface Props {
-  stop: Bus & BusEstimatedTime;
+  stop: BusSite;
 }
 
 function NearbyStopInfo({ stop }: Props) {
-  const { setBus, setPage, setUpdateTime, resetStation } = useBus();
+  const { setBus, setPage, setUpdateTime } = useBus();
   const {
     EstimateTime,
     StopStatus,
@@ -41,7 +41,7 @@ function NearbyStopInfo({ stop }: Props) {
         </p>
       </div>
       <div className="flex flex-col items-end gap-1">
-        <BusFavorite />
+        <BusFavorite site={stop} type="site" />
         <p className="text-sm text-gray-600">{City}</p>
       </div>
     </li>

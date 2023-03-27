@@ -23,7 +23,7 @@ function BusItem({ bus }: Props) {
         <p className="text-sm text-gray-600">{`${DepartureStopNameZh} - ${DestinationStopNameZh}`}</p>
       </div>
       <div className="flex flex-col items-end gap-1">
-        <BusFavorite bus={bus} />
+        <BusFavorite bus={bus} type="bus" />
         <p className="text-sm text-gray-600">{City}</p>
       </div>
     </li>
