@@ -9,7 +9,7 @@ import type { CityCode, City } from '@/types/city';
 export type BusStopStatus = BusStopStatusEnum;
 export type BusEventType = BusEvent;
 export type BusRouteType = keyof typeof BUS_ROUTE_TYPE;
-export type BusCrumb = keyof typeof BUS_CRUMB;
+export type BusCrumbType = keyof typeof BUS_CRUMB;
 export type BusDirection = 0 | 1;
 export type BusStops = Record<BusDirection, BusStop[]>;
 
