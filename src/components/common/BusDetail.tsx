@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from 'react';
 import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import BusStopInfo from '@/components/common/BusStopInfo';
+import BusTab from '@/components/common/BusTab';
 import BusTimer from '@/components/common/BusTimer';
 import { createImageSrc } from '@/utils/images';
 import ajax from '@/utils/ajax';
@@ -39,6 +40,10 @@ function SearchBusDetail({ fade }: Props) {
     setUpdateTime,
     setDirection,
   } = useBus();
+  const options = [
+    { title: <>往<span>{bus?.DestinationStopNameZh}</span></>, value: 0 },
+    { title: <>往<span>{bus?.DepartureStopNameZh}</span></>, value: 1 },
+  ];
 
   useEffect(() => {
     if (!bus || updateTime > 0) return;
@@ -134,14 +139,7 @@ function SearchBusDetail({ fade }: Props) {
       </div>
       <p className="text-3xl font-bold text-center">{bus?.RouteName?.Zh_tw}</p>
       <p className="text-center mt-2 mb-5">{bus ? BUS_ROUTE_TYPE[bus.BusRouteType] : ''}</p>
-      <div className="flex">
-        <div className={`bus_tab ${direction === 0 ? 'bus_tab-active' : ''}`} onClick={() => toggleTab(0)}>
-          往<span>{bus?.DestinationStopNameZh}</span>
-        </div>
-        <div className={`bus_tab ${direction === 1 ? 'bus_tab-active' : ''}`} onClick={() => toggleTab(1)}>
-          往<span>{bus?.DepartureStopNameZh}</span>
-        </div>
-      </div>
+      <BusTab options={options} value={direction} toggleTab={toggleTab} />
       <ul className="flex-1 overflow-y-auto pt-3 pb-16" ref={BusStopsRef}>
         {busStops[direction].map(stop => <BusStopInfo key={stop.StopID} stop={stop} />)}
       </ul>
