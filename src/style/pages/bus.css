@@ -7,12 +7,34 @@
       @apply bg-white p-5 shadow-sm h-full;
     }
     &_tab {
-      @apply py-3 flex-1 text-center text-sm bg-[#E0E0E0] rounded-t-md transition-all duration-300;
+      @apply
+      py-3
+      flex-1
+      text-center
+      text-sm
+      bg-[#E0E0E0]
+      rounded-t-md
+      transition-all
+      duration-300
+      cursor-pointer
+      hover:text-white;
       span {
         @apply font-bold ml-2;
       }
       &-active {
-        @apply bg-primary text-white;
+        @apply text-white;
+      }
+      &:nth-child(odd) {
+        @apply hover:bg-primary;
+        &.bus_tab-active {
+          @apply bg-primary;
+        }
+      }
+      &:nth-child(even) {
+        @apply hover:bg-secondary;
+        &.bus_tab-active {
+          @apply bg-secondary;
+        }
       }
     }
     &_item {
