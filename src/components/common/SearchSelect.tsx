@@ -9,21 +9,42 @@ interface Props {
 function SearchSelect(props: Props) {
   return (
     <Select
-      className="w-full max-w-[335px]"
+      className="searchSelect"
+      placeholder={<div>請選擇縣市</div>}
       {...props}
-      theme={(theme) => ({
-        ...theme,
-        colors: {
-          ...theme.colors,
-          primary: '#A8B8A5',
-          primary25: 'rgba(127, 151, 123, 0.2)',
-          neutral80: '#7F977B'
-        },
-      })}
       styles={{
-        control: (baseStyles) => ({
+        control: (baseStyles, { isFocused }) => ({
           ...baseStyles,
-          padding: '6px 10px 6px 16px',
+          padding: '4px 8px',
+          'border-radius': '10px',
+          'border-style': 'none',
+          background: isFocused ? '#D5D5D5' : '#EEEEEE',
+          'box-shadow': isFocused ? '0px 3px 10px rgba(0, 0, 0, 0.15)' : 'none',
+        }),
+        menuList: (baseStyles) => ({
+          ...baseStyles,
+          '::-webkit-scrollbar': {
+            width: '4px',
+            height: '4px',
+          },
+          '::-webkit-scrollbar-track': {
+            'border-radius': '10px',
+            background: '#D5D5D5',
+          },
+          '::-webkit-scrollbar-thumb': {
+            'border-radius': '10px',
+            background: '#888888',
+          },
+        }),
+        option: (baseStyles, { isSelected }) => ({
+          ...baseStyles,
+          background: isSelected ? '#EEEEEE' : '#FFFFFF',
+          color: '#000',
+          padding: '12px 16px',
+          cursor: 'pointer',
+          '&:hover': {
+            background: '#EEEEEE',
+          },
         }),
       }}
     />
