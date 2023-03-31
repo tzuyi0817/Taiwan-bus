@@ -9,7 +9,7 @@ interface Props {
 
 function BusTab({ options, value, toggleTab }: Props) {
   return (
-    <div className="flex">
+    <div className="flex w-full">
       {options.map(option => {
         return (
           <div

@@ -9,7 +9,8 @@
     pl-4
     pr-9
     py-3
-    focus:outline-none
+    outline-none
+    transition-all
     focus:shadow-md
     focus:bg-gray-500;
   }
