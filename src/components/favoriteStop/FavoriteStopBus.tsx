@@ -23,7 +23,7 @@ function FavoriteStopBus({ city }: Props) {
       : favoriteBus;
 
     setFavorites(list);
-  }, [city]);
+  }, [city, favoriteBus]);
 
   function redirectSearchBus({ City }: Bus) {
     dispatch(cityActions.updateCity(City));

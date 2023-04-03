@@ -4,9 +4,8 @@ import useGeolocation from '@/hooks/useGeolocation';
 import SearchBar from '@/components/common/SearchBar';
 import NearbyStopStation from '@/components/nearbyStop/NearbyStopStation';
 import BusPrompt from '@/components/common/BusPrompt';
-import ajax from '@/utils/ajax';
-import generateParams from '@/utils/generateParams';
-import { debounce, calculateDistance } from '@/utils/common';
+import { fetchStationNearBy } from '@/apis/station';
+import { debounce } from '@/utils/common';
 import type { BusStation } from '@/types/bus';
 import type { Coordinate } from '@/types/common';
 
@@ -14,7 +13,7 @@ interface Props {
   fade: string;
 }
 
-function SearchStopBlock({ fade }: Props) {
+function NearbyStopBlock({ fade }: Props) {
   const [keyword, setKeyword] = useState('');
   const [isShowPrompt, togglePrompt] = useState(false);
   const [filterStations, setFilterStation] = useState<BusStation[]>([]);
@@ -22,8 +21,8 @@ function SearchStopBlock({ fade }: Props) {
   const searchInput = useRef<HTMLInputElement>(null);
   const { position } = useGeolocation();
 
-  const handlerSearch = useCallback(debounce(((keyword: string) => {
-    const list = keyword 
+  const handlerSearch = useCallback(debounce(((keyword: string, stations: BusStation[]) => {
+    const list = keyword !== ''
       ? stations.filter(({ StationName }) => StationName.Zh_tw.includes(keyword) )
       : stations;
 
@@ -31,20 +30,8 @@ function SearchStopBlock({ fade }: Props) {
     togglePrompt(list.length === 0);
   })), []);
 
-  async function fetchStations({ lat, lng }: Coordinate) {
-    const params = generateParams({
-      $spatialFilter : `nearby(${lat}, ${lng}, 1000)`,
-    });
-    const result = await ajax.get(`/advanced/v2/Bus/Station/NearBy?${params}`);
-    const stations = result.map((station: BusStation) => {
-      const { StationPosition: { PositionLat, PositionLon } } = station;
-      const stationPosition = { lat: PositionLat, lng: PositionLon };
-  
-      return {
-        ...station,
-        distance: calculateDistance({ lat, lng }, stationPosition),
-      };
-    });
+  async function fetchStations(position: Coordinate) {
+    const stations = await fetchStationNearBy(position);
 
     setStations(stations);
   }
@@ -54,8 +41,8 @@ function SearchStopBlock({ fade }: Props) {
   }, [position]);
 
   useEffect(() => {
-    handlerSearch(keyword);
-  }, [keyword, handlerSearch]);
+    handlerSearch(keyword, stations);
+  }, [keyword, stations, handlerSearch]);
 
 
   return (
@@ -75,4 +62,4 @@ function SearchStopBlock({ fade }: Props) {
   )
 }
 
-export default SearchStopBlock;
+export default NearbyStopBlock;

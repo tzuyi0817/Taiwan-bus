@@ -47,7 +47,7 @@ function SearchBusDetail({ fade }: Props) {
 
   useEffect(() => {
     if (!bus || updateTime > 0) return;
-    const { RouteName, City } = bus
+    const { RouteName, City } = bus;
 
     async function getBusStopRoute(): Promise<BusStops> {
       const params = generateParams({});
@@ -108,6 +108,7 @@ function SearchBusDetail({ fade }: Props) {
         setAnimationTime(30);
         isUpdateRoute.current = true;
       });
+      bus?.Direction && toggleTab(bus?.Direction);
   }, [bus, updateTime]);
 
   useEffect(() => {

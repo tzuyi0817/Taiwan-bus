@@ -1,0 +1,7 @@
+@import 'tailwindcss/components';
+
+@layer components {
+  .text_hover {
+    @apply hover:text-primary transition-colors cursor-pointer;
+  }
+}

@@ -1,10 +1,11 @@
 import { useState, useRef, useMemo, type MouseEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
 import Popup from '@/components/common/Popup';
 import { favoriteActions } from '@/store/favorite';
 import { favorite, favorite_active } from '@/configs/svg';
+import { FAVORITE_TYPE_MAP } from '@/configs/favorite';
 import type { Bus, BusSite } from '@/types/bus';
 
 interface Props {
@@ -18,6 +19,7 @@ const Logo = tw.div`rounded-full w-16 h-16 text-white text-4xl flex justify-cent
 function BusFavorite({ bus, type, site }: Props) {
   const [isShowPopup, togglePopup] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
   const dispatch = useAppDispatch();
   const favoriteBus = useAppSelector(({ favorite }) => favorite.favoriteBus) ?? [];
   const favoriteSite = useAppSelector(({ favorite }) => favorite.favoriteSite) ?? [];
@@ -32,7 +34,7 @@ function BusFavorite({ bus, type, site }: Props) {
 
   function toggleFavorite(event: MouseEvent) {
     event.stopPropagation();
-    togglePopup(true);
+    location.pathname !== '/favoriteStop' && togglePopup(true);
 
     if (isFavorite) {
       popupType.current = 'remove';
@@ -73,7 +75,12 @@ function BusFavorite({ bus, type, site }: Props) {
         </h2>
         <div className="flex justify-center gap-2">
           <button className="btn_line" onClick={togglePrompt}>關閉</button>
-          <button className="btn_base" onClick={() => navigate('/favoriteStop')}>查看收藏</button>
+          <button
+            className="btn_base"
+            onClick={() => navigate(`/favoriteStop?type=${FAVORITE_TYPE_MAP[type]}`)}
+          >
+            查看收藏
+          </button>
         </div>
       </Popup>
     </>

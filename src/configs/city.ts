@@ -108,7 +108,6 @@ export const CITY_CODE_MAP = {
   PEN: 'PenghuCountry',
   KIN:'KinmenCountry',
   LIE:'LianjiangCountry',
-
 } as const;
 
 export const CITY_KEYS = Object.keys(CITY_MAP) as Array<City>;

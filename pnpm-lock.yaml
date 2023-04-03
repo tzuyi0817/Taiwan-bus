@@ -28,6 +28,7 @@ specifiers:
   tailwind-styled-components: ^2.2.0
   tailwindcss: ^3.2.4
   typescript: ^4.9.3
+  vanilla-tilt: ^1.8.0
   vite: ^4.0.0
 
 dependencies:
@@ -41,6 +42,7 @@ dependencies:
   react-router-dom: 6.6.2_biqbaboplfbrettd7655fr4n2y
   react-select: 5.7.2_ib3m5ricvtkl2cll7qpr2f6lvq
   redux-persist: 6.0.0_react@18.2.0
+  vanilla-tilt: 1.8.0
 
 devDependencies:
   '@reduxjs/toolkit': 1.9.1_k4ae6lp43ej6mezo3ztvx6pykq
@@ -1851,6 +1853,10 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
     dev: true
+
+  /vanilla-tilt/1.8.0:
+    resolution: {integrity: sha512-wVCHyyfRuiRdKhDTNxKPb60lkagmywDSqLgFETEr71Sm646AvGxuf/14Kx9A8FaISyYvMoKQHk6FTqt+YLGhEw==}
+    dev: false
 
   /vite/4.0.4_@types+node@18.11.18:
     resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}

@@ -39,6 +39,7 @@ export interface Bus {
   CityCode: string;
   UpdateTime: string;
   VersionID: number;
+  Direction?: BusDirection;
 }
 
 interface BusOperators {

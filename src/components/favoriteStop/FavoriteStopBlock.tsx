@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import BusTab from '@/components/common/BusTab';
 import SearchSelect from '@/components/common/SearchSelect';
 import FavoriteStopBus from '@/components/favoriteStop/FavoriteStopBus';
@@ -15,6 +15,14 @@ const TAB_OPTIONS = [
 function FavoriteStopBlock() {
   const [type, setType] = useState(FavoriteTypeEnum.STOP);
   const [selectedOption, setSelectedOption] = useState<SelectOption>();
+
+  useEffect(() => {
+    const siteUrl = window.location.search;
+    const pageType = new URLSearchParams(siteUrl).get('type');
+
+    if (!pageType) return;
+    setType(+pageType);
+  }, []);
 
   return (
     <div className="h-full bg-white">

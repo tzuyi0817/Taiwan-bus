@@ -25,6 +25,8 @@ const Header = tw.header`
   bg-white
   z-[9999]
   transition-all
+  md:px-20
+  md:py-5
 `;
 const MenuItem =  tw.li`block px-3 py-4 border-b-[1px] border-[#E7E7E7]`;
 
@@ -52,10 +54,19 @@ function BusHeader() {
   return (
     <Header>
       <HeaderLogo goPage={goPage} />
-      <div className="flex gap-5 items-center">
-        <p onClick={() => goPage('/nearbyStop')}>附近站牌</p>
-        <img src={createImageSrc('icons/menu.png')} alt="" onClick={() => toggleMenu(true)} />
-      </div>
+      <ul className="flex gap-5 items-center md:gap-14">
+        <li className="text_hover md:text-base" onClick={() => goPage('/nearbyStop')}>附近站牌</li>
+        <li
+          className="text_hover hidden md:contents md:text-base"
+          onClick={() => goPage('/favoriteStop')}
+        >
+          我的收藏
+        </li>
+        <li>
+          <img className="md:hidden" src={createImageSrc('icons/menu.png')} alt="" onClick={() => toggleMenu(true)} />
+        </li>
+      </ul>
+      <HeaderI18n propClass="hidden md:flex" />
       <HeaderMenu isOpenMenu={isOpenMenu} toggleMenu={toggleMenu} goPage={goPage} />
     </Header>
   )
@@ -63,12 +74,22 @@ function BusHeader() {
 
 function HeaderLogo({ goPage }: HeaderLogoProps) {
   return (
-    <div className="flex gap-3 items-center" onClick={() => goPage('/')}>
+    <div className="text_hover flex gap-3 items-center" onClick={() => goPage('/')}>
       <img src={createImageSrc('images/logo-bus.svg')} alt="" className="w-10" />
       <div>
         <h4>台灣公車 e 點通</h4>
         <p>Taiwan Bus+</p>
       </div>
+    </div>
+  )
+}
+
+function HeaderI18n({ propClass }: { propClass?: string }) {
+  return (
+    <div className={`justify-center items-center py-5 ${propClass} md:text-base`}>
+      <img className="w-5" src={createImageSrc('icons/language.png')} alt="" />
+      <button className="text_hover font-bold ml-2 mr-1">中文</button>｜
+      <button className="text_hover mx-1">英文</button>
     </div>
   )
 }
@@ -80,22 +101,18 @@ function HeaderMenu({ isOpenMenu, toggleMenu, goPage }: HeaderMenuProps) {
 
   return (
     <>
-      <div className={`mask ${isOpenMenu ? 'fadeIn' : 'fadeOut'}`} onClick={closeMenu}></div>
-      <div className={`bg-white fixed top-0 right-0 w-64 h-screen z-[9999] ${isOpenMenu ? 'block fadeIn' : 'fadeOut md:relative'}`}>
+      <div className={`mask md:hidden ${isOpenMenu ? 'fadeIn' : 'fadeOut'}`} onClick={closeMenu}></div>
+      <div className={`bg-white fixed top-0 right-0 w-64 h-screen z-[9999] md:hidden ${isOpenMenu ? 'block fadeIn' : 'fadeOut md:relative'}`}>
         <div className="flex p-5 items-center justify-between border-b-[1px] border-[#E7E7E7]" onClick={closeMenu}>
           <HeaderLogo goPage={goPage} />
           <img src={createImageSrc('icons/close.png')} alt="" />
         </div>
         <ul onClick={closeMenu}>
-          <MenuItem onClick={() => goPage('/')}>路線規劃</MenuItem>
-          <MenuItem onClick={() => goPage('/searchStop')}>站點查詢</MenuItem>
+          {/* <MenuItem onClick={() => goPage('/')}>路線規劃</MenuItem>
+          <MenuItem onClick={() => goPage('/searchStop')}>站點查詢</MenuItem> */}
           <MenuItem onClick={() => goPage('/favoriteStop')}>我的收藏</MenuItem>
         </ul>
-        <div className="flex justify-center py-5">
-          <img src={createImageSrc('icons/language.png')} alt="" />
-          <button className="font-bold ml-2 mr-1">中文</button>｜
-          <button className="mx-1">英文</button>
-        </div>
+        <HeaderI18n propClass="flex" />
       </div>
     </>
   )

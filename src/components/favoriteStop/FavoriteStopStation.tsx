@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { cityActions } from '@/store/city';
+import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import BusPrompt from '@/components/common/BusPrompt';
 import { CITY_ABRIDGE_MAP } from '@/configs/city';
@@ -11,7 +15,10 @@ interface Props {
 
 function FavoriteStopStation({ city }: Props) {
   const [favorites, setFavorites] = useState<BusSite[]>([]);
+  const navigate = useNavigate();
+  const { setBus, setPage, setUpdateTime } = useBus();
   const favoriteSite = useAppSelector(({ favorite }) => favorite.favoriteSite);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const list = city 
@@ -19,10 +26,15 @@ function FavoriteStopStation({ city }: Props) {
       : favoriteSite;
 
     setFavorites(list);
-  }, [city]);
+  }, [city, favoriteSite]);
 
   function redirectDetail(stop: BusSite) {
     console.log({ stop });
+    dispatch(cityActions.updateCity(stop.City));
+    navigate('/searchBus');
+    setBus(stop);
+    setPage('detail');
+    setUpdateTime(0);
   }
 
   return (

@@ -2,10 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import SearchBar from '@/components/common/SearchBar';
 import BusItem from '@/components/common/BusItem';
 import BusPrompt from '@/components/common/BusPrompt';
-import ajax from '@/utils/ajax';
-import generateParams from '@/utils/generateParams';
 import { debounce } from '@/utils/common';
-import { createImageSrc } from '@/utils/images';
 import type { Bus } from '@/types/bus';
 
 interface Props {
