@@ -3,9 +3,9 @@ import { useAppSelector } from '@/hooks/useRedux';
 import SearchBar from '@/components/common/SearchBar';
 import SearchBusKeyboard from '@/components/searchBus/SearchBusKeyboard';
 import BusItem from '@/components/common/BusItem';
+import BusPrompt from '@/components/common/BusPrompt';
 import { fetchBusRoute } from '@/apis/bus';
 import { debounce } from '@/utils/common';
-import { createImageSrc } from '@/utils/images';
 import type { Bus } from '@/types/bus';
 
 interface Props {
@@ -46,10 +46,7 @@ function SearchBusBlock({ fade }: Props) {
         />
         <ul className="overflow-y-auto h-[calc(100%-315px)]">
           {busList.map(bus => <BusItem bus={bus} key={bus.RouteID} />)}
-          {isShowPrompt && <div className="mt-8 flex flex-col items-center">
-            <img src={createImageSrc('images/logo-wait.svg')} width="120" alt="" />
-            <p>很抱歉，查詢不到此公車路線</p>
-          </div>}
+          {isShowPrompt && <BusPrompt content="很抱歉，查詢不到此公車路線" />}
         </ul>
       </div>
       <SearchBusKeyboard setKeyword={setKeyword} />

@@ -1,6 +1,7 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import SearchBar from '@/components/common/SearchBar';
 import BusItem from '@/components/common/BusItem';
+import BusPrompt from '@/components/common/BusPrompt';
 import ajax from '@/utils/ajax';
 import generateParams from '@/utils/generateParams';
 import { debounce } from '@/utils/common';
@@ -47,10 +48,7 @@ function SearchStopBlock({ fade }: Props) {
         />
         <ul className="overflow-y-auto h-[calc(100%-315px)]">
           {busList.map(bus => <BusItem bus={bus} key={bus.RouteID} />)}
-          {isShowPrompt && <div className="mt-8 flex flex-col items-center">
-            <img src={createImageSrc('images/logo-wait.svg')} width="120" alt="" />
-            <p>很抱歉，查詢不到此站名</p>
-          </div>}
+          {isShowPrompt && <BusPrompt content="很抱歉，查詢不到此站名" />}
         </ul>
       </div>
     </div>

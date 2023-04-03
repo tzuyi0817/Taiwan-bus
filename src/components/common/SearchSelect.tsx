@@ -16,10 +16,10 @@ function SearchSelect(props: Props) {
         control: (baseStyles, { isFocused }) => ({
           ...baseStyles,
           padding: '4px 8px',
-          'border-radius': '10px',
-          'border-style': 'none',
+          borderRadius: '10px',
+          borderStyle: 'none',
           background: isFocused ? '#D5D5D5' : '#EEEEEE',
-          'box-shadow': isFocused ? '0px 3px 10px rgba(0, 0, 0, 0.15)' : 'none',
+          boxShadow: isFocused ? '0px 3px 10px rgba(0, 0, 0, 0.15)' : 'none',
         }),
         menuList: (baseStyles) => ({
           ...baseStyles,
@@ -28,11 +28,11 @@ function SearchSelect(props: Props) {
             height: '4px',
           },
           '::-webkit-scrollbar-track': {
-            'border-radius': '10px',
+            borderRadius: '10px',
             background: '#D5D5D5',
           },
           '::-webkit-scrollbar-thumb': {
-            'border-radius': '10px',
+            borderRadius: '10px',
             background: '#888888',
           },
         }),

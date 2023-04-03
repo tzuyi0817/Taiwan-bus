@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import BusTab from '@/components/common/BusTab';
 import SearchSelect from '@/components/common/SearchSelect';
+import FavoriteStopBus from '@/components/favoriteStop/FavoriteStopBus';
+import FavoriteStopStation from '@/components/favoriteStop/FavoriteStopStation';
 import { CITY_SELECT_OPTIONS } from '@/configs/city';
 import { FavoriteTypeEnum } from '@/configs/favorite';
 import type { SelectOption } from '@/types/common';
@@ -23,6 +25,9 @@ function FavoriteStopBlock() {
           onChange={(select: SelectOption) => setSelectedOption(select)}
           options={CITY_SELECT_OPTIONS}
         />
+        <ul className="w-full overflow-y-auto h-[calc(100%-128px)]">
+          {type === FavoriteTypeEnum.STOP ? <FavoriteStopBus /> : <FavoriteStopStation />}
+        </ul>
       </div>
     </div>
   )

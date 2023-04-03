@@ -10,14 +10,14 @@ function BusItem({ bus }: Props) {
   const { setBus, setPage, setUpdateTime } = useBus();
   const { RouteName, DepartureStopNameZh, DestinationStopNameZh, City } = bus;
 
-  function goDetail() {
+  function redirectDetail() {
     setBus(bus);
     setPage('detail');
     setUpdateTime(0);
   }
 
   return (
-    <li className="bus_item" onClick={goDetail}>
+    <li className="bus_item" onClick={redirectDetail}>
       <div>
         <h1>{RouteName.Zh_tw}</h1>
         <p className="text-sm text-gray-600">{`${DepartureStopNameZh} - ${DestinationStopNameZh}`}</p>
