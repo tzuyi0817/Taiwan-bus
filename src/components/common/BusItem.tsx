@@ -1,16 +1,19 @@
 import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
+import { CITY_ABRIDGE_MAP } from '@/configs/city';
 import type { Bus } from '@/types/bus';
 
 interface Props {
   bus: Bus;
+  redirectDetailCallback?: () => void;
 }
 
-function BusItem({ bus }: Props) {
+function BusItem({ bus, redirectDetailCallback }: Props) {
   const { setBus, setPage, setUpdateTime } = useBus();
   const { RouteName, DepartureStopNameZh, DestinationStopNameZh, City } = bus;
 
   function redirectDetail() {
+    redirectDetailCallback?.();
     setBus(bus);
     setPage('detail');
     setUpdateTime(0);
@@ -24,7 +27,7 @@ function BusItem({ bus }: Props) {
       </div>
       <div className="flex flex-col items-end gap-1">
         <BusFavorite bus={bus} type="bus" />
-        <p className="text-sm text-gray-600">{City}</p>
+        <p className="text-sm text-gray-600">{CITY_ABRIDGE_MAP[City]}</p>
       </div>
     </li>
   )

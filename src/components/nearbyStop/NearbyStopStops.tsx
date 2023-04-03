@@ -20,6 +20,7 @@ function NearbyStopStops({ fade }: Props) {
     async function getStationBuses() {
       if (!station) return;
       const city = CITY_CODE_MAP[station.LocationCityCode];
+      console.log(station.LocationCityCode);
       const fetchInfo: [Promise<BusEstimatedTime[]>, Promise<Bus[]>] = [
         fetchStationEstimatedTime(station, city),
         fetchStationBusRoute(station, city),

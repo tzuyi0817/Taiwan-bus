@@ -39,10 +39,10 @@ function BusCrumb({ page }: Props) {
 
   return (
     <div className="px-6 py-3 bg-[#F8F8F8] flex justify-between items-center">
-      <div className="flex gap-1 items-center" onClick={goIndex}>
+      <div className="flex gap-1 items-center">
         {/* <img src={createImageSrc('icons/location.png')} alt="" /> */}
         <p>
-          <span className="">首頁 / </span>
+          <span onClick={goIndex}>首頁 / </span>
           <span>{BUS_CRUMB[pageName] ?? ''}</span>
           {city ? CITY_MAP[city] : ''}
         </p>

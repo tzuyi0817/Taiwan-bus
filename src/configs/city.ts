@@ -32,7 +32,7 @@ export const CITY_SELECT_OPTIONS = [
   { value: 'PenghuCountry', label: '澎湖縣' },
   { value: 'KinmenCountry', label: '金門縣' },
   { value: 'LianjiangCountry', label: '連江縣' },
-];
+] as const;
 
 
 export const CITY_MAP = {
@@ -60,8 +60,55 @@ export const CITY_MAP = {
   LianjiangCountry:'連江縣',
 } as const;
 
+export const CITY_ABRIDGE_MAP = {
+  Keelung: '基隆',
+  Taipei: '臺北',
+  NewTaipei: '新北',
+  YilanCountry: '宜蘭',
+  Taoyuan: '桃園',
+  Hsinchu: '新竹',
+  HsinchuCountry: '新竹',
+  HualienCountry: '花蓮',
+  TaitungCountry: '臺東',
+  MiaoliCountry: '苗栗',
+  Taichung: '臺中',
+  ChanghuaCountry: '彰化',
+  NantouCountry: '南投',
+  YunlinCountry: '雲林',
+  Chiayi: '嘉義',
+  ChiayiCountry: '嘉義',
+  Tainan: '臺南',
+  Kaohsiung: '高雄',
+  PingtungCountry:'屏東',
+  PenghuCountry: '澎湖',
+  KinmenCountry:'金門',
+  LianjiangCountry:'連江',
+} as const;
+
 export const CITY_CODE_MAP = {
+  KEE: 'Keelung',
   TPE: 'Taipei',
+  NWT: 'NewTaipei',
+  ILA: 'YilanCountry',
+  TAO: 'Taoyuan',
+  HSZ: 'Hsinchu',
+  HSQ: 'HsinchuCountry',
+  HUA: 'HualienCountry',
+  TTT: 'TaitungCountry',
+  MIA: 'MiaoliCountry',
+  TXG: 'Taichung',
+  CHA: 'ChanghuaCountry',
+  NAN: 'NantouCountry',
+  YUN: 'YunlinCountry',
+  CYI: 'Chiayi',
+  CYQ: 'ChiayiCountry',
+  TNN: 'Tainan',
+  KHH: 'Kaohsiung',
+  PIF:'PingtungCountry',
+  PEN: 'PenghuCountry',
+  KIN:'KinmenCountry',
+  LIE:'LianjiangCountry',
+
 } as const;
 
 export const CITY_KEYS = Object.keys(CITY_MAP) as Array<City>;

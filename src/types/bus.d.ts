@@ -35,7 +35,7 @@ export interface Bus {
   FareBufferZoneDescriptionZh: string;
   FareBufferZoneDescriptionEn: string;
   RouteMapImageUrl: string;
-  City: string;
+  City: City;
   CityCode: string;
   UpdateTime: string;
   VersionID: number;

@@ -25,8 +25,11 @@ function FavoriteStopBlock() {
           onChange={(select: SelectOption) => setSelectedOption(select)}
           options={CITY_SELECT_OPTIONS}
         />
-        <ul className="w-full overflow-y-auto h-[calc(100%-128px)]">
-          {type === FavoriteTypeEnum.STOP ? <FavoriteStopBus /> : <FavoriteStopStation />}
+        <ul className="w-full px-5 pb-5 overflow-y-auto h-[calc(100%-148px)]">
+          {type === FavoriteTypeEnum.STOP 
+            ? <FavoriteStopBus city={selectedOption?.value} /> 
+            : <FavoriteStopStation city={selectedOption?.value} />
+          }
         </ul>
       </div>
     </div>

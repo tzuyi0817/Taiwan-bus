@@ -2,6 +2,7 @@ import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import { getBusStopStatus, showBusStatus } from '@/utils/busStop';
 import { BUS_STOP_STATUS_BACKGROUND, BusEvent } from '@/configs/bus';
+import { CITY_ABRIDGE_MAP } from '@/configs/city';
 import type { BusSite } from '@/types/bus';
 
 interface Props {
@@ -42,7 +43,7 @@ function NearbyStopInfo({ stop }: Props) {
       </div>
       <div className="flex flex-col items-end gap-1">
         <BusFavorite site={stop} type="site" />
-        <p className="text-sm text-gray-600">{City}</p>
+        <p className="text-sm text-gray-600">{CITY_ABRIDGE_MAP[City]}</p>
       </div>
     </li>
   )

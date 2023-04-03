@@ -73,7 +73,7 @@ function BusFavorite({ bus, type, site }: Props) {
         </h2>
         <div className="flex justify-center gap-2">
           <button className="btn_line" onClick={togglePrompt}>關閉</button>
-          <button className="btn_base" onClick={() => navigate('/favoritestop')}>查看收藏</button>
+          <button className="btn_base" onClick={() => navigate('/favoriteStop')}>查看收藏</button>
         </div>
       </Popup>
     </>
