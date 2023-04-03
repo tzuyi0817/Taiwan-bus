@@ -17,18 +17,18 @@ interface Props {
 function SearchStopBlock({ fade }: Props) {
   const [keyword, setKeyword] = useState('');
   const [isShowPrompt, togglePrompt] = useState(false);
+  const [filterStations, setFilterStation] = useState<BusStation[]>([]);
   const { stations, setStations, setMapZoom } = useBus();
   const searchInput = useRef<HTMLInputElement>(null);
   const { position } = useGeolocation();
 
-  const handlerSearch = useCallback(debounce((async (keyword: string) => {
-    // const params = generateParams({
-    //   $spatialFilter : `nearby(${position.lat}, ${position.lng}, 1000)`,
-    // });
-    // const stations = await ajax.get(`/advanced/v2/Bus/Station/NearBy?${params}`);
+  const handlerSearch = useCallback(debounce(((keyword: string) => {
+    const list = keyword 
+      ? stations.filter(({ StationName }) => StationName.Zh_tw.includes(keyword) )
+      : stations;
 
-    // setBusList(stations);
-    // togglePrompt(stations.length === 0);
+    setFilterStation(list);
+    togglePrompt(list.length === 0);
   })), []);
 
   async function fetchStations({ lat, lng }: Coordinate) {
@@ -67,8 +67,8 @@ function SearchStopBlock({ fade }: Props) {
           ref={searchInput}
         />
         <ul className="overflow-y-auto h-[calc(100%-25px)]">
-          {stations.map(station => <NearbyStopStation station={station} key={station.StationUID} />)}
-          {isShowPrompt && <BusPrompt content="很抱歉，查詢不到此站牌" />}
+          {filterStations.map(station => <NearbyStopStation station={station} key={station.StationUID} />)}
+          {isShowPrompt && <BusPrompt content="很抱歉，附近 1000 m 內查詢不到此站點" />}
         </ul>
       </div>
     </div>
