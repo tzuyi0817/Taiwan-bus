@@ -1,6 +1,6 @@
-import type { Dispatch, SetStateAction } from 'react';
 import tw from 'tailwind-styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
 import { cityActions } from '@/store/city';
 import { useBus } from '@/provider/BusProvider';
@@ -16,9 +16,7 @@ interface Props {
 
 interface CrumbMenuProps {
   page: Page;
-  isOpenMap: boolean;
   pageName: BusCrumbType;
-  toggleMap: Dispatch<SetStateAction<boolean>>;
 }
 
 const MenuItem = tw.li`text_hover flex gap-[6px] items-center`;
@@ -28,7 +26,7 @@ function BusCrumb({ page }: Props) {
   const { pathname } = useLocation();
   const dispatch = useAppDispatch();
   const city = useAppSelector(({ city }) => city.currentCity);
-  const { isOpenMap, toggleMap, resetMap } = useBus();
+  const { resetMap } = useBus();
   const pageName = pathname.replace('/', '') as BusCrumbType;
 
   function goIndex() {
@@ -49,23 +47,33 @@ function BusCrumb({ page }: Props) {
         </p>
       </div>
       <ul className="flex gap-3">
-        <BusCrumbMenu 
-          page={page} 
-          pageName={pageName}
-          isOpenMap={isOpenMap}
-          toggleMap={toggleMap}
-        />
+        <BusCrumbMenu page={page} pageName={pageName} />
       </ul>
     </div>
   )
 }
 
-function BusCrumbMenu({ page, pageName, isOpenMap, toggleMap }: CrumbMenuProps) {
+function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
   if (pageName === 'favoriteStop') return null;
+  const { bus, isOpenMap, toggleMap } = useBus();
+
+  function copyLink() {
+    const textField = document.createElement('textarea');
+
+    textField.innerText = `${location.href}?city=${bus?.City}&routeName=${bus?.RouteName.Zh_tw}`;
+    document.body.appendChild(textField);
+    textField.select();
+    document.execCommand('copy');
+    textField.remove();
+    toast.success('已成功複製連結', {
+
+    });
+  }
+
   return <>
     {page === 'detail' && (
       <>
-        <MenuItem>
+        <MenuItem onClick={copyLink}>
           <img src={createImageSrc('icons/link.png')} alt="" width="10" />
           <p>複製連結</p>
         </MenuItem>
@@ -73,14 +81,15 @@ function BusCrumbMenu({ page, pageName, isOpenMap, toggleMap }: CrumbMenuProps) 
           <img src={createImageSrc('icons/time.png')} alt="" width="12" />
           <p>時刻表</p>
         </MenuItem>
+        <Toaster />
       </>
     )}
     {isOpenMap 
-      ? <MenuItem onClick={() => toggleMap(false)}>
+      ? <MenuItem className="md:hidden" onClick={() => toggleMap(false)}>
         <img src={createImageSrc('icons/route.png')} alt="" width="12" />
         <p>路線</p>
       </MenuItem>
-      : <MenuItem onClick={() => toggleMap(true)}>
+      : <MenuItem className="md:hidden" onClick={() => toggleMap(true)}>
         <img src={createImageSrc('icons/map.png')} alt="" width="12" />
         <p>地圖</p>
       </MenuItem>

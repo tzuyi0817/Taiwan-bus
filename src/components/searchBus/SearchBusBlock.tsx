@@ -1,5 +1,8 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useAppSelector } from '@/hooks/useRedux';
+import { useAppDispatch } from '@/hooks/useRedux';
+import { useBus } from '@/provider/BusProvider';
+import { cityActions } from '@/store/city';
 import SearchBar from '@/components/common/SearchBar';
 import SearchBusKeyboard from '@/components/searchBus/SearchBusKeyboard';
 import BusItem from '@/components/common/BusItem';
@@ -8,6 +11,7 @@ import Loading from '@/components/common/Loading';
 import { fetchBusRoute } from '@/apis/bus';
 import { debounce } from '@/utils/common';
 import type { Bus } from '@/types/bus';
+import type { City } from '@/types/city';
 
 interface Props {
   fade: string;
@@ -19,8 +23,10 @@ function SearchBusBlock({ fade }: Props) {
   const [isShowPrompt, togglePrompt] = useState(false);
   const [isLoading, toggleLoading] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
+  const { setBus, setPage } = useBus();
   const city = useAppSelector(({ city }) => city.currentCity);
-  const handlerSearch = useCallback(debounce((async (keyword: string) => {
+  const dispatch = useAppDispatch();
+  const handlerSearch = useCallback(debounce((async (keyword: string, isFromLink = false) => {
     if (!city) return;
     toggleLoading(true);
     const result = await fetchBusRoute(keyword, city);
@@ -28,6 +34,10 @@ function SearchBusBlock({ fade }: Props) {
     setBusList(result);
     togglePrompt(result.length === 0);
     toggleLoading(false);
+    if (!isFromLink) return;
+    setBus(result[0]);
+    setPage('detail');
+    setKeyword(keyword);
   })), []);
 
   useEffect(() => {
@@ -39,6 +49,17 @@ function SearchBusBlock({ fade }: Props) {
     searchInput.current?.focus();
     handlerSearch(keyword);
   }, [keyword, handlerSearch]);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const city = params.get('city') as City;
+    const routeName = params.get('routeName');
+
+    if (!city || !routeName) return;
+    dispatch(cityActions.updateCity(city));
+    handlerSearch(routeName, true);
+    window.history.replaceState(null, '', window.location.pathname);
+  }, []);
 
   return (
     <div className={`h-full ${fade}`}>

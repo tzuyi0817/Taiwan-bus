@@ -22,7 +22,7 @@ function NearbyStopBlock({ fade }: Props) {
   const { position } = useGeolocation();
 
   const handlerSearch = useCallback(debounce(((keyword: string, stations: BusStation[]) => {
-    const list = keyword !== ''
+    const list = keyword
       ? stations.filter(({ StationName }) => StationName.Zh_tw.includes(keyword) )
       : stations;
 

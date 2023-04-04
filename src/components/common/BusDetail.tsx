@@ -5,25 +5,12 @@ import BusStopInfo from '@/components/common/BusStopInfo';
 import BusTab from '@/components/common/BusTab';
 import BusTimer from '@/components/common/BusTimer';
 import { createImageSrc } from '@/utils/images';
-import ajax from '@/utils/ajax';
-import generateParams from '@/utils/generateParams';
+import { fetchBusStopRoute, fetchBusEstimatedTime, fetchBusRealTimeNearStop } from '@/apis/bus';
 import { BUS_ROUTE_TYPE } from '@/configs/bus';
-import type {
-  BusStop,
-  BusStops,
-  BusDirection,
-  BusEstimatedTime,
-  BusRealTimeNearStop,
-} from '@/types/bus';
+import type { BusDirection } from '@/types/bus';
 
 interface Props {
   fade: string;
-}
-
-interface BusStopRoue {
-  Stops: BusStop[];
-  Direction: BusDirection;
-  EstimateTime: number;
 }
 
 function SearchBusDetail({ fade }: Props) {
@@ -48,43 +35,14 @@ function SearchBusDetail({ fade }: Props) {
 
   useEffect(() => {
     if (!bus || updateTime > 0) return;
-    const { RouteName, City } = bus;
-
-    async function getBusStopRoute(): Promise<BusStops> {
-      const params = generateParams({});
-      const result = await ajax.get(`/basic/v2/Bus/StopOfRoute/City/${City}/${RouteName.Zh_tw}?${params}`);
-
-      return result.reduce((map: BusStops, { Stops, Direction }: BusStopRoue) => {
-        map[Direction] = Stops;
-        return map;
-      }, {});
-    }
-
-    async function getBusEstimatedTime() {
-      const params = generateParams({});
-      const result = await ajax.get(`/basic/v2/Bus/EstimatedTimeOfArrival/City/${City}/${RouteName.Zh_tw}?${params}`);
-
-      return result.reduce((map: Map<string, BusEstimatedTime>, estimatedTime: BusEstimatedTime) => {
-        const { Direction, StopID } = estimatedTime;
-        return map.set(`${Direction}-${StopID}`, estimatedTime);
-      }, new Map());
-    }
-
-    async function getBusRealTimeNearStop() {
-      const params = generateParams({});
-      const result = await ajax.get(`/basic/v2/Bus/RealTimeNearStop/City/${City}/${RouteName.Zh_tw}?${params}`);
-
-      return result.reduce((map: Map<string, BusRealTimeNearStop>, realTimeNearStop: BusRealTimeNearStop) => {
-        const { Direction, StopID } = realTimeNearStop;
-        return map.set(`${Direction}-${StopID}`, realTimeNearStop);
-      }, new Map());
-    }
+    const city = bus.City;
+    const routeName = bus.RouteName.Zh_tw;
 
     Promise
       .all([
-        isUpdateRoute.current ? null : getBusStopRoute(),
-        getBusEstimatedTime(), 
-        getBusRealTimeNearStop(),
+        isUpdateRoute.current ? null : fetchBusStopRoute(routeName, city),
+        fetchBusEstimatedTime(routeName, city), 
+        fetchBusRealTimeNearStop(routeName, city),
       ])
       .then(([stops, estimatedTimeMap, realTimeNearStopMap]) => {
         for (let direction = 0 as BusDirection; direction <= 1; direction++) {

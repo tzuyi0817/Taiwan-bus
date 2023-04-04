@@ -17,11 +17,12 @@ function FavoriteStopBlock() {
   const [selectedOption, setSelectedOption] = useState<SelectOption>();
 
   useEffect(() => {
-    const siteUrl = window.location.search;
-    const pageType = new URLSearchParams(siteUrl).get('type');
+    const params = new URLSearchParams(window.location.search);
+    const pageType = params.get('type');
 
     if (!pageType) return;
     setType(+pageType);
+    window.history.replaceState(null, '', window.location.pathname);
   }, []);
 
   return (
