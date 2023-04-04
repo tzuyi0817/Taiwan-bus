@@ -2,7 +2,7 @@
 
 @layer components {
   .marker {
-    @apply border-2 border-white rounded-full;
+    @apply border-2 border-white rounded-full z-[2];
   }
   .marker_self {
     @apply
@@ -40,7 +40,9 @@
   .marker_absolute {
     @apply
     absolute
-    right-0
+    right-6
+    top-7
+    z-[1]
     before:content-['']
     before:absolute
     before:border-l-[1px]

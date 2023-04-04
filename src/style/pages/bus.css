@@ -1,12 +1,13 @@
 @import 'tailwindcss/components';
+@import '@/style/common/text.css';
 
 @layer components {
   .bus {
     @apply flex flex-col h-[calc(100vh-128px)] relative;
     &_block {
-      @apply bg-white p-5 shadow-lg h-full md:max-w-[464px];
+      @apply bg-white py-5 shadow-lg h-full md:max-w-[464px];
       &_scrollbar {
-        @apply overflow-y-auto px-2 mt-2;
+        @apply overflow-y-auto mt-2;
       }
     }
     &_tab {
@@ -40,34 +41,56 @@
         }
       }
     }
+    &_effect {
+      @apply cursor-pointer transition-colors hover:bg-gray-300;
+    }
     &_item {
-      @apply flex justify-between items-end py-3 border-b-[1px] border-[#E7E7E7];
+      @apply bus_effect w-full flex justify-between items-end px-7 py-3 border-b-[1px] border-[#E7E7E7];
     }
     &_detail {
-      @apply w-full h-[calc(100%-40px)] absolute top-10 left-0 bg-white flex flex-col;
+      @apply w-full h-[calc(100%-40px)] absolute top-10 left-0 bg-white flex flex-col md:max-w-[464px];
       &_header {
-        @apply flex justify-between px-6 py-3;
+        @apply flex justify-between px-6 py-3 md:py-5;
       }
       &_back {
-        @apply flex gap-3 cursor-pointer items-center;
+        @apply text_hover flex gap-3 items-center;
       }
     }
     &_info {
-      @apply
-      flex
-      mx-6
-      py-4
-      pr-4
-      border-b-[1px]
-      border-b-[#E7E7E7]
-      relative
-      items-center
-      gap-4
-      text-sm
-      justify-between;
+      @apply bus_effect relative;
+      &_content {
+        @apply
+        flex
+        w-full
+        mx-6
+        py-4
+        pr-4
+        border-b-[1px]
+        border-b-[#E7E7E7]
+        relative
+        items-center
+        gap-4
+        text-sm
+        justify-between;
+      }
       &_status {
         @apply min-w-[77px] px-2 py-1 rounded-xl text-white text-center;
       }
+    }
+    &_map {
+      @apply
+      absolute
+      top-10
+      left-0
+      overflow-hidden
+      w-full
+      h-full
+      bg-white
+      md:pointer-events-auto
+      md:opacity-100
+      md:z-0
+      md:left-[464px]
+      md:w-[calc(100%-464px)];
     }
   }
 }

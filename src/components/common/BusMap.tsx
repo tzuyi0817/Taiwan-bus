@@ -83,11 +83,12 @@ function SearchBusMap({ fade }: Props) {
     setStopsGeometry([]);
     setStopsPitGeometry([]);
     setStopsLine([]);
+    setMapCenterPos([position.lat, position.lng]);
   }
 
   return (
     <>
-      <div className={`absolute top-10 left-0 overflow-hidden w-full h-full bg-white ${fade}`}>
+      <div className={`${fade} bus_map`}>
         <MapContainer
           center={position}
           zoom={mapZoom}
@@ -153,7 +154,7 @@ function SearchBusMap({ fade }: Props) {
           })};
         </MapContainer>
         <SwitchBlock
-          className="absolute z-[400] bottom-16 left-5 md:top-7 md:right-5" 
+          className="absolute z-[400] bottom-16 left-5 md:top-7 md:bottom-auto md:right-6 md:left-auto" 
           defaultValue={isShowStopInfo}
           toggleSwitch={toggleStopInfo}
         >

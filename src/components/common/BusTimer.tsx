@@ -16,7 +16,7 @@ function SearchBusTimer({ animationTime, setAnimationTime }: Props) {
   }
 
   return (
-    <div className="absolute px-6 py-3 bottom-0 bg-white w-full border-t-[1px] text-sm flex justify-between items-center">
+    <div className="absolute px-6 py-3 bottom-0 bg-white w-full border-t-[1px] text-sm flex justify-between items-center z-[3]">
       <p>{updateTime} 秒後更新</p>
       <div className="flex items-center gap-2" onClick={update}>
         <img src={createImageSrc('icons/immediate.png')} alt="" />

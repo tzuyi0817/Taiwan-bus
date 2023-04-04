@@ -22,6 +22,7 @@ specifiers:
   react-leaflet: ^4.2.0
   react-redux: ^8.0.5
   react-responsive-carousel: ^3.2.23
+  react-ripples: ^2.2.1
   react-router-dom: ^6.6.2
   react-select: ^5.7.2
   redux-persist: ^6.0.0
@@ -39,6 +40,7 @@ dependencies:
   react-leaflet: 4.2.0_yydtlhsdonbqao6vgvkwhv2zki
   react-redux: 8.0.5_ie75ejlwqy5zh3tldgt7pftwcu
   react-responsive-carousel: 3.2.23
+  react-ripples: 2.2.1
   react-router-dom: 6.6.2_biqbaboplfbrettd7655fr4n2y
   react-select: 5.7.2_ib3m5ricvtkl2cll7qpr2f6lvq
   redux-persist: 6.0.0_react@18.2.0
@@ -1575,6 +1577,10 @@ packages:
       classnames: 2.3.2
       prop-types: 15.8.1
       react-easy-swipe: 0.0.21
+    dev: false
+
+  /react-ripples/2.2.1:
+    resolution: {integrity: sha512-TfLjgZICQlsYCN2iX4fdeZNjoDzhJVC7r+R3irqyaNvCtWezouS9j+sE+nwSk747irtV8RKRDHmwMmsNBOw8Qg==}
     dev: false
 
   /react-router-dom/6.6.2_biqbaboplfbrettd7655fr4n2y:

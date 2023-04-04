@@ -22,6 +22,14 @@ export const BUS_STOP_STATUS_BACKGROUND = {
   [BusStopStatusEnum.NOT_OPERATE]: 'bg-[#A9A9A9]',
 } as const;
 
+export const BUS_STOP_TEXT_COLOR = {
+  [BusStopStatusEnum.NORMAL]: 'text-black',
+  [BusStopStatusEnum.NOT_START]: 'text-gray-600',
+  [BusStopStatusEnum.NOT_STOP]: 'text-gray-600',
+  [BusStopStatusEnum.LAST_PASSED]: 'text-gray-600',
+  [BusStopStatusEnum.NOT_OPERATE]: 'text-gray-600',
+} as const;
+
 export const BUS_STOP_TOOLTIP_CLASS = {
   [BusStopStatusEnum.NORMAL]: 'tooltip_base',
   [BusStopStatusEnum.NOT_START]: 'tooltip_gray',

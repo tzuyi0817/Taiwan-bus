@@ -9,7 +9,7 @@ interface Props {
 }
 
 function BusItem({ bus, redirectDetailCallback }: Props) {
-  const { setBus, setPage, setUpdateTime } = useBus();
+  const { setBus, setPage, setUpdateTime, setMapZoom } = useBus();
   const { RouteName, DepartureStopNameZh, DestinationStopNameZh, City } = bus;
 
   function redirectDetail() {
@@ -17,6 +17,7 @@ function BusItem({ bus, redirectDetailCallback }: Props) {
     setBus(bus);
     setPage('detail');
     setUpdateTime(0);
+    setMapZoom(12);
   }
 
   return (

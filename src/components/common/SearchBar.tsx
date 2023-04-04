@@ -19,7 +19,7 @@ function SearchBar(
   ref: LegacyRef<HTMLInputElement> | undefined
 ) {
   return (
-    <div className="relative">
+    <div className="relative mx-5">
       <input
         type="text"
         className="searchBar"

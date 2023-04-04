@@ -42,7 +42,7 @@ const BusContext = createContext<BusContext>({} as BusContext);
 const BusProvider = ({ children }: { children: ReactNode }) => {
   const [page, setPage] = useState<Page>('route');
   const [isOpenMap, toggleMap] = useState(false);
-  const [mapZoom, setMapZoom] = useState(12);
+  const [mapZoom, setMapZoom] = useState(15);
   const [mapCenterPos, setMapCenterPos] = useState<[number, number]>();
   const [bus, setBus] = useState<Bus>();
   const [updateTime, setUpdateTime] = useState(0);
@@ -55,7 +55,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
   function resetMap(isRestStation: boolean) {
     setPage('route');
     toggleMap(false);
-    setMapZoom(12);
+    setMapZoom(15);
     setBus(undefined);
     setDirection(0);
     setBusStops({ 0: [], 1: [] });
