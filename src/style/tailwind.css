@@ -26,4 +26,7 @@
   h5 {
     @apply text-xs font-bold;
   }
+  a.active {
+    @apply text-primary font-bold;
+  }
 }

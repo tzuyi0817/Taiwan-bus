@@ -46,7 +46,7 @@ function SearchBusKeyboard({ setKeyword }: Props) {
   }
 
   return (
-    <div className="py-8 bg-gray-100 fixed bottom-14 w-full">
+    <div className="py-8 bg-gray-100 fixed bottom-14 w-full shadow-inner inline-shw md:max-w-[464px]">
       <Keyboard search={search} cols={cols} keyboard={keyboard} />
     </div>
   )
@@ -57,10 +57,12 @@ function Keyboard({ search, cols, keyboard }: KeyboardProps) {
     <ul className={`grid ${cols} gap-x-4 gap-y-3 place-content-center`}>
       {keyboard.map(({ value, color, bg }) => 
         <li
-          className={`${color} ${bg} h-10 rounded-[10px] text-center leading-10 text-sm`}
+          className={`${color} ${bg} h-10 rounded-[10px] text-center leading-10 text-sm cursor-pointer`}
           key={value}
           onClick={() => search(value)}
-        >{value}</li>
+        >
+          {value}
+        </li>
       )}
     </ul>
   )

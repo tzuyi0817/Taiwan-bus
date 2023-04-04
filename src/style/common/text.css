@@ -3,5 +3,26 @@
 @layer components {
   .text_hover {
     @apply hover:text-primary transition-colors cursor-pointer;
+    &.active {
+      @apply text-primary font-bold;
+    }
+  }
+  .text_link {
+    @apply
+    text_hover
+    relative
+    after:content-['']
+    after:absolute
+    after:-bottom-2
+    after:-left-1
+    after:rounded
+    after:w-[calc(100%+8px)]
+    after:h-[3px]
+    after:scale-x-0
+    after:transition-transform
+    after:duration-300
+    after:origin-center
+    after:bg-primary
+    hover:after:scale-x-100;
   }
 }

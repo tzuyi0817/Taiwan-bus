@@ -21,7 +21,7 @@ interface CrumbMenuProps {
   toggleMap: Dispatch<SetStateAction<boolean>>;
 }
 
-const MenuItem = tw.li`flex gap-[6px] items-center cursor-pointer`;
+const MenuItem = tw.li`text_hover flex gap-[6px] items-center`;
 
 function BusCrumb({ page }: Props) {
   const navigate = useNavigate();
@@ -42,7 +42,8 @@ function BusCrumb({ page }: Props) {
       <div className="flex gap-1 items-center">
         {/* <img src={createImageSrc('icons/location.png')} alt="" /> */}
         <p>
-          <span onClick={goIndex}>首頁 / </span>
+          <span className="text_hover" onClick={goIndex}>首頁</span>
+          <span> / </span>
           <span>{BUS_CRUMB[pageName] ?? ''}</span>
           {city ? CITY_MAP[city] : ''}
         </p>

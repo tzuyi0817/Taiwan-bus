@@ -4,7 +4,10 @@
   .bus {
     @apply flex flex-col h-[calc(100vh-128px)] relative;
     &_block {
-      @apply bg-white p-5 shadow-sm h-full;
+      @apply bg-white p-5 shadow-lg h-full md:max-w-[464px];
+      &_scrollbar {
+        @apply overflow-y-auto px-2 mt-2;
+      }
     }
     &_tab {
       @apply

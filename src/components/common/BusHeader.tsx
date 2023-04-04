@@ -3,7 +3,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { cityActions } from '@/store/city';
@@ -47,6 +47,10 @@ function BusHeader() {
 
   function goPage(path: string) {
     navigate(path);
+    resetContext();
+  }
+
+  function resetContext() {
     resetMap(true);
     dispatch(cityActions.updateCity(''));
   }
@@ -55,15 +59,18 @@ function BusHeader() {
     <Header>
       <HeaderLogo goPage={goPage} />
       <ul className="flex gap-5 items-center md:gap-14">
-        <li className="text_hover md:text-base" onClick={() => goPage('/nearbyStop')}>附近站牌</li>
-        <li
-          className="text_hover hidden md:contents md:text-base"
-          onClick={() => goPage('/favoriteStop')}
-        >
-          我的收藏
+        <li className="text_link md:text-base">
+          <NavLink to="/nearbyStop" onClick={resetContext} className={({ isActive }) => isActive ? 'active' : ''}>
+            附近站牌
+          </NavLink>
         </li>
-        <li>
-          <img className="md:hidden" src={createImageSrc('icons/menu.png')} alt="" onClick={() => toggleMenu(true)} />
+        <li className="text_link hidden md:block md:text-base">
+          <NavLink to="/favoriteStop" onClick={resetContext}>
+            我的收藏
+          </NavLink>
+        </li>
+        <li className="md:hidden">
+          <img src={createImageSrc('icons/menu.png')} alt="" onClick={() => toggleMenu(true)} />
         </li>
       </ul>
       <HeaderI18n propClass="hidden md:flex" />
@@ -88,7 +95,7 @@ function HeaderI18n({ propClass }: { propClass?: string }) {
   return (
     <div className={`justify-center items-center py-5 ${propClass} md:text-base`}>
       <img className="w-5" src={createImageSrc('icons/language.png')} alt="" />
-      <button className="text_hover font-bold ml-2 mr-1">中文</button>｜
+      <button className="text_hover active ml-2 mr-1">中文</button>｜
       <button className="text_hover mx-1">英文</button>
     </div>
   )
