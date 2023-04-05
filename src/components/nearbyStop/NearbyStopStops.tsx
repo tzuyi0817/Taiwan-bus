@@ -34,7 +34,12 @@ function NearbyStopStops({ fade }: Props) {
         const estimatedTime = stopsEstimatedTime.find(({ RouteName }) => {
           return RouteName.Zh_tw === bus.RouteName.Zh_tw;
         });
-        return { ...bus, ...estimatedTime!, StationName: station.StationName };
+        return {
+          ...bus,
+          ...estimatedTime!,
+          StationName: station.StationName,
+          StationPosition: station.StationPosition,
+        };
       });
 
       setStops(stops);

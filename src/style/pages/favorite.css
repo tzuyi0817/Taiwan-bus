@@ -1,0 +1,20 @@
+@import 'tailwindcss/components';
+@import '@/style/common/text.css';
+
+@layer components {
+  .favorite {
+    &_block {
+      @apply
+      h-full
+      flex
+      flex-col
+      gap-5
+      items-center
+      shadow-lg
+      md:w-[768px]
+      md:mx-auto
+      md:mt-5
+      md:h-[calc(100vh-210px)];
+    }
+  }
+}

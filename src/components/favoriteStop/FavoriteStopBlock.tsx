@@ -27,14 +27,14 @@ function FavoriteStopBlock() {
 
   return (
     <div className="h-full bg-white">
-      <div className="shadow h-full flex flex-col gap-5 items-center">
+      <div className="favorite_block">
         <BusTab options={TAB_OPTIONS} value={type} toggleTab={setType} />
         <SearchSelect
           defaultValue={selectedOption}
           onChange={(select: SelectOption) => setSelectedOption(select)}
           options={CITY_SELECT_OPTIONS}
         />
-        <ul className="w-full px-5 pb-5 overflow-y-auto h-[calc(100%-148px)]">
+        <ul className="w-full pb-5 overflow-y-auto h-[calc(100vh-295px)]">
           {type === FavoriteTypeEnum.STOP 
             ? <FavoriteStopBus city={selectedOption?.value} /> 
             : <FavoriteStopStation city={selectedOption?.value} />

@@ -35,7 +35,7 @@ function FavoriteStopBus({ city }: Props) {
       {favorites.map(bus => {
         return <BusItem bus={bus} key={bus.RouteID} redirectDetailCallback={() => redirectSearchBus(bus)} />
       })}
-      {!favorites.length && <BusPrompt content="目前暫無任何收藏收藏站牌" />}
+      {!favorites.length && <BusPrompt content="目前暫無任何收藏站牌" />}
     </>
   )
 }

@@ -7,7 +7,7 @@ interface Props {
   setAnimationTime: Dispatch<SetStateAction<number>>;
 }
 
-function SearchBusTimer({ animationTime, setAnimationTime }: Props) {
+function BusTimer({ animationTime, setAnimationTime }: Props) {
   const { updateTime, setUpdateTime } = useBus();
 
   function update() {
@@ -27,4 +27,4 @@ function SearchBusTimer({ animationTime, setAnimationTime }: Props) {
   )
 }
 
-export default SearchBusTimer;
+export default BusTimer;

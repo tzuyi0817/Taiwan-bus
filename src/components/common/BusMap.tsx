@@ -82,7 +82,7 @@ function SearchBusMap({ fade }: Props) {
   }, [stations]);
 
   useEffect(() => {
-    if (station) return;
+    if (station || isDetail) return;
     setMapZoom(17);
     setMapCenterPos([position.lat, position.lng]);
   }, [station]);

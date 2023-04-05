@@ -177,6 +177,11 @@ export interface BusSite extends Bus, BusEstimatedTime {
     Zh_tw: string;
     En: string;
   };
+  StationPosition: {
+    PositionLon: number;
+    PositionLat: number;
+    GeoHash: string;
+  }
 }
 
 export interface BusShape {

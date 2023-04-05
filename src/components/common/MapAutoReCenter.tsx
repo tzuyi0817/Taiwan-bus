@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useMap } from 'react-leaflet';
+import { useBus } from '@/provider/BusProvider';
 
 interface Props {
   position: { lat: number; lng: number; };
@@ -9,8 +10,10 @@ interface Props {
 
 function MapAutoReCenter({ position, centerPos, zoom }: Props) {
   const map = useMap();
+  const { isDesignateStop } = useBus();
 
   useEffect(() => {
+    if (isDesignateStop.current) return;
     const { lat, lng } = position;
 
     map.flyTo([lat, lng], zoom);

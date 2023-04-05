@@ -7,13 +7,11 @@ import type { BusStop } from '@/types/bus';
 
 interface Props {
   stop: BusStop;
-  currentStop: string;
-  selectedStop: Dispatch<SetStateAction<string>>;
 }
 
-function SearchBusStop({ stop, currentStop, selectedStop }: Props) {
+function BusStopInfo({ stop }: Props) {
   const { StopName, PlateNumb, StopStatus, isLastStop, StopPosition, StopID } = stop;
-  const { setMapZoom, setMapCenterPos, isDesignateStop } = useBus();
+  const { isDesignateStop, selectedStopId, setSelectedStopId, setMapZoom, setMapCenterPos } = useBus();
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus(stop);
   const background = isPitStop || isPittingStop ? 'bg-secondary' : BUS_STOP_STATUS_BACKGROUND[StopStatus];
   const marker = isPitStop || isPittingStop ? 'marker_pit -right-2' : 'marker_base -right-[7px]';
@@ -23,11 +21,11 @@ function SearchBusStop({ stop, currentStop, selectedStop }: Props) {
     isDesignateStop.current = true;
     setMapZoom(17);
     setMapCenterPos([StopPosition.PositionLat, StopPosition.PositionLon]);
-    selectedStop(StopID);
+    setSelectedStopId(StopID);
   }
 
   return (
-    <li className={`bus_info ${currentStop === StopID ? 'bg-gray-300' : ''}`}>
+    <li className={`bus_info ${selectedStopId === StopID ? 'bg-gray-300' : ''}`}>
       <BusRipples>
         <div className="bus_info_content" onClick={designateStop}>
           <div className={`bus_info_status ${background}`}>
@@ -45,4 +43,4 @@ function SearchBusStop({ stop, currentStop, selectedStop }: Props) {
   )
 }
 
-export default SearchBusStop;
+export default BusStopInfo;

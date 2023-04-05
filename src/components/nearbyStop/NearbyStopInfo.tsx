@@ -10,7 +10,7 @@ interface Props {
 }
 
 function NearbyStopInfo({ stop }: Props) {
-  const { setBus, setPage, setUpdateTime } = useBus();
+  const { setBus, setPage, setUpdateTime, setMapZoom, setStation } = useBus();
   const {
     EstimateTime,
     StopStatus,
@@ -28,6 +28,8 @@ function NearbyStopInfo({ stop }: Props) {
     setBus(stop);
     setPage('detail');
     setUpdateTime(0);
+    setMapZoom(12);
+    setStation(undefined);
   }
 
   return (

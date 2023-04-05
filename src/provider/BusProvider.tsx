@@ -22,6 +22,7 @@ interface BusContext {
   busStops: BusStops;
   stations: Array<BusStation>;
   station?: BusStation;
+  selectedStopId: string;
   isDesignateStop: MutableRefObject<boolean>;
   setPage: Dispatch<SetStateAction<Page>>;
   setBus: Dispatch<SetStateAction<Bus | undefined>>;
@@ -32,6 +33,7 @@ interface BusContext {
   setDirection: Dispatch<SetStateAction<BusDirection>>;
   setBusStops: Dispatch<SetStateAction<BusStops>>;
   setStations: Dispatch<SetStateAction<Array<BusStation>>>;
+  setSelectedStopId: Dispatch<SetStateAction<string>>;
   setStation: Dispatch<SetStateAction<BusStation | undefined>>;
   resetMap: (isRestStation: boolean) => void;
   resetStation: () => void;
@@ -42,7 +44,7 @@ const BusContext = createContext<BusContext>({} as BusContext);
 const BusProvider = ({ children }: { children: ReactNode }) => {
   const [page, setPage] = useState<Page>('route');
   const [isOpenMap, toggleMap] = useState(false);
-  const [mapZoom, setMapZoom] = useState(15);
+  const [mapZoom, setMapZoom] = useState(17);
   const [mapCenterPos, setMapCenterPos] = useState<[number, number]>();
   const [bus, setBus] = useState<Bus>();
   const [updateTime, setUpdateTime] = useState(0);
@@ -50,15 +52,18 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
   const [busStops, setBusStops] = useState<BusStops>({ 0: [], 1: [] });
   const [stations, setStations] = useState<BusStation[]>([]);
   const [station, setStation] = useState<BusStation>();
+  const [selectedStopId, setSelectedStopId] = useState('');
   const isDesignateStop = useRef(false);
 
   function resetMap(isRestStation: boolean) {
     setPage('route');
     toggleMap(false);
-    setMapZoom(15);
+    setMapZoom(17);
+    setMapCenterPos(undefined);
     setBus(undefined);
     setDirection(0);
     setBusStops({ 0: [], 1: [] });
+    setSelectedStopId('');
     isRestStation && resetStation();
     isDesignateStop.current = false;
   }
@@ -82,6 +87,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         stations,
         station,
         isDesignateStop,
+        selectedStopId,
         setPage,
         setBus,
         toggleMap,
@@ -92,6 +98,7 @@ const BusProvider = ({ children }: { children: ReactNode }) => {
         setBusStops,
         setStations,
         setStation,
+        setSelectedStopId,
         resetMap,
         resetStation,
       }}
