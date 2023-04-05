@@ -4,8 +4,11 @@
 @layer components {
   .bus {
     @apply flex flex-col h-[calc(100vh-128px)] relative;
+    &_desktop {
+      @apply md:max-w-[464px] md:shadow-[8px_5px_10px_rgba(0,0,0,0.15)] md:z-[1];
+    }
     &_block {
-      @apply bg-white py-5 shadow-lg h-full md:max-w-[464px];
+      @apply bus_desktop bg-white py-5 w-full h-[calc(100%-40px)] md:absolute;
       &_scrollbar {
         @apply overflow-y-auto mt-2;
       }
@@ -45,10 +48,13 @@
       @apply cursor-pointer transition-colors hover:bg-gray-300;
     }
     &_item {
-      @apply bus_effect w-full flex justify-between items-end px-7 py-3 border-b-[1px] border-[#E7E7E7];
+      @apply bus_effect w-full px-5 md:px-8;
+      &_content {
+        @apply flex justify-between items-end py-3 border-b-[1px] border-[#E7E7E7];
+      }
     }
     &_detail {
-      @apply w-full h-[calc(100%-40px)] absolute top-10 left-0 bg-white flex flex-col md:max-w-[464px];
+      @apply bus_desktop w-full h-[calc(100%-40px)] absolute top-10 left-0 bg-white flex flex-col;
       &_header {
         @apply flex justify-between px-6 py-3 md:py-5;
       }

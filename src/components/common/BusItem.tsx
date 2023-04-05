@@ -22,13 +22,15 @@ function BusItem({ bus, redirectDetailCallback }: Props) {
 
   return (
     <li className="bus_item" onClick={redirectDetail}>
-      <div>
-        <h1>{RouteName.Zh_tw}</h1>
-        <p className="text-sm text-gray-600">{`${DepartureStopNameZh} - ${DestinationStopNameZh}`}</p>
-      </div>
-      <div className="flex flex-col items-end gap-1">
-        <BusFavorite bus={bus} type="bus" />
-        <p className="text-sm text-gray-600">{CITY_ABRIDGE_MAP[City]}</p>
+      <div className="bus_item_content">
+        <div>
+          <h1>{RouteName.Zh_tw}</h1>
+          <p className="text-sm text-gray-600">{`${DepartureStopNameZh} - ${DestinationStopNameZh}`}</p>
+        </div>
+        <div className="flex flex-col items-end gap-1">
+          <BusFavorite bus={bus} type="bus" />
+          <p className="text-sm text-gray-600">{CITY_ABRIDGE_MAP[City]}</p>
+        </div>
       </div>
     </li>
   )

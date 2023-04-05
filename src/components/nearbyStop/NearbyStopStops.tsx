@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useBus } from '@/provider/BusProvider';
 import NearbyStopInfo from '@/components/nearbyStop/NearbyStopInfo';
+import BusPrompt from '@/components/common/BusPrompt';
+import Loading from '@/components/common/Loading';
 import { fetchStationEstimatedTime, fetchStationBusRoute } from '@/apis/station';
 import { createImageSrc } from '@/utils/images';
 import { CITY_CODE_MAP } from '@/configs/city';
@@ -12,6 +14,8 @@ interface Props {
 
 function NearbyStopStops({ fade }: Props) {
   const [stops, setStops] = useState<Array<BusSite>>([]);
+  const [isShowPrompt, togglePrompt] = useState(false);
+  const [isLoading, toggleLoading] = useState(false);
   const { station, setPage, setStation } = useBus();
 
   useEffect(() => {
@@ -19,8 +23,8 @@ function NearbyStopStops({ fade }: Props) {
 
     async function getStationBuses() {
       if (!station) return;
+      toggleLoading(true);
       const city = CITY_CODE_MAP[station.LocationCityCode];
-      console.log(station.LocationCityCode);
       const fetchInfo: [Promise<BusEstimatedTime[]>, Promise<Bus[]>] = [
         fetchStationEstimatedTime(station, city),
         fetchStationBusRoute(station, city),
@@ -34,6 +38,8 @@ function NearbyStopStops({ fade }: Props) {
       });
 
       setStops(stops);
+      toggleLoading(false);
+      togglePrompt(stops.length === 0);
     }
     getStationBuses();
   }, [station]);
@@ -64,13 +70,15 @@ function NearbyStopStops({ fade }: Props) {
       </div>
       <div className="flex items-center justify-between px-6 pt-4 pb-10">
         <p className="text-lg font-bold">{station?.StationName?.Zh_tw}</p>
-        <div className="flex items-center gap-2 cursor-pointer" onClick={sortStopsByEstimatedTime}>
+        <div className="flex items-center gap-2 text_hover" onClick={sortStopsByEstimatedTime}>
           <img src={createImageSrc('icons/sort.png')} width="16" alt="" />
           <p>依到站時間排序</p>
         </div>
       </div>
       <ul className="overflow-y-auto h-[calc(100%-84px)]">
         {stops.map((stop) => <NearbyStopInfo key={stop.StopUID} stop={stop} />)}
+        {isShowPrompt && <BusPrompt content="很抱歉，目前此站牌無公車營運" />}
+        {isLoading && <Loading />}
       </ul>
     </div>
   )

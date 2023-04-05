@@ -108,12 +108,15 @@ src/
 - react-router-dom
 - react-responsive-carousel
 - react-leaflet
+- react-ripples
+- react-hot-toast
 - redux
 - redux-persist
 - typescript
 - tailwindcss
 - vite
 - leaflet
+- vanilla-tilt
 
 ## Third Party Service
 

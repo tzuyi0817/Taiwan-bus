@@ -31,19 +31,21 @@ function NearbyStopInfo({ stop }: Props) {
   }
 
   return (
-    <li className="bus_info py-3 px-0" onClick={goDetailPage}>
-      <div className={`bus_info_status ${background}`}>
-        {showBusStatus({ A2EventType, estimateTime, isPitStop, isPittingStop, EstimateTime, StopStatus })}
-      </div>
-      <div className="flex flex-1 flex-col gap-1 justify-center ellipsis">
-        <h1 className="ellipsis">{RouteName.Zh_tw}</h1>
-        <p className="text-sm text-gray-600">
-          往 {Direction === 0 ? DestinationStopNameZh : DepartureStopNameZh}
-        </p>
-      </div>
-      <div className="flex flex-col items-end gap-1">
-        <BusFavorite site={stop} type="site" />
-        <p className="text-sm text-gray-600">{CITY_ABRIDGE_MAP[City]}</p>
+    <li className="bus_info" onClick={goDetailPage}>
+      <div className="bus_info_content py-3 px-0 w-auto">
+        <div className={`bus_info_status ${background}`}>
+          {showBusStatus({ A2EventType, estimateTime, isPitStop, isPittingStop, EstimateTime, StopStatus })}
+        </div>
+        <div className="flex flex-1 flex-col gap-1 justify-center ellipsis">
+          <h1 className="ellipsis">{RouteName.Zh_tw}</h1>
+          <p className="text-sm text-gray-600">
+            往 {Direction === 0 ? DestinationStopNameZh : DepartureStopNameZh}
+          </p>
+        </div>
+        <div className="flex flex-col items-end gap-1">
+          <BusFavorite site={stop} type="site" />
+          <p className="text-sm text-gray-600">{CITY_ABRIDGE_MAP[City]}</p>
+        </div>
       </div>
     </li>
   )

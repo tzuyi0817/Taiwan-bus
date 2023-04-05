@@ -65,9 +65,7 @@ function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
     textField.select();
     document.execCommand('copy');
     textField.remove();
-    toast.success('已成功複製連結', {
-
-    });
+    toast.success('已成功複製連結');
   }
 
   return <>
@@ -77,10 +75,10 @@ function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
           <img src={createImageSrc('icons/link.png')} alt="" width="10" />
           <p>複製連結</p>
         </MenuItem>
-        <MenuItem>
+        {/* <MenuItem>
           <img src={createImageSrc('icons/time.png')} alt="" width="12" />
           <p>時刻表</p>
-        </MenuItem>
+        </MenuItem> */}
         <Toaster />
       </>
     )}

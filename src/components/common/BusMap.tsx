@@ -32,6 +32,8 @@ interface StopMarkerProps {
   stopStatus?: BusStopStatus;
   setStation?: Dispatch<SetStateAction<BusStation | undefined>>;
   setPage?: Dispatch<SetStateAction<Page>>;
+  setMapCenterPos?: Dispatch<SetStateAction<[number, number] | undefined>>;
+  setMapZoom?: Dispatch<SetStateAction<number>>;
 }
 
 const { VITE_MAP_STYLE, VITE_MAP_TOKEN } = import.meta.env;
@@ -79,7 +81,14 @@ function SearchBusMap({ fade }: Props) {
     setMapCenterPos([position.lat, position.lng]);
   }, [stations]);
 
+  useEffect(() => {
+    if (station) return;
+    setMapZoom(17);
+    setMapCenterPos([position.lat, position.lng]);
+  }, [station]);
+
   function clearMap() {
+    if (page !== 'route') return;
     setStopsGeometry([]);
     setStopsPitGeometry([]);
     setStopsLine([]);
@@ -106,10 +115,12 @@ function SearchBusMap({ fade }: Props) {
             return <Polyline pathOptions={{ color }} positions={geometry} key={index} />
           })}
           {stopsGeometry.map(({ geometry, stopName, status, stopStatus }, index) => {
+            const isShowTooltip = isZoomIn && isShowStopInfo;
+
             return <StopMarker
               position={geometry}
-              key={index}
-              isShowTooltip={isZoomIn && isShowStopInfo}
+              key={isShowTooltip ? `tip_${index}` : index}
+              isShowTooltip={isShowTooltip}
               stopStatus={stopStatus}
             >
               <p>{stopName}</p>
@@ -136,18 +147,21 @@ function SearchBusMap({ fade }: Props) {
               </Tooltip>
             </Marker>
           })}
-          {!isDetail && stations.map((item, index) => {
+          {!isDetail && stations.map(item => {
             const { StationPosition: { PositionLat, PositionLon }, StationName, StationUID } = item;
             const isSelected = StationUID === station?.StationUID;
+            const isShowTooltip = isZoomIn && isShowStopInfo;
   
             return <StopMarker
+              key={`${StationUID}${isSelected ? '_selected' : isShowTooltip ? '_tooltip' : ''}`}
               position={[PositionLat, PositionLon]}
               station={item}
-              setStation={setStation}
               isSelected={isSelected}
+              isShowTooltip={isShowTooltip}
+              setStation={setStation}
               setPage={setPage}
-              key={`${StationUID}${isSelected ? index : ''}`}
-              isShowTooltip={isZoomIn && isShowStopInfo}
+              setMapCenterPos={setMapCenterPos}
+              setMapZoom={setMapZoom}
             >
               <p>{StationName.Zh_tw}</p>
             </StopMarker>;
@@ -174,30 +188,39 @@ function StopMarker({
   stopStatus,
   setStation,
   setPage,
+  setMapCenterPos,
+  setMapZoom,
 }: StopMarkerProps) {
   const status = stopStatus ?? BusStopStatusEnum.NORMAL;
-  const tooltipEvent = useMemo(() => ({
+  const interactEvent = useMemo(() => ({
     click() {
       setStation?.(station);
       setPage?.('buses');
+      setMapCenterPos?.(position);
+      setMapZoom?.(17);
     }
   }), []);
 
-  return <Marker position={position} icon={isSelected ? GREEN_MARKER : STOP_MARKER}>
-    {isShowTooltip && (
+  return (
+    <Marker
+      position={position}
+      icon={isSelected ? GREEN_MARKER : STOP_MARKER}
+      eventHandlers={interactEvent}
+      interactive
+    >
       <Tooltip
         direction="top"
         offset={[0, -10]}
         opacity={1}
-        permanent
+        permanent={isShowTooltip}
         className={isSelected ? 'tooltip_green' : BUS_STOP_TOOLTIP_CLASS[status]}
-        eventHandlers={tooltipEvent}
+        eventHandlers={interactEvent}
         interactive
       >
         {children}
       </Tooltip>
-    )}
-  </Marker>;
+    </Marker>
+  )
 }
 
 export default SearchBusMap;

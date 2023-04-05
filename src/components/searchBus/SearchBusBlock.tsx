@@ -74,8 +74,8 @@ function SearchBusBlock({ fade }: Props) {
           {isShowPrompt && <BusPrompt content="很抱歉，查詢不到此公車路線" />}
           {isLoading && <Loading />}
         </ul>
+        <SearchBusKeyboard setKeyword={setKeyword} />
       </div>
-      <SearchBusKeyboard setKeyword={setKeyword} />
     </div>
   )
 }
