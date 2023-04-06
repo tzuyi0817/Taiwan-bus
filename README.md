@@ -15,83 +15,112 @@ Clone this repository and install dependencies by running `pnpm`(Node.js version
 
 ## Project Files
 
-<!-- ```text
+```text
 src/
+├── apis/
+│   ├── bus.ts
+│   └── station.ts
 ├── assets/
 │   ├── icon/*
 │   └── images/*
 ├── components/
 │   ├── common/
-│   │   ├── LazyImage.tsx
-│   │   └── Loading.tsx
+│   │   ├── BusCarousel.tsx
+│   │   ├── BusCrumb.tsx
+│   │   ├── BusDetail.tsx
+│   │   ├── BusFavorite.tsx
+│   │   ├── BusFooter.tsx
+│   │   ├── BusHeader.tsx
+│   │   ├── BusIcon.tsx
+│   │   ├── BusItem.tsx
+│   │   ├── BusMap.tsx
+│   │   ├── BusRipples.tsx
+│   │   ├── BusStopInfo.tsx
+│   │   ├── BusTab.tsx
+│   │   ├── BusTimer.tsx
+│   │   ├── Loading.tsx
+│   │   ├── MapAutoReCenter.tsx
+│   │   ├── MapEvents.tsx
+│   │   ├── Popup.tsx
+│   │   ├── SearchBar.tsx
+│   │   ├── SearchSelect.tsx
+│   │   └── SwitchBlock.tsx
+│   ├── favoriteStop/
+│   │   ├── FavoriteStopBlock.tsx
+│   │   ├── FavoriteStopBus.tsx
+│   │   └── FavoriteStopStation.tsx
 │   ├── index/
-│   │   ├── IndexActivity.tsx
 │   │   ├── IndexCarousel.tsx
-│   │   ├── IndexRestaurant.tsx
-│   │   ├── IndexScenicSpot.tsx
-│   │   ├── IndexSearch.tsx
-│   │   └── IndexTitle.tsx
-│   ├── information/
-│   │   ├── InformationCarousel.tsx
-│   │   ├── InformationContent.tsx
-│   │   ├── InformationDescription.tsx
-│   │   ├── InformationLocation.tsx
-│   │   └── InformationMore.tsx
-│   ├── GuideCarousel.tsx
-│   ├── GuideCrumbs.tsx
-│   ├── GuideDatePicker.tsx
-│   ├── GuideFooter.tsx
-│   ├── GuideHeader.tsx
-│   ├── GuideHotTopics.tsx
-│   ├── GuideSearch.tsx
-│   ├── GuideSearchResult.tsx
-│   └── GuideSelect.tsx
+│   │   ├── IndexCities.tsx
+│   │   └── IndexPopup.tsx
+│   ├── nearbyStop/
+│   │   ├── NearbyStopBlock.tsx
+│   │   ├── NearbyStopInfo.tsx
+│   │   ├── NearbyStopStation.tsx
+│   │   └── NearbyStopStops.tsx
+│   ├── searchBus/
+│   │   ├── SearchBusBlock.tsx
+│   │   └── SearchBusKeyboard.tsx
+│   └── searchStop/
+│       └── SearchStopBlock.tsx
 ├── config/
+│   ├── bus.ts
 │   ├── city.ts
-│   ├── hotTopics.ts
-│   └── menu.ts
+│   ├── favorite.ts
+│   ├── keyboard.ts
+│   ├── marker.ts
+│   └── svg.ts
 ├── hooks/
-│   ├── useIntersectionObserver.ts
+│   ├── useGeolocation.ts
 │   ├── useRedux.ts
 │   └── useScrollToTop.ts
 ├── pages/
-│   ├── Activity.tsx
+│   ├── FavoriteStop.tsx
 │   ├── Index.tsx
-│   ├── Information.tsx
+│   ├── NearbyStop.tsx
 │   ├── NotFound.tsx
-│   ├── Restaurant.tsx
-│   └── ScenicSpot.tsx
+│   ├── SearchBus.tsx
+│   └── SearchStop.tsx
+├── provider/
+│   └── BusProvider.tsx
 ├── router/
 │   └── index.tsx
 ├── store/
-│   ├── guide.ts
+│   ├── city.ts
+│   ├── favorite.ts
 │   └── index.ts
 ├── style/
 │   ├── common/
 |   │   ├── all.css
-│   │   ├── badge.css
 │   │   ├── button.css
-│   │   ├── caption.css
 │   │   ├── carousel.css
-│   │   ├── datePicker.css
 │   │   ├── ellipsis.css
-│   │   ├── exhibit.css
-│   │   ├── input.css
+│   │   ├── fade.css
+│   │   ├── marker.css
 │   │   ├── mask.css
-│   │   ├── middle.css
-|   │   └── picture.css
+│   │   ├── popup.css
+│   │   ├── scrollbar.css
+│   │   ├── searchBar.css
+│   │   ├── searchSelect.css
+│   │   ├── svg.css
+│   │   ├── switchButton.css
+│   │   ├── text.css
+|   │   └── tooltip.css
 │   ├── pages/
 |   │   ├── all.css
-|   │   └── index.css
+|   │   ├── bus.css
+|   │   └── favorite.css
 │   ├── index.css
 │   └── tailwind.css
 ├── types/
-│   ├── activity.d.ts
-│   ├── menu.d.ts
-│   ├── restaurant.d.ts
-│   └── scenicSpot.d.ts
+│   ├── bus.d.ts
+│   ├── city.d.ts
+│   ├── common.d.ts
+│   └── page.d.ts
 ├── utils/
 │   ├── ajax.ts
+│   ├── busStop.ts
+│   ├── common.ts
 │   ├── generateParams.ts
 │   ├── generateToken.ts
 │   └── images.ts
@@ -99,7 +128,7 @@ src/
 ├── axios.d.ts
 ├── vite-env.d.ts
 └── main.tsx
-``` -->
+```
 
 ## Use Technology
 
