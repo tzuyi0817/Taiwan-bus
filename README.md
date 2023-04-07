@@ -139,6 +139,7 @@ src/
 - react-leaflet
 - react-ripples
 - react-hot-toast
+- react-i18next
 - redux
 - redux-persist
 - typescript
@@ -146,6 +147,8 @@ src/
 - vite
 - leaflet
 - vanilla-tilt
+- i18next
+- i18next-browser-languagedetector
 
 ## Third Party Service
 

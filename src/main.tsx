@@ -10,6 +10,7 @@ import App from '@/App';
 import '@/style/index.css';
 import '@/style/tailwind.css';
 import 'leaflet/dist/leaflet.css';
+import '@/i18n';
 import ScrollToTop from '@/hooks/useScrollToTop';
 import generateToken from '@/utils/generateToken';
 

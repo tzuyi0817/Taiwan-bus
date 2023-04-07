@@ -5,6 +5,7 @@ import {
 } from 'react';
 import { useNavigate, NavLink } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
+import { useTranslation } from 'react-i18next';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { cityActions } from '@/store/city';
 import { useBus } from '@/provider/BusProvider';
@@ -92,11 +93,24 @@ function HeaderLogo({ goPage }: HeaderLogoProps) {
 }
 
 function HeaderI18n({ propClass }: { propClass?: string }) {
+  const { t, i18n } = useTranslation();
+  const { language, changeLanguage } = i18n;
+
   return (
     <div className={`justify-center items-center py-5 ${propClass} md:text-base`}>
-      <img className="w-5" src={createImageSrc('icons/language.png')} alt="" />
-      <button className="text_hover active ml-2 mr-1">中文</button>｜
-      <button className="text_hover mx-1">英文</button>
+      <img className="w-5 mr-1" src={createImageSrc('icons/language.png')} alt="" />
+      <button 
+        className={`text_hover mx-1 ${language === 'zh-TW' ? 'active' : ''}`}
+        onClick={() => changeLanguage('zh-TW')}
+      >
+        {t('chinese')}
+      </button>｜
+      <button
+        className={`text_hover mx-1 ${language === 'en' ? 'active' : ''}`}
+        onClick={() => changeLanguage('en')}
+      >
+        {t('english')}
+      </button>
     </div>
   )
 }
