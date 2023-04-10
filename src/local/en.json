@@ -1,4 +1,34 @@
 {
+  "bus_news": "Taiwan Bus News",
   "chinese": "Chinese",
-  "english": "English"
+  "city": {
+    "Keelung": "Keelung",
+    "Taipei": "Taipei",
+    "NewTaipei": "NewTaipei",
+    "YilanCounty": "YilanCounty",
+    "Taoyuan": "Taoyuan",
+    "Hsinchu": "Hsinchu",
+    "HsinchuCounty": "HsinchuCounty",
+    "HualienCounty": "HualienCounty",
+    "TaitungCounty": "TaitungCounty",
+    "MiaoliCounty": "MiaoliCounty",
+    "Taichung": "Taichung",
+    "ChanghuaCounty": "ChanghuaCounty",
+    "NantouCounty": "NantouCounty",
+    "YunlinCounty": "YunlinCounty",
+    "Chiayi": "Chiayi",
+    "ChiayiCounty": "ChiayiCounty",
+    "Tainan": "Tainan",
+    "Kaohsiung": "Kaohsiung",
+    "PingtungCounty": "PingtungCounty",
+    "PenghuCounty": "PenghuCounty",
+    "KinmenCounty": "KinmenCounty",
+    "LianjiangCounty": "LianjiangCounty"
+  },
+  "english": "English",
+  "my_collection": "My Collection",
+  "nearby_stop": "Nearby Stop",
+  "other_city": "Other City",
+  "time_query_system": "Time Query System",
+  "website_name": "Taiwan Bus e-Diantong"
 }

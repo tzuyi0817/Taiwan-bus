@@ -10,4 +10,16 @@
   .btn_line {
     @apply btn text-primary border-primary;
   }
+  .btn_frame {
+    @apply
+    rounded-[10px]
+    border-[1px]
+    border-primary
+    p-3
+    text-primary
+    transition-colors
+    cursor-pointer
+    hover:text-white
+    hover:bg-primary;
+  }
 }

@@ -18,7 +18,7 @@
       @apply text-center text-white bg-primary rounded-t-xl p-5;
     }
     &_content {
-      @apply p-9;
+      @apply p-5 m-1 md:p-8 overflow-y-auto max-h-[calc(50vh-72px)];
     }
   }
 }

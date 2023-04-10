@@ -1,12 +1,12 @@
 import tw from 'tailwind-styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector, useAppDispatch } from '@/hooks/useRedux';
 import { cityActions } from '@/store/city';
 import { useBus } from '@/provider/BusProvider';
 import { createImageSrc } from '@/utils/images';
 import { BUS_CRUMB } from '@/configs/bus';
-import { CITY_MAP } from '@/configs/city';
 import type { Page } from '@/types/page';
 import type { BusCrumbType } from '@/types/bus';
 
@@ -24,6 +24,7 @@ const MenuItem = tw.li`text_hover flex gap-[6px] items-center`;
 function BusCrumb({ page }: Props) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const dispatch = useAppDispatch();
   const city = useAppSelector(({ city }) => city.currentCity);
   const { resetMap } = useBus();
@@ -43,7 +44,7 @@ function BusCrumb({ page }: Props) {
           <span className="text_hover" onClick={goIndex}>首頁</span>
           <span> / </span>
           <span>{BUS_CRUMB[pageName] ?? ''}</span>
-          {city ? CITY_MAP[city] : ''}
+          {city ? t(city) : ''}
         </p>
       </div>
       <ul className="flex gap-3">

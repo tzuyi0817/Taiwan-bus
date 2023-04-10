@@ -4,7 +4,7 @@ interface Props {
   isShowPopup: boolean;
   togglePopup: Dispatch<SetStateAction<boolean>>;
   children: ReactNode;
-  title?: string;
+  title?: string | null;
 }
 
 function Popup({ isShowPopup, togglePopup, children, title = '' }: Props) {

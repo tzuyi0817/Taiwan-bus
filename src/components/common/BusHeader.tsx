@@ -44,6 +44,7 @@ function BusHeader() {
   const [isOpenMenu, toggleMenu] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { t } = useTranslation();
   const { resetMap } = useBus();
 
   function goPage(path: string) {
@@ -61,13 +62,17 @@ function BusHeader() {
       <HeaderLogo goPage={goPage} />
       <ul className="flex gap-5 items-center md:gap-14">
         <li className="text_link md:text-base">
-          <NavLink to="/nearbyStop" onClick={resetContext} className={({ isActive }) => isActive ? 'active' : ''}>
-            附近站牌
+          <NavLink
+            to="/nearbyStop"
+            onClick={resetContext}
+            className={({ isActive }) => isActive ? 'active' : ''}
+          >
+            {t('nearby_stop')}
           </NavLink>
         </li>
         <li className="text_link hidden md:block md:text-base">
           <NavLink to="/favoriteStop" onClick={resetContext}>
-            我的收藏
+            {t('my_collection')}
           </NavLink>
         </li>
         <li className="md:hidden">
@@ -81,11 +86,13 @@ function BusHeader() {
 }
 
 function HeaderLogo({ goPage }: HeaderLogoProps) {
+  const { t } = useTranslation();
+
   return (
     <div className="text_hover flex gap-3 items-center" onClick={() => goPage('/')}>
       <img src={createImageSrc('images/logo-bus.svg')} alt="" className="w-10" />
       <div>
-        <h4>台灣公車 e 點通</h4>
+        <h4>{t('website_name')}</h4>
         <p>Taiwan Bus+</p>
       </div>
     </div>
@@ -116,6 +123,8 @@ function HeaderI18n({ propClass }: { propClass?: string }) {
 }
 
 function HeaderMenu({ isOpenMenu, toggleMenu, goPage }: HeaderMenuProps) {
+  const { t } = useTranslation();
+
   function closeMenu() {
     toggleMenu(false);
   }
@@ -131,7 +140,7 @@ function HeaderMenu({ isOpenMenu, toggleMenu, goPage }: HeaderMenuProps) {
         <ul onClick={closeMenu}>
           {/* <MenuItem onClick={() => goPage('/')}>路線規劃</MenuItem>
           <MenuItem onClick={() => goPage('/searchStop')}>站點查詢</MenuItem> */}
-          <MenuItem onClick={() => goPage('/favoriteStop')}>我的收藏</MenuItem>
+          <MenuItem onClick={() => goPage('/favoriteStop')}>{t('my_collection')}</MenuItem>
         </ul>
         <HeaderI18n propClass="flex" />
       </div>

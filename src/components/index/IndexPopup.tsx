@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import Popup from '@/components/common/Popup';
-import { CITY_KEYS, CITY_MAP } from '@/configs/city';
+import { CITY_KEYS } from '@/configs/city';
 import type { City } from '@/types/city';
 
 interface Props {
@@ -13,21 +14,25 @@ const mainCities = ['Taipei', 'Taoyuan', 'Taichung', 'Tainan', 'Kaohsiung'];
 const otherCities = CITY_KEYS.filter(city => !mainCities.includes(city));
 
 function IndexPopup({ isShowPopup, togglePopup, selectCity }: Props) {
+  const { t } = useTranslation();
+
   function selectItem(city: City) {
     selectCity(city);
     togglePopup(false);
   }
 
   return (
-    <Popup isShowPopup={isShowPopup} togglePopup={togglePopup} title="其他地區 Other City">
-      <ul className=" flex flex-wrap gap-2 justify-center">
+    <Popup isShowPopup={isShowPopup} togglePopup={togglePopup} title={t('other_city')}>
+      <ul className="flex flex-wrap gap-2 justify-center">
         {otherCities.map((city, index) => {
           return (
             <li
               key={index} 
-              className="rounded-[10px] border-[1px] border-primary p-3 text-primary transition-colors cursor-pointer hover:text-white hover:bg-primary"
+              className="btn_frame"
               onClick={() => selectItem(city)}
-            >{CITY_MAP[city]}</li>
+            >
+              {t(`city.${city}`)}
+            </li>
           )
         })}
       </ul>

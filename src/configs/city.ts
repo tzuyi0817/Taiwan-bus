@@ -1,5 +1,3 @@
-import type { City } from '@/types/city';
-
 export const CITY_OPTIONS = [
   { id: 0, name: '臺北市 / 新北市', en: 'Taipei / NewTaipei', value: 'Taipei', color: 'text-blue-dark', fill: '#283C43' },
   { id: 1, name: '桃園市', en: 'Taoyuan', value: 'Taoyuan', color: 'text-blue', fill: '#3591C5' },
@@ -33,32 +31,6 @@ export const CITY_SELECT_OPTIONS = [
   { value: 'KinmenCounty', label: '金門縣' },
   { value: 'LianjiangCounty', label: '連江縣' },
 ] as const;
-
-
-export const CITY_MAP = {
-  Keelung: '基隆市',
-  Taipei: '臺北市、新北市',
-  NewTaipei: '新北市',
-  YilanCounty: '宜蘭縣',
-  Taoyuan: '桃園市',
-  Hsinchu: '新竹市',
-  HsinchuCounty: '新竹縣',
-  HualienCounty: '花蓮縣',
-  TaitungCounty: '臺東縣',
-  MiaoliCounty: '苗栗縣',
-  Taichung: '臺中市',
-  ChanghuaCounty: '彰化縣',
-  NantouCounty: '南投縣',
-  YunlinCounty: '雲林縣',
-  Chiayi: '嘉義市',
-  ChiayiCounty: '嘉義縣',
-  Tainan: '臺南市',
-  Kaohsiung: '高雄市',
-  PingtungCounty:'屏東縣',
-  PenghuCounty: '澎湖縣',
-  KinmenCounty:'金門縣',
-  LianjiangCounty:'連江縣',
-} as const;
 
 export const CITY_ABRIDGE_MAP = {
   Keelung: '基隆',
@@ -110,4 +82,27 @@ export const CITY_CODE_MAP = {
   LIE:'LianjiangCounty',
 } as const;
 
-export const CITY_KEYS = Object.keys(CITY_MAP) as Array<City>;
+export const CITY_KEYS = [
+  'Keelung',
+  'Taipei',
+  'NewTaipei',
+  'YilanCounty',
+  'Taoyuan',
+  'Hsinchu',
+  'HsinchuCounty',
+  'HualienCounty',
+  'TaitungCounty',
+  'MiaoliCounty',
+  'Taichung',
+  'ChanghuaCounty',
+  'NantouCounty',
+  'YunlinCounty',
+  'Chiayi',
+  'ChiayiCounty',
+  'Tainan',
+  'Kaohsiung',
+  'PingtungCounty',
+  'PenghuCounty',
+  'KinmenCounty',
+  'LianjiangCounty',
+] as const;
