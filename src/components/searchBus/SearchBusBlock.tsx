@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/hooks/useRedux';
 import { useAppDispatch } from '@/hooks/useRedux';
 import { useBus } from '@/provider/BusProvider';
@@ -23,6 +24,7 @@ function SearchBusBlock({ fade }: Props) {
   const [isShowPrompt, togglePrompt] = useState(false);
   const [isLoading, toggleLoading] = useState(false);
   const searchInput = useRef<HTMLInputElement>(null);
+  const { t } = useTranslation();
   const { setBus, setPage } = useBus();
   const city = useAppSelector(({ city }) => city.currentCity);
   const dispatch = useAppDispatch();
@@ -65,13 +67,13 @@ function SearchBusBlock({ fade }: Props) {
     <div className={`h-full ${fade}`}>
       <div className="bus_block">
         <SearchBar
-          placeholder="請輸入公車路線 / 關鍵字"
+          placeholder={t('placeholder.search_bus')}
           keyword={keyword} setKeyword={setKeyword}
           ref={searchInput}
         />
         <ul className="bus_block_scrollbar h-[calc(100vh-500px)]">
           {busList.map(bus => <BusItem bus={bus} key={bus.RouteID} />)}
-          {isShowPrompt && <BusPrompt content="很抱歉，查詢不到此公車路線" />}
+          {isShowPrompt && <BusPrompt content={t('prompt.search_bus')} />}
           {isLoading && <Loading />}
         </ul>
         <SearchBusKeyboard setKeyword={setKeyword} />

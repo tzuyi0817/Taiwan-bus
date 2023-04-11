@@ -25,10 +25,47 @@
     "KinmenCounty": "金門縣",
     "LianjiangCounty": "連江縣"
   },
+  "copy_link": "複製連結",
   "english": "英文",
+  "homepage": "首頁",
+  "keyboard": {
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9",
+    "F": "F",
+    "L": "L",
+    "blue": "藍",
+    "brown": "棕",
+    "clear": "清除",
+    "dedicated_lane": "專用道",
+    "express_line": "快線",
+    "green": "綠",
+    "high_speed_rail": "高鐵",
+    "metro": "幹線",
+    "orange": "橘",
+    "red": "紅",
+    "small": "小",
+    "yellow": "黃"
+  },
+  "map": "地圖",
   "my_collection": "我的收藏",
   "nearby_stop": "附近站牌",
   "other_city": "其他地區",
+  "placeholder": {
+    "search_bus": "請輸入公車路線 / 關鍵字"
+  },
+  "prompt": {
+    "search_bus": "很抱歉，查詢不到此公車路線"
+  },
+  "route": "路線",
+  "success_copy": "已成功複製連結",
   "time_query_system": "時刻查詢系統",
   "website_name": "台灣公車 e 點通"
 }

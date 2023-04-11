@@ -22,4 +22,7 @@
     hover:text-white
     hover:bg-primary;
   }
+  .btn_effect {
+    @apply cursor-pointer transition-all hover:brightness-110;
+  }
 }

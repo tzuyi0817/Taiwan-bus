@@ -2,6 +2,7 @@ import {
   type Dispatch,
   type SetStateAction,
 } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/hooks/useRedux';
 import {
   TAIPEI_KEYBOARD,
@@ -41,7 +42,7 @@ function SearchBusKeyboard({ setKeyword }: Props) {
   const { keyboard, cols } = keyboardMap[city as keyof typeof keyboardMap] ?? keyboardMap.common;
 
   function search(value: string | number) {
-    if (value === '清除') return setKeyword('');
+    if (value === '清除' || value === 'clear') return setKeyword('');
     setKeyword((keyword) => `${keyword}${value}`);
   }
 
@@ -53,17 +54,21 @@ function SearchBusKeyboard({ setKeyword }: Props) {
 }
 
 function Keyboard({ search, cols, keyboard }: KeyboardProps) {
+  const { t } = useTranslation();
+
   return (
     <ul className={`grid ${cols} gap-x-4 gap-y-3 place-content-center`}>
-      {keyboard.map(({ value, color, bg }) => 
-        <li
-          className={`${color} ${bg} h-10 rounded-[10px] text-center leading-10 text-sm cursor-pointer`}
+      {keyboard.map(({ value, color, bg }) => {
+        const i18nValue = t(`keyboard.${value}`);
+
+        return <li
+          className={`btn_effect ${color} ${bg} h-10 rounded-lg text-center leading-10 text-sm`}
           key={value}
-          onClick={() => search(value)}
+          onClick={() => search(i18nValue)}
         >
-          {value}
+          {i18nValue}
         </li>
-      )}
+      })}
     </ul>
   )
 }

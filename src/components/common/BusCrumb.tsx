@@ -41,10 +41,10 @@ function BusCrumb({ page }: Props) {
       <div className="flex gap-1 items-center">
         {/* <img src={createImageSrc('icons/location.png')} alt="" /> */}
         <p>
-          <span className="text_hover" onClick={goIndex}>首頁</span>
+          <span className="text_hover" onClick={goIndex}>{t('homepage')}</span>
           <span> / </span>
           <span>{BUS_CRUMB[pageName] ?? ''}</span>
-          {city ? t(city) : ''}
+          {city ? t(`city.${city}`) : ''}
         </p>
       </div>
       <ul className="flex gap-3">
@@ -57,6 +57,7 @@ function BusCrumb({ page }: Props) {
 function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
   if (pageName === 'favoriteStop') return null;
   const { bus, isOpenMap, toggleMap } = useBus();
+  const { t } = useTranslation();
 
   function copyLink() {
     const textField = document.createElement('textarea');
@@ -66,7 +67,7 @@ function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
     textField.select();
     document.execCommand('copy');
     textField.remove();
-    toast.success('已成功複製連結');
+    toast.success(t('success_copy'));
   }
 
   return <>
@@ -74,7 +75,7 @@ function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
       <>
         <MenuItem onClick={copyLink}>
           <img src={createImageSrc('icons/link.png')} alt="" width="10" />
-          <p>複製連結</p>
+          <p>{t('copy_link')}</p>
         </MenuItem>
         {/* <MenuItem>
           <img src={createImageSrc('icons/time.png')} alt="" width="12" />
@@ -86,11 +87,11 @@ function BusCrumbMenu({ page, pageName }: CrumbMenuProps) {
     {isOpenMap 
       ? <MenuItem className="md:hidden" onClick={() => toggleMap(false)}>
         <img src={createImageSrc('icons/route.png')} alt="" width="12" />
-        <p>路線</p>
+        <p>{t('route')}</p>
       </MenuItem>
       : <MenuItem className="md:hidden" onClick={() => toggleMap(true)}>
         <img src={createImageSrc('icons/map.png')} alt="" width="12" />
-        <p>地圖</p>
+        <p>{t('map')}</p>
       </MenuItem>
     }
   </>

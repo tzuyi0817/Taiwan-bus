@@ -25,10 +25,47 @@
     "KinmenCounty": "KinmenCounty",
     "LianjiangCounty": "LianjiangCounty"
   },
+  "copy_link": "copy link",
   "english": "English",
+  "homepage": "Homepage",
+  "keyboard": {
+    "0": "0",
+    "1": "1",
+    "2": "2",
+    "3": "3",
+    "4": "4",
+    "5": "5",
+    "6": "6",
+    "7": "7",
+    "8": "8",
+    "9": "9",
+    "F": "F",
+    "L": "L",
+    "blue": "BL",
+    "brown": "BR",
+    "clear": "clear",
+    "dedicated_lane": "Dedicated Lane",
+    "express_line": "Express",
+    "green": "G",
+    "high_speed_rail": "High Speed Rail",
+    "metro": "Main Line",
+    "orange": "O",
+    "red": "R",
+    "small": "S",
+    "yellow": "Y"
+  },
+  "map": "map",
   "my_collection": "My Collection",
   "nearby_stop": "Nearby Stop",
   "other_city": "Other City",
+  "placeholder": {
+    "search_bus": "Please enter a bus route / keyword"
+  },
+  "prompt": {
+    "search_bus": "Sorry, this bus route cannot be found"
+  },
+  "route": "route",
+  "success_copy": "Link successfully copied",
   "time_query_system": "Time Query System",
   "website_name": "Taiwan Bus e-Diantong"
 }
