@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { BUS_STOP_STATUS, BUS_EVENT_TYPE, BusEvent, BusStopStatusEnum } from '@/configs/bus';
 import type { BusStop, GeometryMap, BusEventType, BusStopStatus } from '@/types/bus';
 
@@ -18,14 +19,16 @@ export function showBusStatus({
   estimateTime,
   StopStatus,
 }: ShowBusStatusArgs) {
-  if (isPitStop) return BUS_EVENT_TYPE[A2EventType];
-  if (isPittingStop) return '即將進站';
+  const { t } = useTranslation();
+
+  if (isPitStop) return t(BUS_EVENT_TYPE[A2EventType]);
+  if (isPittingStop) return t('coming_soon');
   return EstimateTime
     ? StopStatus === BusStopStatusEnum.NORMAL 
-      ? `${estimateTime} 分`
+      ? `${estimateTime} ${t('minute')}`
       : new Date(Date.now() + EstimateTime * 1000)
         .toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' })
-    : BUS_STOP_STATUS[StopStatus];
+    : t(BUS_STOP_STATUS[StopStatus]);
 }
 
 export function getBusStopStatus({ EstimateTime, A2EventType }: Partial<BusStop>) {

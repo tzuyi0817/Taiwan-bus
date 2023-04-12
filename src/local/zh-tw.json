@@ -1,9 +1,10 @@
 {
+  "back_search": "返回搜尋",
   "bus_news": "台灣公車動態",
   "chinese": "中文",
   "city": {
     "Keelung": "基隆市",
-    "Taipei": "臺北市、新北市",
+    "Taipei": "臺北市",
     "NewTaipei": "新北市",
     "YilanCounty": "宜蘭縣",
     "Taoyuan": "桃園市",
@@ -25,8 +26,11 @@
     "KinmenCounty": "金門縣",
     "LianjiangCounty": "連江縣"
   },
+  "city_bus": "市區公車",
+  "coming_soon": "即將進站",
   "copy_link": "複製連結",
   "english": "英文",
+  "highway_bus": "國道客運",
   "homepage": "首頁",
   "keyboard": {
     "0": "0",
@@ -54,18 +58,33 @@
     "small": "小",
     "yellow": "黃"
   },
+  "last_passed": "末班已過",
   "map": "地圖",
+  "minute": "分",
   "my_collection": "我的收藏",
   "nearby_stop": "附近站牌",
+  "normal": "正常",
   "other_city": "其他地區",
+  "pitting": "進站中",
   "placeholder": {
     "search_bus": "請輸入公車路線 / 關鍵字"
   },
   "prompt": {
     "search_bus": "很抱歉，查詢不到此公車路線"
   },
+  "removed": "已離站",
+  "road_bus": "公路客運",
   "route": "路線",
+  "seconds_update": "秒後更新",
+  "show": "顯示",
+  "shuttle_bus": "接駁車",
+  "stop_information": "站牌資訊",
   "success_copy": "已成功複製連結",
   "time_query_system": "時刻查詢系統",
+  "traffic_control": "交管不停",
+  "to": "往",
+  "unOperate": "今未營運",
+  "unStarted": "尚未發車",
+  "update_immediately": "立即更新",
   "website_name": "台灣公車 e 點通"
 }

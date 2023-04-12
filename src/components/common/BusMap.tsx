@@ -7,6 +7,7 @@ import {
   type SetStateAction,
 } from 'react';
 import { MapContainer, TileLayer, Marker, Polyline, Tooltip } from 'react-leaflet';
+import { useTranslation } from 'react-i18next';
 import { useBus } from '@/provider/BusProvider';
 import useGeolocation from '@/hooks/useGeolocation';
 import MapAutoReCenter from '@/components/common/MapAutoReCenter';
@@ -43,6 +44,7 @@ function SearchBusMap({ fade }: Props) {
   const [stopsPitGeometry, setStopsPitGeometry] = useState<Array<BusStopMap>>([]);
   const [stopsLine, setStopsLine] = useState<Array<StopLine>>([]);
   const [isShowStopInfo, toggleStopInfo] = useState(true);
+  const { t } = useTranslation();
   const { position } = useGeolocation();
   const {
     bus,
@@ -172,7 +174,7 @@ function SearchBusMap({ fade }: Props) {
           defaultValue={isShowStopInfo}
           toggleSwitch={toggleStopInfo}
         >
-          <span className="hidden md:contents">顯示</span>站牌資訊
+          <span className="hidden md:contents">{t('show')} </span>{t('stop_information')}
         </SwitchBlock>
       </div>
     </>

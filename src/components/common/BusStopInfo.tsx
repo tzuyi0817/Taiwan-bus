@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBus } from '@/provider/BusProvider';
 import BusRipples from '@/components/common/BusRipples';
 import { BUS_STOP_STATUS_BACKGROUND, BUS_STOP_TEXT_COLOR } from '@/configs/bus';
@@ -10,6 +10,8 @@ interface Props {
 }
 
 function BusStopInfo({ stop }: Props) {
+  const { i18n: { language } } = useTranslation();
+  const isEnglish = language === 'en';
   const { StopName, PlateNumb, StopStatus, isLastStop, StopPosition, StopID } = stop;
   const { isDesignateStop, selectedStopId, setSelectedStopId, setMapZoom, setMapCenterPos } = useBus();
   const { estimateTime, isPitStop, isPittingStop } = getBusStopStatus(stop);
@@ -32,7 +34,7 @@ function BusStopInfo({ stop }: Props) {
             {showBusStatus({ ...stop, estimateTime, isPitStop, isPittingStop })}
           </div>
           <p className={`flex-1 ellipsis ${textColor}`}>
-            {StopName.Zh_tw}
+            {isEnglish ? StopName.En : StopName.Zh_tw}
           </p>
           <p className="text-secondary font-bold">{PlateNumb}</p>
           <div className={`${marker} absolute`}></div>

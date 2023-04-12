@@ -13,7 +13,7 @@ function BusTab({ options, value, toggleTab }: Props) {
       {options.map(option => {
         return (
           <div
-            className={`bus_tab ${value === option.value ? 'bus_tab-active' : ''}`}
+            className={`bus_tab ellipsis ${value === option.value ? 'bus_tab-active' : ''}`}
             key={option.value}
             onClick={() => toggleTab(option.value)}
           >

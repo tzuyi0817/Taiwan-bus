@@ -7,11 +7,11 @@ export enum BusStopStatusEnum {
 }
 
 export const BUS_STOP_STATUS = {
-  [BusStopStatusEnum.NORMAL]: '正常',
-  [BusStopStatusEnum.NOT_START]: '尚未發車',
-  [BusStopStatusEnum.NOT_STOP]: '交管不停',
-  [BusStopStatusEnum.LAST_PASSED]: '末班已過',
-  [BusStopStatusEnum.NOT_OPERATE]: '今未營運',
+  [BusStopStatusEnum.NORMAL]: 'normal',
+  [BusStopStatusEnum.NOT_START]: 'unStarted',
+  [BusStopStatusEnum.NOT_STOP]: 'traffic_control',
+  [BusStopStatusEnum.LAST_PASSED]: 'last_passed',
+  [BusStopStatusEnum.NOT_OPERATE]: 'unOperate',
 } as const;
 
 export const BUS_STOP_STATUS_BACKGROUND = {
@@ -44,15 +44,15 @@ export enum BusEvent {
 }
 
 export const BUS_EVENT_TYPE = {
-  [BusEvent.LEFT]: '已離站',
-  [BusEvent.PIT]: '進站中',
+  [BusEvent.LEFT]: 'removed',
+  [BusEvent.PIT]: 'pitting',
 } as const;
 
 export const BUS_ROUTE_TYPE = {
-  11:'市區公車',
-  12:'公路客運',
-  13:'國道客運',
-  14:'接駁車',
+  11:'city_bus',
+  12:'road_bus',
+  13:'highway_bus',
+  14:'shuttle_bus',
 } as const;
 
 export const BUS_CRUMB = {

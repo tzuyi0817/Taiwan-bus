@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBus } from '@/provider/BusProvider';
 import BusFavorite from '@/components/common/BusFavorite';
 import BusStopInfo from '@/components/common/BusStopInfo';
@@ -17,6 +18,8 @@ function SearchBusDetail({ fade }: Props) {
   const [animationTime, setAnimationTime] = useState(0);
   const BusStopsRef = useRef<HTMLUListElement>(null);
   const isUpdateRoute = useRef(false);
+  const { t, i18n: { language } } = useTranslation();
+  const isEnglish = language === 'en';
   const {
     bus,
     busStops,
@@ -27,9 +30,18 @@ function SearchBusDetail({ fade }: Props) {
     setUpdateTime,
     setDirection,
   } = useBus();
+  const destinationStop = isEnglish ? bus?.DestinationStopNameEn : bus?.DestinationStopNameZh;
+  const departureStop = isEnglish ? bus?.DepartureStopNameEn : bus?.DepartureStopNameZh;
+  const routeName = isEnglish ? bus?.RouteName.En : bus?.RouteName.Zh_tw;
   const options = [
-    { title: <>往<span>{bus?.DestinationStopNameZh}</span></>, value: 0 },
-    { title: <>往<span>{bus?.DepartureStopNameZh}</span></>, value: 1 },
+    {
+      title: <>{t('to')}<span>{destinationStop}</span></>,
+      value: 0,
+    },
+    { 
+      title: <>{t('to')}<span>{departureStop}</span></>,
+      value: 1,
+    },
   ];
 
   useEffect(() => {
@@ -92,12 +104,12 @@ function SearchBusDetail({ fade }: Props) {
     <div className={`bus_detail ${fade}`}>
       <div className="bus_detail_header">
         <div className="bus_detail_back" onClick={backSearchPage}>
-          <img src={createImageSrc('icons/back.png')} alt="" />返回搜尋
+          <img src={createImageSrc('icons/back.png')} alt="" />{t('back_search')}
         </div>
         <BusFavorite bus={bus} type="bus" />
       </div>
-      <p className="text-3xl font-bold text-center">{bus?.RouteName?.Zh_tw}</p>
-      <p className="text-center mt-2 mb-5">{bus ? BUS_ROUTE_TYPE[bus.BusRouteType] : ''}</p>
+      <p className="text-3xl font-bold text-center">{routeName}</p>
+      <p className="text-center mt-2 mb-5">{bus ? t(BUS_ROUTE_TYPE[bus.BusRouteType]) : ''}</p>
       <BusTab options={options} value={direction} toggleTab={toggleTab} />
       <ul className="flex-1 overflow-y-auto pt-3 pb-16" ref={BusStopsRef}>
         {busStops[direction].map(stop => <BusStopInfo key={stop.StopID} stop={stop} />)}
