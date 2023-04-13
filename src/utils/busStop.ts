@@ -1,4 +1,4 @@
-import { useTranslation } from 'react-i18next';
+import i18next from '@/i18n';
 import { BUS_STOP_STATUS, BUS_EVENT_TYPE, BusEvent, BusStopStatusEnum } from '@/configs/bus';
 import type { BusStop, GeometryMap, BusEventType, BusStopStatus } from '@/types/bus';
 
@@ -19,7 +19,7 @@ export function showBusStatus({
   estimateTime,
   StopStatus,
 }: ShowBusStatusArgs) {
-  const { t } = useTranslation();
+  const { t } = i18next;
 
   if (isPitStop) return t(BUS_EVENT_TYPE[A2EventType]);
   if (isPittingStop) return t('coming_soon');
@@ -40,6 +40,9 @@ export function getBusStopStatus({ EstimateTime, A2EventType }: Partial<BusStop>
 }
 
 export function getZoomInGeometryMap(stops: BusStop[]) {
+  const { language } = i18next;
+  const isEnglish = language === 'en';
+
   return stops.reduce((map, stop, index) => {
     const nextStop = stops[index + 1];
     const { isPitStop, isPittingStop, estimateTime } = getBusStopStatus(stop);
@@ -51,7 +54,7 @@ export function getZoomInGeometryMap(stops: BusStop[]) {
       geometry,
       status,
       isPit: isPitStop,
-      stopName: stop.StopName.Zh_tw,
+      stopName: isEnglish ? stop.StopName.En : stop.StopName.Zh_tw,
       stopStatus: stop.StopStatus,
     };
 
@@ -73,6 +76,8 @@ export function getZoomInGeometryMap(stops: BusStop[]) {
 }
 
 export function getGeometryMap(stops: BusStop[]) {
+  const { language } = i18next;
+  const isEnglish = language === 'en';
   const geometryMap: GeometryMap = {
     stop: [],
     stopPit: [],
@@ -87,7 +92,7 @@ export function getGeometryMap(stops: BusStop[]) {
       geometry: [StopPosition.PositionLat, StopPosition.PositionLon],
       status: '',
       isPit: false,
-      stopName: StopName.Zh_tw,
+      stopName: isEnglish ? StopName.En : StopName.Zh_tw,
       stopStatus: StopStatus,
     };
   });
@@ -105,7 +110,7 @@ export function getGeometryMap(stops: BusStop[]) {
       geometry,
       status: '',
       isPit: true,
-      stopName: stop.StopName.Zh_tw,
+      stopName: isEnglish ? stop.StopName.En : stop.StopName.Zh_tw,
       stopStatus: stop.StopStatus,
     });
     geometryMap.line.push({ color: '#355F8B', geometry: [geometry, nextGeometry] });

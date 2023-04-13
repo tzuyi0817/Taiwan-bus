@@ -44,7 +44,7 @@ function SearchBusMap({ fade }: Props) {
   const [stopsPitGeometry, setStopsPitGeometry] = useState<Array<BusStopMap>>([]);
   const [stopsLine, setStopsLine] = useState<Array<StopLine>>([]);
   const [isShowStopInfo, toggleStopInfo] = useState(true);
-  const { t } = useTranslation();
+  const { t, i18n: { language } } = useTranslation();
   const { position } = useGeolocation();
   const {
     bus,
@@ -75,7 +75,7 @@ function SearchBusMap({ fade }: Props) {
     setStopsLine(geometryMap.line);
     if (isDesignateStop.current || !centerPos) return;
     setMapCenterPos([centerPos.PositionLat, centerPos.PositionLon]);
-  }, [bus, direction, busStops, mapZoom]);
+  }, [bus, direction, busStops, mapZoom, language]);
 
   useEffect(() => {
     if (!stations.length) return;
