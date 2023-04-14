@@ -43,7 +43,7 @@ function BusCrumb({ page }: Props) {
         <p>
           <span className="text_hover" onClick={goIndex}>{t('homepage')}</span>
           <span> / </span>
-          <span>{BUS_CRUMB[pageName] ?? ''}</span>
+          <span>{t(BUS_CRUMB[pageName]) ?? ''}</span>
           {city ? t(`city.${city}`) : ''}
         </p>
       </div>

@@ -30,6 +30,7 @@
   "coming_soon": "coming",
   "copy_link": "copy link",
   "english": "English",
+  "favorite_stop": "Favorite Stop",
   "highway_bus": "Highway Bus",
   "homepage": "Homepage",
   "keyboard": {
@@ -67,23 +68,29 @@
   "other_city": "Other City",
   "pitting": "pitting",
   "placeholder": {
-    "search_bus": "Please enter a bus route / keyword"
+    "search_bus": "Please enter a bus route / keyword",
+    "nearby_stop": "Where do you want to go?"
   },
   "prompt": {
-    "search_bus": "Sorry, this bus route cannot be found"
+    "search_bus": "Sorry, this bus route cannot be found",
+    "nearby_stop": "Sorry, this site cannot be found within 1000 m nearby",
+    "no_bus_operating": "Sorry, there is currently no bus operating at this stop"
   },
   "removed": "removed",
   "road_bus": "Road Bus",
   "route": "route",
+  "search_stop": "Search Stop",
   "seconds_update": "seconds update",
   "show": "show",
   "shuttle_bus": "Shuttle Bus",
+  "sort_arrival_time": "Sort by arrival time",
   "stop_information": "stop information",
+  "stop_sign": "stop sign",
   "success_copy": "Link successfully copied",
   "time_query_system": "Time Query System",
   "traffic_control": "traffic",
   "to": "to",
-  "unOperate": "unOperate",
+  "unOperate": "unOpera",
   "unStarted": "unStart",
   "update_immediately": "update immediately",
   "website_name": "Taiwan Bus e-Diantong"

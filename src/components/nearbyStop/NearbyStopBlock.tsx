@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBus } from '@/provider/BusProvider';
 import useGeolocation from '@/hooks/useGeolocation';
 import SearchBar from '@/components/common/SearchBar';
@@ -19,6 +20,7 @@ function NearbyStopBlock({ fade }: Props) {
   const [isShowPrompt, togglePrompt] = useState(false);
   const [isLoading, toggleLoading] = useState(false);
   const [filterStations, setFilterStation] = useState<BusStation[]>([]);
+  const { t } = useTranslation();
   const { stations, setStations } = useBus();
   const searchInput = useRef<HTMLInputElement>(null);
   const { position } = useGeolocation();
@@ -50,16 +52,16 @@ function NearbyStopBlock({ fade }: Props) {
 
 
   return (
-    <div className={`h-[calc(100%-40px)] ${fade}`}>
-      <div className="bus_block">
+    <div className={`h-[calc(100vh-165px)] ${fade}`}>
+      <div className="bus_block h-full md:h-[calc(100%-40px)]">
         <SearchBar
-          placeholder="想去哪裡？"
+          placeholder={t('placeholder.nearby_stop')}
           keyword={keyword} setKeyword={setKeyword}
           ref={searchInput}
         />
-        <ul className="bus_block_scrollbar h-[calc(100%-25px)]">
+        <ul className="bus_block_scrollbar h-[calc(100%-40px)]">
           {filterStations.map(station => <NearbyStopStation station={station} key={station.StationUID} />)}
-          {isShowPrompt && <BusPrompt content="很抱歉，附近 1000 m 內查詢不到此站點" />}
+          {isShowPrompt && <BusPrompt content={t('prompt.nearby_stop')} />}
           {isLoading && <Loading />}
         </ul>
       </div>

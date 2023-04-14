@@ -56,7 +56,7 @@ export const BUS_ROUTE_TYPE = {
 } as const;
 
 export const BUS_CRUMB = {
-  searchStop: '站點查詢',
-  nearbyStop: '附近站牌',
-  favoriteStop: '我的收藏',
+  searchStop: 'search_stop',
+  nearbyStop: 'nearby_stop',
+  favoriteStop: 'favorite_stop',
 } as const;

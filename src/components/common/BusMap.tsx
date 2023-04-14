@@ -63,6 +63,7 @@ function SearchBusMap({ fade }: Props) {
   } = useBus();
   const isZoomIn = mapZoom > 14;
   const isDetail = page === 'detail';
+  const isEnglish = language === 'en';
 
   useEffect(() => {
     if (!bus) return clearMap();
@@ -150,9 +151,10 @@ function SearchBusMap({ fade }: Props) {
             </Marker>
           })}
           {!isDetail && stations.map(item => {
-            const { StationPosition: { PositionLat, PositionLon }, StationName, StationUID } = item;
+            const { StationPosition: { PositionLat, PositionLon }, Stops, StationUID } = item;
             const isSelected = StationUID === station?.StationUID;
             const isShowTooltip = isZoomIn && isShowStopInfo;
+            const StationName = Stops[0]?.StopName;
   
             return <StopMarker
               key={`${StationUID}${isSelected ? '_selected' : isShowTooltip ? '_tooltip' : ''}`}
@@ -165,7 +167,7 @@ function SearchBusMap({ fade }: Props) {
               setMapCenterPos={setMapCenterPos}
               setMapZoom={setMapZoom}
             >
-              <p>{StationName.Zh_tw}</p>
+              <p>{isEnglish ? StationName.En : StationName.Zh_tw}</p>
             </StopMarker>;
           })};
         </MapContainer>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useBus } from '@/provider/BusProvider';
 import NearbyStopInfo from '@/components/nearbyStop/NearbyStopInfo';
 import BusPrompt from '@/components/common/BusPrompt';
@@ -16,7 +17,10 @@ function NearbyStopStops({ fade }: Props) {
   const [stops, setStops] = useState<Array<BusSite>>([]);
   const [isShowPrompt, togglePrompt] = useState(false);
   const [isLoading, toggleLoading] = useState(false);
+  const { t, i18n: { language } } = useTranslation();
   const { station, setPage, setStation } = useBus();
+  const isEnglish = language === 'en';
+  const stationName = stops[0]?.StopName;
 
   useEffect(() => {
     if (!station) return setStops([]);
@@ -70,19 +74,21 @@ function NearbyStopStops({ fade }: Props) {
     <div className={`bus_detail ${fade}`}>
       <div className="bus_detail_header">
         <div className="bus_detail_back" onClick={backSearchPage}>
-          <img src={createImageSrc('icons/back.png')} alt="" />返回搜尋
+          <img src={createImageSrc('icons/back.png')} alt="" />{t('back_search')}
         </div>
       </div>
       <div className="flex items-center justify-between px-6 pt-4 pb-10">
-        <p className="text-lg font-bold">{station?.StationName?.Zh_tw}</p>
+        <p className="text-lg font-bold max-w-[calc(100%-150px)]">
+          {isEnglish ? stationName?.En : stationName?.Zh_tw}
+        </p>
         <div className="flex items-center gap-2 text_hover" onClick={sortStopsByEstimatedTime}>
           <img src={createImageSrc('icons/sort.png')} width="16" alt="" />
-          <p>依到站時間排序</p>
+          <p>{t('sort_arrival_time')}</p>
         </div>
       </div>
       <ul className="overflow-y-auto h-[calc(100%-84px)]">
         {stops.map((stop) => <NearbyStopInfo key={stop.StopUID} stop={stop} />)}
-        {isShowPrompt && <BusPrompt content="很抱歉，目前此站牌無公車營運" />}
+        {isShowPrompt && <BusPrompt content={t('no_bus_operating')} />}
         {isLoading && <Loading />}
       </ul>
     </div>
