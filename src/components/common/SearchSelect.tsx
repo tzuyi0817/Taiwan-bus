@@ -1,4 +1,5 @@
 import Select, { type PropsValue, ActionMeta, OptionsOrGroups, GroupBase } from 'react-select';
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   defaultValue: PropsValue<any> | undefined;
@@ -7,10 +8,12 @@ interface Props {
 }
 
 function SearchSelect(props: Props) {
+  const { t } = useTranslation();
+
   return (
     <Select
       className="searchSelect"
-      placeholder={<div>請選擇縣市</div>}
+      placeholder={<div>{t('placeholder.select_county')}</div>}
       {...props}
       styles={{
         control: (baseStyles, { isFocused }) => ({

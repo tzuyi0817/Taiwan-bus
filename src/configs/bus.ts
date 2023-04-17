@@ -58,5 +58,5 @@ export const BUS_ROUTE_TYPE = {
 export const BUS_CRUMB = {
   searchStop: 'search_stop',
   nearbyStop: 'nearby_stop',
-  favoriteStop: 'favorite_stop',
+  favoriteStop: 'my_collection',
 } as const;

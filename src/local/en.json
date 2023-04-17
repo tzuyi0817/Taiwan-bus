@@ -30,6 +30,7 @@
   "coming_soon": "coming",
   "copy_link": "copy link",
   "english": "English",
+  "favorite_site": "Favorite Site",
   "favorite_stop": "Favorite Stop",
   "highway_bus": "Highway Bus",
   "homepage": "Homepage",
@@ -69,9 +70,12 @@
   "pitting": "pitting",
   "placeholder": {
     "search_bus": "Please enter a bus route / keyword",
+    "select_county": "Please select a county",
     "nearby_stop": "Where do you want to go?"
   },
   "prompt": {
+    "favorite_site": "Currently there are no favorite sites",
+    "favorite_stop": "Currently there are no favorite stops",
     "search_bus": "Sorry, this bus route cannot be found",
     "nearby_stop": "Sorry, this site cannot be found within 1000 m nearby",
     "no_bus_operating": "Sorry, there is currently no bus operating at this stop"

@@ -30,7 +30,8 @@
   "coming_soon": "即將進站",
   "copy_link": "複製連結",
   "english": "英文",
-  "favorite_stop": "我的收藏",
+  "favorite_site": "收藏站點",
+  "favorite_stop": "收藏站牌",
   "highway_bus": "國道客運",
   "homepage": "首頁",
   "keyboard": {
@@ -69,9 +70,12 @@
   "pitting": "進站中",
   "placeholder": {
     "search_bus": "請輸入公車路線 / 關鍵字",
+    "select_county": "請選擇縣市",
     "nearby_stop": "想去哪裡？"
   },
   "prompt": {
+    "favorite_site": "目前暫無任何收藏站點",
+    "favorite_stop": "目前暫無任何收藏站牌",
     "search_bus": "很抱歉，查詢不到此公車路線",
     "nearby_stop": "很抱歉，附近 1000 m 內查詢不到此站點",
     "no_bus_operating": "很抱歉，目前此站牌無公車營運"
